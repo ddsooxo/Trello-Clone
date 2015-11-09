@@ -1,0 +1,24 @@
+{
+  "name": "mymaintodo",
+  "version": "0.0.1",
+  "description": "This is my todo app using AngularJS and ExpressJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dechen Chuteng",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.0.5",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "jasmine": "^2.3.2",
+    "jasmine-node": "^1.14.5",
+    "lodash": "^3.10.1",
+    "mongoose": "^4.2.4",
+    "passport": "^0.3.0",
+    "request": "^2.65.0"
+  }
+}

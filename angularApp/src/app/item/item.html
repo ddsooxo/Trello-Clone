@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>My items</h2>
+
+  <!-- Todos Input | Create Item -->
+   <form role="form" ng-submit="createItem()">
+    <div class="row">
+      <div class="input-group">
+        <input type="text" ng-model="formData.item_title" placeholder="What needs to be done?" class="form-control">
+        <span class="input-group-btn">
+          <input type="submit" class="btn btn-primary" value="Add">
+        </span>
+      </div>
+    </div>
+  </form>
+  
+  <!-- Todos Input | Show items, delete and edit an item -->
+  <div ui-sortable ng-model="todos">
+  <p class="form-group" ng-repeat="todo in todos" style="padding:5px 10px; cursor: move;">
+    <input type="text" ng-model="todo.item_title" class="form-control" style="float:left; width: 80%;">
+    <!-- Delete item -->
+    <span class="input-group-btn">
+      <button class="btn btn-danger" ng-click="removeItem(todo._id)" aria-label="Remove">X</button>
+    <!-- Edit item --> 
+      <button class="btn btn-primary" ng-click="editItem(todo._id, todo.item_title)" aria-label="Edit">Edit</button>
+    </span>
+  </p>
+  </div> 
+</div>
+
