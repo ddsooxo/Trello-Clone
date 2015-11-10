@@ -2,13 +2,14 @@
   'use strict';
 
   angular.module('mytodo')
-    .controller('ItemController', function ($scope, $http) {
-      
+    .controller('ItemController', function ($scope, $routeParams, $http) {
+      //add properties to scope i.e: todos, list_title, later available for view
       $scope.formData = {};
       $scope.todos = [];
+      $scope.list_title = $routeParams.list_title;
 
       //show items
-      $http.get('/api/items')
+      $http.get('/api/items/' + $routeParams.list_id)
          .success(function(data) {
              $scope.todos = data;
              console.log(data);

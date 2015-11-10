@@ -17,22 +17,12 @@ exports.showLists = function (req, res){
     });
 }
 
-// //get
-// //show a list of lists with its items
-// exports.showOneList = function (req, res){
-//     var item;
-//     var list = new List({_id: req.params.list_id});
-//     List.
-//     findOne(item)
-//     .populate('_list')
-//     .exec(function (error, items){
-//         if(items){
-//             res.json(items);
-//         }else if(error){
-//            console.log("errorrrrrr" + error.stack); 
-//         }
-//     })
-// }
+//get
+//show a list of lists with its items
+exports.showOneList = function (req, res){
+    var item;
+    var list = new List({_id: req.params.list_id});
+}
 
 //Populate | mongoose method: 
 // .findOne({ title: 'Once upon a timex.' })

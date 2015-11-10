@@ -8,7 +8,8 @@ var bodyParser  = require('body-parser');
 //get
 //show todo item
 exports.showItems = function (req, res){
-    Item.find({}, function (error, items){
+    console.log(req.params.list_id);
+    Item.find({_list: req.params.list_id}, function (error, items){
         if(items){
             res.json(items);
         }else if (error){

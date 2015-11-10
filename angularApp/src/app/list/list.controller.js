@@ -17,18 +17,6 @@
              console.log('Error: ' + data);
          });
 
-      // //show one list with items
-      // $scope.viewOneList = function(id) {
-      //   $http.get('/api/list/view' + id)
-      //     .success(function (data){
-      //       $scope.lists = data;
-      //       console.log('data: ', data);
-      //     })
-      //     .error(function(data) {
-      //       console.log('Error: ' + data);
-      //     });
-      // }
-
       // create list
       $scope.createList = function () {
          console.log('blah', $scope.formData);

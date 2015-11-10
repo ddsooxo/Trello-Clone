@@ -21,9 +21,10 @@
     <span class="input-group-btn">
       <button class="btn btn-danger" ng-click="removeList(list._id)" aria-label="Remove">X</button>
     <!-- Edit List --> 
-      <button class="btn btn-primary" ng-click="editList(list._id, list.list_title)" aria-label="Edit">Edit</button>
-    <!-- View Single List w/ its items --> 
-       <button class="btn btn-info" ng-click="ViewOneList(list._id)" aria-label="View">View List</button>
+      <a class="btn btn-primary" ng-click="editList(list._id, list.list_title)" aria-label="Edit">Edit</button>
+    <!-- View Single List w/ its items -->
+    <!-- {{splices variables into string}} -->
+         <a href="/#/items?list_title={{list.list_title}}&list_id={{list._id}}" class="btn btn-info" ng-click="ViewOneList(list._id)" aria-label="View">View List</a>
     </span>
   </p>
   </div> 

@@ -7,13 +7,13 @@
 
   function routeConfig($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/items', {
         templateUrl: 'app/item/item.html',
         controller: 'ItemController',
         controllerAs: 'item'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/lists'
       });
 
     $routeProvider
