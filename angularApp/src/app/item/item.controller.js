@@ -5,7 +5,7 @@
     .controller('ItemController', function ($scope, $routeParams, $http) {
       //add properties to scope i.e: todos, list_title, later available for view
       $scope.formData = {};
-      $scope.formData.list_id = $routeParams.list_id;
+      $scope.listId = $routeParams.list_id;
       $scope.todos = [];
       $scope.list_title = $routeParams.list_title;
 
@@ -21,6 +21,7 @@
 
       // create item
       $scope.createItem = function () {
+        $scope.formData.list_id = $scope.listId;
         $http.post('/api/item/create', $scope.formData)
            .success(function(data) {
                $scope.todos = data;
@@ -33,7 +34,7 @@
         
       //delete item
       $scope.removeItem = function (id) {
-        $http.post('/api/item/delete/' + id + '?list_id=' + $routeParams.list_id)
+        $http.post('/api/item/delete/' + id + '?list_id=' + $scope.listId)
            .success(function(data) {
                $scope.todos = data;
                console.log(data);
@@ -45,7 +46,7 @@
         
       //update item
       $scope.editItem = function (id, item_title) {
-        $http.post('/api/edit/' + id + '?item_title=' + item_title + '&list_id=' + $scope.formData.list_id)
+        $http.post('/api/edit/' + id + '?item_title=' + item_title + '&list_id=' + $scope.listId)
            .success(function(data) {
                $scope.todos = data;
                console.log(data);
