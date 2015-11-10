@@ -45,7 +45,7 @@ exports.deleteItem = function (req, res){
     var item = new Item({_id: req.params.item_id});
     item.remove(function (error, item){
         if(item){
-            Item.find({}, function (error, items){
+            Item.find({_list: req.query.list_id}, function (error, items){
                 if(items){
                     res.json(items);
                 }
@@ -62,13 +62,15 @@ exports.deleteItem = function (req, res){
 //POST
 //updates item by item id
 exports.editItem = function (req, res){
-    var item = {_id: req.params.item_id};
+    var itemId = {_id: req.params.item_id};
     console.log('req.query: ' + req.query.item_title);
-    Item.update(item, {item_title: req.query.item_title}, function (error, item){
+    console.log('item: ', itemId);
+    Item.update(itemId, {item_title: req.query.item_title}, function (error, item){
         if(item){
-            Item.find({}, function (error, item){
-                res.json(item);
-                console.log(item);
+            console.log('I HIT LINE 70! WOOT');
+            Item.find({_list: req.query.list_id}, function (error, items){
+                res.json(items);
+                console.log(items);
             })
         } else if(error){
             console.log(error.stack);

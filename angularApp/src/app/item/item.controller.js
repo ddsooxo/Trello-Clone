@@ -33,7 +33,7 @@
         
       //delete item
       $scope.removeItem = function (id) {
-        $http.post('/api/item/delete/' + id)
+        $http.post('/api/item/delete/' + id + '?list_id=' + $routeParams.list_id)
            .success(function(data) {
                $scope.todos = data;
                console.log(data);
@@ -45,7 +45,7 @@
         
       //update item
       $scope.editItem = function (id, item_title) {
-        $http.post('/api/edit/' + id + '?item_title=' + item_title)
+        $http.post('/api/edit/' + id + '?item_title=' + item_title + '&list_id=' + $scope.formData.list_id)
            .success(function(data) {
                $scope.todos = data;
                console.log(data);
