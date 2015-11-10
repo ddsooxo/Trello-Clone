@@ -5,6 +5,7 @@
     .controller('ItemController', function ($scope, $routeParams, $http) {
       //add properties to scope i.e: todos, list_title, later available for view
       $scope.formData = {};
+      $scope.formData.list_id = $routeParams.list_id;
       $scope.todos = [];
       $scope.list_title = $routeParams.list_title;
 

@@ -8,7 +8,6 @@ var bodyParser  = require('body-parser');
 //get
 //show todo item
 exports.showItems = function (req, res){
-    console.log(req.params.list_id);
     Item.find({_list: req.params.list_id}, function (error, items){
         if(items){
             res.json(items);
@@ -21,10 +20,13 @@ exports.showItems = function (req, res){
 //post
 //submit created todo item
 exports.submitItem = function (req, res){
-    var item = new Item({item_title: req.body.item_title});
+    var item = new Item({
+        item_title: req.body.item_title,
+        _list: req.body.list_id
+    });
     item.save(function (error, item){
         if(item){
-           Item.find({}, function (error, items){ 
+           Item.find({_list: req.body.list_id}, function (error, items){ 
                 if(items){
                     res.json(items);
                 }
