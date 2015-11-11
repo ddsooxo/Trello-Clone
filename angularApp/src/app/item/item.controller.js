@@ -46,7 +46,7 @@
         
       //update item
       $scope.editItem = function (id, item_title) {
-        $http.post('/api/edit/' + id + '?item_title=' + item_title + '&list_id=' + $scope.listId)
+        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + $scope.listId)
            .success(function(data) {
                $scope.todos = data;
                console.log(data);

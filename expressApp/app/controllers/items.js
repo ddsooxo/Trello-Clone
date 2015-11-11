@@ -12,7 +12,8 @@ exports.showItems = function (req, res){
         if(items){
             res.json(items);
         }else if (error){
-            console.log("errorrrrrr" + error.stack);
+            console.log(error.stack);
+            res.json({status: 400, message: error.message});
         }
     });
 }
@@ -63,10 +64,11 @@ exports.deleteItem = function (req, res){
 //updates item by item id
 exports.editItem = function (req, res){
     var itemId = {_id: req.params.item_id};
-    // console.log('req.query: ' + req.query.item_title);
-    // console.log('item: ', itemId);
+    console.log('req.query: ' + req.query.item_title);
+    console.log('item: ', itemId);
     Item.update(itemId, {item_title: req.query.item_title}, function (error, item){
         if(item){
+            console.log('I HIT LINE 70! WOOT');
             Item.find({_list: req.query.list_id}, function (error, items){
                 res.json(items);
                 console.log(items);

@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>My Boards</h2>
+
+  <!-- Todos Input | Create List -->
+   <form role="form" ng-submit="createBoard()">
+    <div class="row">
+      <div class="input-group">
+        <input type="text" ng-model="formData.title" placeholder="New Board" class="form-control">
+        <span class="input-group-btn">
+          <input type="submit" class="btn btn-primary" value="Add">
+        </span>
+      </div>
+    </div>
+  </form>
+  
+  <!-- Todos Input | Show, delete, and edit an Board -->
+  <div ui-sortable ng-model="boards">
+  <p class="form-group" ng-repeat="board in boards" style="padding:5px 10px; cursor: move;">
+    <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
+    <!-- Delete List -->
+    <span class="input-group-btn">
+      <button class="btn btn-danger" ng-click="removeBoard(board._id)" aria-label="Remove">X</button>
+    <!-- Edit List --> 
+      <!-- <a class="btn btn-primary" ng-click="editList(list._id, list.list_title)" aria-label="Edit">Edit</button> -->
+    <!-- View Single List w/ its items -->
+    <!-- {{splices variables into string}} -->
+         <!-- <a href="/#/items?list_title={{list.list_title}}&list_id={{list._id}}" class="btn btn-info" ng-click="ViewOneList(list._id)" aria-label="View">View List</a> -->
+    </span>
+  </p>
+  </div> 
+</div>
+

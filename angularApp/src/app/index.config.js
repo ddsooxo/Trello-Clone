@@ -3,7 +3,10 @@
 
   angular
     .module('mytodo')
-    .config(config);
+    .config(config)
+    .config(['localStorageServiceProvider', function(localStorageServiceProvider){
+      localStorageServiceProvider.setPrefix('ls');
+    }]);
 
   /** @ngInject */
   function config($logProvider, toastrConfig) {

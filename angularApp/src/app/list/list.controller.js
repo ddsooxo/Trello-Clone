@@ -19,6 +19,7 @@
 
       // create list
       $scope.createList = function () {
+         console.log('blah', $scope.formData);
         $http.post('/api/list/create', $scope.formData)
            .success(function(data) {
                $scope.lists = data;

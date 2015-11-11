@@ -1,38 +1,23 @@
 (function() {
   'use strict';
 
-  describe('controllers', function(){
-    var vm;
-    var $timeout;
-    var toastr;
+  describe('ItemController', function(){
+    var $scope, ItemsController
 
+    //main module
     beforeEach(module('mytodo'));
-    beforeEach(inject(function(_$controller_, _$timeout_, _webDevTec_, _toastr_) {
-      spyOn(_webDevTec_, 'getTec').and.returnValue([{}, {}, {}, {}, {}]);
-      spyOn(_toastr_, 'info').and.callThrough();
-
-      vm = _$controller_('MainController');
-      $timeout = _$timeout_;
-      toastr = _toastr_;
+    
+    //set up scope and controller to be tested
+    beforeEach(inject(function ($rootScope, $controller) {
+      scope = $rootScope.$new();
+      ItemsController = $controller('ItemsController', {
+        $scope: scope
+      });
     }));
 
-    it('should have a timestamp creation date', function() {
-      expect(vm.creationDate).toEqual(jasmine.any(Number));
-    });
-
-    it('should define animate class after delaying timeout ', function() {
-      $timeout.flush();
-      expect(vm.classAnimation).toEqual('rubberBand');
-    });
-
-    it('should show a Toastr info and stop animation when invoke showToastr()', function() {
-      vm.showToastr();
-      expect(toastr.info).toHaveBeenCalled();
-      expect(vm.classAnimation).toEqual('');
-    });
-
-    it('should have no items to start', function() {
-      expect(scope.todos.length).toBe(0);
+    // Define Tests
+    it('should have an empty array of items', function() {
+     expect(scope.items).toEqual([]);
     });
   });
 })();

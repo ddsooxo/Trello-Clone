@@ -19,6 +19,7 @@
     "lodash": "^3.10.1",
     "mongoose": "^4.2.4",
     "passport": "^0.3.0",
-    "request": "^2.65.0"
+    "request": "^2.65.0",
+    "supertest": "^1.1.0"
   }
 }

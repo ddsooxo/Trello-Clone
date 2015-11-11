@@ -25,6 +25,16 @@
       .otherwise({
         redirectTo: '/items'
       });
+
+    $routeProvider
+      .when('/boards', {
+        templateUrl: 'app/board/board.html',
+        controller: 'BoardController',
+        controllerAs: 'board'
+      })
+      .otherwise({
+        redirectTo: '/lists'
+      });
   }
 
 })();
