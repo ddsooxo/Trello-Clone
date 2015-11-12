@@ -33,6 +33,7 @@ exports.submitItem = function (req, res){
                 }
                 else if(error){
                     console.error('Failed to save' + error.stack);
+                    res.json({status: 400, message: error.message});
                 }
             });
         }
@@ -55,7 +56,8 @@ exports.deleteItem = function (req, res){
             }) ;
         }
         else if(error){
-            console.error('Failed to save' + error.stack);
+            console.error(error.stack);
+            res.json({status: 400, message: error.message});
         }
     })
 }
@@ -76,6 +78,7 @@ exports.editItem = function (req, res){
         } else if(error){
             console.log(error.stack);
             res.redirect('/error');
+            res.json({status: 400, message: error.message});
         }
     })
 }

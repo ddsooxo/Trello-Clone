@@ -1,6 +1,7 @@
 //models
 var List = require('../models/list');
 var Item = require('../models/item');
+var Board = require('../models/item');
 var bodyParser  = require('body-parser');
 
 
@@ -15,23 +16,16 @@ exports.showLists = function (req, res){
             console.log("errorrrrrr" + error.stack);
         }
     });
+    // List.find({_board: req.params.board_id}, function (error, lists){
+    //     if(lists){
+    //         res.json(lists);
+    //     }else if (error){
+    //         console.log(error.stack);
+    //         res.json({status: 400, message: error.message});
+    //     }
+    // });
 }
 
-//get
-//show a list of lists with its items
-exports.showOneList = function (req, res){
-    var item;
-    var list = new List({_id: req.params.list_id});
-}
-
-//Populate | mongoose method: 
-// .findOne({ title: 'Once upon a timex.' })
-// .populate('_creator')
-
-// var item = new Item({
-//     item_title: req.body.item_title,
-//     _list: list._id
-// })
 
 //post
 //submit created list
