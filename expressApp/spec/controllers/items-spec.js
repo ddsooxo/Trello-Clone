@@ -12,20 +12,47 @@ describe('ItemsController', function() {
     var list;
 
     beforeEach(function(done) {
-      Item.find({_list: '564122f61b4d89a52b92b585'}, function(err, newItem) {
+      List.create({list_title: 'test list title'}, function (err, newList){
         if (err) {
           console.log(err);
-          done.fail(err);
+          // done.fail(err);
         } else {
-          console.log('newItem: ', newItem);
-          item = newItem;
-          done();
-       }
-      });
+          console.log('newList: ', newList);
+          list = newList;
+          Item.create({item_title: 'test item title', _list: list.id}, function (err, newItem) {
+            if (err) {
+              console.log(err);
+              done.fail(err);
+            } else {
+              console.log('newItem: ', newItem);
+              item = newItem;
+              done();
+           }
+          });
+        }
+      })
     });
 
 
-    it('should return list of items', function (done) {
+
+    afterEach(function(done) {
+      list.remove(function (err, removedList){
+        if(err){
+          console.log(err);
+          // done.fail(err);
+        } else{
+          item.remove(function (err, removedItem) {
+            if (err) {
+            } else {
+              done();
+            }
+          });
+        }
+      });
+    });
+
+    //return items
+    it('should return list of items of a list', function (done) {
       request(app).get('/api/items/' + list.id)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -33,41 +60,32 @@ describe('ItemsController', function() {
         if(err){
           done.fail(err);
         }else {
-          expect(res.params).toBeDefined();
+          expect(res.body.length).toEqual(1);
+          returneditem = res.body[0];
+          expect(returneditem.item_title).toEqual(item.item_title);
+
+          // expect(list.list_title).toBe('test list title');
+          // expect(item.item_title).toBe('test item title');
           done();
         }
       })
     });
 
-    afterEach(function(done) {
-      item.remove(function(err, removedItem) {
-        if (err) {
-          done.fail(err);
-        } else {
-          done();
-        }
-      });
-    });
-
-
     // //delete a exercise
-    // it('should delete an item', function(done) {
-    //   var options = {
-    //     url: 'http://localhost:3000/api/item/delete/' + item.id
-    //   };
-
-    //   request.post(options, function(error, response, body) {
-    //     expect(response.statusCode).toBe(302);
-    //     new Item({
-    //       id: item.id
-    //     })
-    //     .fetch()
-    //     .then(function(deletedItem) {
-    //       expect(deletedItem).toBeNull();
+    // it('should delete an item', function (done) {
+    //   request(app).post('/api/item/delete/' + item.id)
+    //   .expect(200)
+    //   .expect('Content-Type', /json/)
+    //   .end(function(err, res){
+    //     if(err){
+    //       done.fail(err);
+    //     }else {
+    //       expect(res.body).tobeNull();
     //       done();
-    //     });
-    //   });
+    //     }
+    //   })
     // });
+
 
   });
 });
