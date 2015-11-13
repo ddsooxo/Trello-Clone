@@ -56,22 +56,22 @@ exports.deleteBoard = function (req, res){
     })
 }
 
-// //POST
-// //updates list by list id
-// exports.editList = function (req, res){
-//     var list = {_id: req.params.list_id};
-//     console.log('req.query: ' + req.query.list_title);
-//     List.update(list, {list_title: req.query.list_title}, function (error, list){
-//         if(list){
-//             List.find({}, function (error, list){
-//                 res.json(list);
-//                 console.log(list);
-//             })
-//         } else if(error){
-//             console.log(error.stack);
-//             res.redirect('/error');
-//         }
-//     })
-// }
+//POST
+//updates board by board id
+exports.editBoard = function (req, res){
+    var board = {_id: req.params.board_id};
+    console.log('req.query: ' + req.query.title);
+    Board.update(board, {title: req.query.title}, function (error, board){
+        if(board){
+            Board.find({}, function (error, board){
+                res.json(board);
+                console.log(board);
+            })
+        } else if(error){
+            console.log(error.stack);
+            res.redirect('/error');
+        }
+    })
+}
 
 

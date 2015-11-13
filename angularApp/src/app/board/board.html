@@ -1,6 +1,6 @@
 <div class="container">
 <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
-<a href="/#/lists" class="btn btn-primary" style="margin-top: 10px">Lists</a>
+
   <h2>My Boards</h2>
 
   <!-- Todos Input | Create List -->
@@ -23,7 +23,7 @@
     <span class="input-group-btn">
       <button class="btn btn-danger" ng-click="removeBoard(board._id)" aria-label="Remove">X</button>
     <!-- Edit List --> 
-      <!-- <a class="btn btn-primary" ng-click="editList(list._id, list.list_title)" aria-label="Edit">Edit</button> -->
+      <a class="btn btn-primary" ng-click="editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
     <!-- View Single List w/ its items -->
     <!-- {{splices variables into string}} -->
          <!-- <a href="/#/items?list_title={{list.list_title}}&list_id={{list._id}}" class="btn btn-info" ng-click="ViewOneList(list._id)" aria-label="View">View List</a> -->

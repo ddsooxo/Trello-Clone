@@ -33,8 +33,8 @@ app.get('/api/boards', BoardsController.showBoards);
 app.post('/api/board/create', BoardsController.submitBoard);
 //delete board
 app.post('/api/board/delete/:board_id', BoardsController.deleteBoard);
-// //update board
-// app.post('/api/board/edit/:list_id', BoardsController.editList);
+//update board
+app.post('/api/board/edit/:board_id', BoardsController.editBoard);
 
 
 //-------------------LIST ROUTES-------------------------------
