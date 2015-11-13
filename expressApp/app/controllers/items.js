@@ -1,6 +1,6 @@
 //models
 var Item = require('../models/item');
-var bodyParser  = require('body-parser');
+// var bodyParser  = require('body-parser');
 
 //in the hash{} < u can pass in like '.name' like u did with Item.forge({id:..}) bookshelf method
 //passing in {} empty hash returns everything
@@ -21,6 +21,7 @@ exports.showItems = function (req, res){
 //post
 //submit created todo item
 exports.submitItem = function (req, res){
+    console.log(req.body);
     var item = new Item({
         item_title: req.body.item_title,
         _list: req.body.list_id

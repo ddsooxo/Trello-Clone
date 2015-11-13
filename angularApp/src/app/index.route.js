@@ -10,7 +10,7 @@
       .when('/items', {
         templateUrl: 'app/item/item.html',
         controller: 'ItemController',
-        controllerAs: 'item'
+        controllerAs: 'items'
       })
       .otherwise({
         redirectTo: '/lists'

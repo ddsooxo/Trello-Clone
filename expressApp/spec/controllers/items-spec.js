@@ -1,95 +1,131 @@
 var request = require('supertest');
+var Board = require('../../app/models/board');
+var List = require('../../app/models/list');
 var Item = require('../../app/models/item');
-// var List = require('../../app/models/list');
 var ItemsController = require('../../app/controllers/items');
 // var session = require('supertest-session');
 var app = require('../../app').app;
 
 describe('ItemsController', function() {
+  // describe('without data', function(){
 
-  describe('tests without data', function() {
+  // })
 
-    it('should return an empty list of items', function (done) {
-      request(app).get('/api/items')
+
+  describe('with data', function() {
+    var item;
+    var list;
+    var newItem = function(res) {
+      res.body.should.have.property('item_title', 'Item Test Title01');
+    };
+
+
+    beforeEach(function(done) {
+      List.create({list_title: 'test list title in beforeEach'}, function (err, newList){
+        if (err) {
+          console.log(err);
+          // done.fail(err);
+        } else {
+          list = newList;
+
+          Item.create({item_title: 'test item title in beforeEach', _list: list.id}, function (err, newItem) {
+            if (err) {
+              console.log(err);
+              done.fail(err);
+            } else {
+              item = newItem;
+              done();
+           }
+          });
+        }
+      })
+    });
+
+
+
+    afterEach(function(done) {
+      list.remove(function (err, removedList){
+        if(err){
+          console.log(err);
+          // done.fail(err);
+        } else{
+          item.remove(function (err, removedItem) {
+            if (err) {
+            } else {
+              done();
+            }
+          });
+        }
+      });
+    });
+
+    //return items
+    it('should return list of items of a list', function (done) {
+      request(app).get('/api/items/' + list._id)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res){
         if(err){
           done.fail(err);
         }else {
-          expect(res.body).toEqual([]);
+          expect(res.body.length).toEqual(1);
+          returneditem = res.body[0];
+          expect(returneditem.item_title).toEqual(item.item_title);
           done();
         }
       })
     });
-    
-//     // //create new todo
-    // it('should create a new item', function(done) {
-    //   var options = {
-    //     url: 'http://localhost:3000/api/item/create',
-    //     form: {
-    //       item_title: 'test item title'
-    //     }
-    //   };
-    //   request.post(options, function(error, response, body) {
-    //     expect(response.statusCode).toBe(302);
-    //     new Item({
-    //       item_title: 'test item title'
-    //     })
-    //     .save()
-    //     .then(function(createdItem) {
-    //       expect(createdItem.item_title).toBeDefined();
-    //       new Item({
-    //         item_title: createdItem.item_title
-    //       })
-    //       .destroy();
+
+    //return a new created item
+    it('should create a new item in a list', function (done) {  
+      request(app).post('/api/item/create')
+      .send({
+        item_title: 'Item Test Title01'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          expect(newItem);
+          done();
+        }
+      })
+    });
+
+    //delete an item of a list
+    it('should delete an item of a list', function (done) {
+      request(app).post('/api/item/delete/' + item._id + '?list_id=' + list._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          expect(res.body.length).toEqual(0);
+          done();
+        }
+      })
+    });
+
+    // //update an item of a list
+    // it('should udate an item of a list', function (done) {
+    //   request(app).post('/api/item/edit/' + item._id + '?list_id=' + list._id)
+    //   .expect(200)
+    //   .field('item_title', 'Updated test item title')
+    //   .expect('Content-Type', /json/)
+    //   .end(function (err, res){
+    //     if(err){
+    //       done.fail(err);
+    //     }else {
+    //       expect(item.item_title).toEqual('Updated test item title');
+    //       expect(res.body.length).toEqual(1);
     //       done();
-    //     });
-    //   });
+    //     }
+    //   })
     // });
+
   });
-
-  
-  // describe('tests with data', function() {
-  //   var item;
-  //   beforeEach(function(done) {
-  //     new Item({
-  //       item_title: 'test item_title'
-  //     })
-  //     .save()
-  //     .then(function(newItem) {
-  //       item = newItem;
-  //       done();
-  //     });
-  //   });
-
-  //   afterEach(function(done) {
-  //     new Item({
-  //       id: item.id
-  //     }).destroy()
-  //       .then(done)
-  //       .catch(function(error) {
-  //         done.fail(error);
-  //       });
-  //   });
-
-  //   //delete a exercise
-  //   it('should delete an item', function(done) {
-  //     var options = {
-  //       url: 'http://localhost:3000/api/item/delete/' + item.id
-  //     };
-
-  //     request.post(options, function(error, response, body) {
-  //       expect(response.statusCode).toBe(302);
-  //       new Item({
-  //         id: item.id
-  //       })
-  //       .fetch()
-  //       .then(function(deletedItem) {
-  //         expect(deletedItem).toBeNull();
-  //         done();
-  //       });
-  //     });
-  //   });
-  // })
 });
+
