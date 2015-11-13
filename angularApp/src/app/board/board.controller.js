@@ -41,16 +41,16 @@
            });
       };
         
-      // //update board
-      // $scope.editList = function (id, board_title) {
-      //   $http.post('/api/board/edit/' + id + '?board_title=' + board_title)
-      //      .success(function(data) {
-      //          $scope.boards = data;
-      //          console.log(data);
-      //      })
-      //      .error(function(data) {
-      //          console.log('Error: ' + data);
-      //      });
-      // };
+      //update board
+      $scope.editBoard = function (id, title) {
+        $http.post('/api/board/edit/' + id + '?title=' + title)
+           .success(function(data) {
+               $scope.boards = data;
+               console.log(data);
+           })
+           .error(function(data) {
+               console.log('Error: ' + data);
+           });
+      };
     });
 })();
