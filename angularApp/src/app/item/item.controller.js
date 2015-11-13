@@ -2,17 +2,18 @@
   'use strict';
 
   angular.module('mytodo')
-    .controller('ItemController', function ($scope, $routeParams, $http) {
+    .controller('ItemController', ['$routeParams','$http', function ($routeParams, $http) {
       //add properties to scope i.e: todos, list_title, later available for view
-      $scope.formData = {};
-      $scope.listId = $routeParams.list_id;
-      $scope.todos = [];
-      $scope.list_title = $routeParams.list_title;
+      var vm = this;     
+      vm.formData = {};
+      vm.listId = $routeParams.list_id;
+      vm.todos = [];
+      vm.list_title = $routeParams.list_title;
 
       //show items
       $http.get('/api/items/' + $routeParams.list_id)
          .success(function(data) {
-             $scope.todos = data;
+             vm.todos = data;
              console.log(data);
          })
          .error(function(data) {
@@ -20,11 +21,11 @@
          });
 
       // create item
-      $scope.createItem = function () {
-        $scope.formData.list_id = $scope.listId;
-        $http.post('/api/item/create', $scope.formData)
+      vm.createItem = function () {
+        vm.formData.list_id = vm.listId;
+        $http.post('/api/item/create', vm.formData)
            .success(function(data) {
-               $scope.todos = data;
+               vm.todos = data;
                console.log(data);
            })
            .error(function(data) {
@@ -33,10 +34,10 @@
       };
         
       //delete item
-      $scope.removeItem = function (id) {
-        $http.post('/api/item/delete/' + id + '?list_id=' + $scope.listId)
+      vm.removeItem = function (id) {
+        $http.post('/api/item/delete/' + id + '?list_id=' + vm.listId)
            .success(function(data) {
-               $scope.todos = data;
+               vm.todos = data;
                console.log(data);
            })
            .error(function(data) {
@@ -45,15 +46,15 @@
       };
         
       //update item
-      $scope.editItem = function (id, item_title) {
-        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + $scope.listId)
+      vm.editItem = function (id, item_title) {
+        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + vm.listId)
            .success(function(data) {
-               $scope.todos = data;
+               vm.todos = data;
                console.log(data);
            })
            .error(function(data) {
                console.log('Error: ' + data);
            });
       };
-    });
+    }]);
 })();
