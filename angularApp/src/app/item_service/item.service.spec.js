@@ -1,23 +1,39 @@
-// (function() {
-//   'use strict';
+(function() {
+  'use strict';
 
-//   describe('ListService', function() {
-//     var service;
+  describe('ItemService', function() {
+    var service, httpBackend;
 
-//     // Configure module that contains the controller being tested
-//     beforeEach(module('mytodo'));
+    // Configure module that contains the controller being tested
+    beforeEach(module('mytodo'));
 
-//     beforeEach(inject(function (_ListService_) {
-//       service = _ListService_;
-//     }));
+    beforeEach(inject(function (_ItemService_, $httpBackend) {
+      service = _ItemService_;
+      httpBackend = $httpBackend;
+    }));
 
-//     it('should be 0', function() {
-//       expect(service.getList()).toEqual(0);
-//     });
+    afterEach(function() {
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
+    });
 
-//     it('should set current list to 1', function() {
-//       expect(service.setList(1)).toEqual(1);
-//       expect(service.getList()).toEqual(1);
-//     });
-//   });
-// })();
+    it('should be empty list', function() {
+      httpBackend.whenGET("/api/items").respond([]);
+
+      var result;
+      service.getItems('564122f61b4d89a52b92b585')
+      .then(function(items) {
+        console.log('did my test run');
+        result = items;
+      });
+
+      httpBackend.flush();
+      expect(result).toEqual([]);
+    });
+
+    // it('should set current list to 1', function() {
+    //   expect(service.setList(1)).toEqual(1);
+    //   expect(service.getList()).toEqual(1);
+    // });
+  });
+})();

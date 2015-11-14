@@ -8,7 +8,8 @@ var Item = require('../models/item');
 //get
 //show todo item
 exports.showItems = function (req, res){
-    Item.find({_list: req.params.list_id}, function (error, items){
+    console.log('item-controller req.query: ', req.query);
+    Item.find({_list: req.query.list_id}, function (error, items){
         if(items){
             res.json(items);
         }else if (error){
@@ -28,15 +29,11 @@ exports.submitItem = function (req, res){
     });
     item.save(function (error, item){
         if(item){
-           Item.find({_list: req.body.list_id}, function (error, items){ 
-                if(items){
-                    res.json(items);
-                }
-                else if(error){
-                    console.error('Failed to save' + error.stack);
-                    res.json({status: 400, message: error.message});
-                }
-            });
+            res.json(item);
+        }
+        else if(error){
+            console.error('Failed to save' + error.stack);
+            res.json({status: 400, message: error.message});
         }
     });
 }
