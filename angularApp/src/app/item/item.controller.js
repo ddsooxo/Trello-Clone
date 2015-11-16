@@ -63,6 +63,7 @@
         vm.formData.item_title = item_title;
         ItemService.editItem(vm.formData.item_title, vm.formData.id)
           .then(function (data){
+            console.log('vm.formData.item_title: ',vm.formData.item_title);
             vm.todos.push(data);
           })
           .catch(function(err) {
