@@ -1,126 +1,76 @@
+
 (function() {
   'use strict';
 
   angular.module('mytodo')
-    .controller('ItemController', ['$routeParams','$http', function ($routeParams, $http) {
+    .controller('ItemController', ['$routeParams','ItemService', function ($routeParams, ItemService) {
       //add properties to scope i.e: todos, list_title, later available for view
       var vm = this;     
       vm.formData = {};
-      vm.listId = $routeParams.list_id;
       vm.todos = [];
-      vm.list_title = $routeParams.list_title;
+      var listId = $routeParams.list_id;
+      var list_title = $routeParams.list_title;
+      vm.boardId = $routeParams.board_id;
+      vm.board_title = $routeParams.board_title;
 
       //show items
-      $http.get('/api/items/' + $routeParams.list_id)
-         .success(function(data) {
-             vm.todos = data;
-             console.log(data);
-         })
-         .error(function(data) {
-             console.log('Error: ' + data);
-         });
+      ItemService.getItems(listId)
+        .then(function (data){
+          vm.todos = data;
+        })
+        .catch(function(err) {
+          console.log('getItems error: ' + err);
+        });
+        console.log('vm.todos: ', vm.todos);
 
-      // create item
+      //create a new item
       vm.createItem = function () {
-        vm.formData.list_id = vm.listId;
-        $http.post('/api/item/create', vm.formData)
-           .success(function(data) {
-               vm.todos = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
-        
+        vm.formData.list_id = listId;
+        console.log('vm.formData: ', vm.formData);
+        ItemService.createItem(vm.formData)
+          .then(function (data){
+            vm.todos.push(data);
+          })
+          .catch(function(err) {
+          console.log('createItem error: ' + err);
+        });
+          console.log('created vm.todos: ', vm.todos);
+      }
+
       //delete item
       vm.removeItem = function (id) {
-        $http.post('/api/item/delete/' + id + '?list_id=' + vm.listId)
-           .success(function(data) {
-               vm.todos = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
+        vm.formData.list_id = listId;
+        vm.formData.id = id;
+        ItemService.removeItem(vm.formData.id)
+          .then(function (data){
+            for(var index = 0; index < vm.todos.length; index++){
+              if(vm.todos[index]._id === data._id){
+                vm.todos.splice(index,1);
+                break;
+              } 
+            }
+          })
+          .catch(function (err){
+            console.log('createItem error: ' + err);
+          });
+          console.log('removeItem vm.todos: ', vm.todos);
       };
-        
-      //update item
+       
+      //edit item
       vm.editItem = function (id, item_title) {
-        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + vm.listId)
-           .success(function(data) {
-               vm.todos = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
+        vm.formData.list_id = listId;
+        vm.formData.id = id;
+        vm.formData.item_title = item_title;
+        ItemService.editItem(vm.formData.item_title, vm.formData.id)
+          .then(function (data){
+            console.log('vm.formData.item_title: ',vm.formData.item_title);
+            vm.todos.push(data);
+          })
+          .catch(function(err) {
+          console.log('editItem error: ' + err);
+        });
+          console.log('editItem vm.todos: ', vm.todos);
+      } 
+
     }]);
 })();
-// (function() {
-//   'use strict';
-
-//   angular.module('mytodo')
-//     .controller('ItemController', ['$routeParams','ItemService', function ($routeParams, ItemService) {
-//       //add properties to scope i.e: todos, list_title, later available for view
-//       var vm = this;     
-//       vm.formData = {};
-//       vm.todos = [];
-//       var listId = $routeParams.list_id;
-//       var list_title = $routeParams.list_title;
-
-//       //show items
-//       ItemService.getItems(listId)
-//         .then(function (data){
-//           vm.todos = data.todos;
-//         })
-//         console.log('vm.todos: ', vm.todos);
-
-//       //create a new item
-//       ItemService.createItem()
-//         .then(function (data){
-//           vm.todos = data.todos;
-//           // vm.formData;
-//         })
-//         console.log('vm.todos: ', vm.todos);
-
-
-//       // // create item
-//       // vm.createItem = function () {
-//       //   vm.formData.list_id = vm.listId;
-//       //   $http.post('/api/item/create', vm.formData)
-//       //      .success(function(data) {
-//       //          vm.todos = data;
-//       //          console.log(data);
-//       //      })
-//       //      .error(function(data) {
-//       //          console.log('Error: ' + data);
-//       //      });
-//       // };
-        
-//       //delete item
-//       vm.removeItem = function (id) {
-//         $http.post('/api/item/delete/' + id + '?list_id=' + vm.listId)
-//            .success(function(data) {
-//                vm.todos = data;
-//                console.log(data);
-//            })
-//            .error(function(data) {
-//                console.log('Error: ' + data);
-//            });
-//       };
-        
-//       //update item
-//       vm.editItem = function (id, item_title) {
-//         $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + vm.listId)
-//            .success(function(data) {
-//                vm.todos = data;
-//                console.log(data);
-//            })
-//            .error(function(data) {
-//                console.log('Error: ' + data);
-//            });
-//       };
-//     }]);
-// })();

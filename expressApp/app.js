@@ -50,7 +50,7 @@ app.post('/api/list/edit/:list_id', ListsController.editList);
 
 //-------------------ITEM ROUTES-------------------------------
 //show items
-app.get('/api/items/:list_id', ItemsController.showItems);
+app.get('/api/items', ItemsController.showItems);
 //create items
 app.post('/api/item/create', ItemsController.submitItem);
 //delete items

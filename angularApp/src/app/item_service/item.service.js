@@ -3,63 +3,66 @@
 
   angular.module('mytodo')
     .factory('ItemService', ['$http','$q', function ($http, $q) {
-      var service = {};   
-      var todos = [];
-      var formData = {};
-
+      var service = {};  
 
       service.getItems = function(listId){
-        console.log(listId);
+        console.log('getItems: ', listId);
         var deferred = $q.defer();
-        $http.get('/api/items/' + listId)
+        $http.get('/api/items?list_id=' + listId)
            .success(function (data) {
                console.log(data);
-               deferred.resolve({todos: data});
+               deferred.resolve(data);
            })
            .error(function(data) {
-            deferred.resolve({todos: data});
-               console.log('Error: ' + data);
+            console.log('Error: ', data);
+            deferred.reject('Error: ' + data);
            });
            return deferred.promise;
       }
 
       // create item
-      service.createItem = function () {
-        formData.listId = listId;
+      service.createItem = function (formData) {
         var deferred = $q.defer();
         $http.post('/api/item/create', formData)
-           .success(function(data) {
-              deferred.resolve({todos: data});
+           .success(function (data) {
+              deferred.resolve(data);
               console.log(data);
            })
-           .error(function(data) {
-              deferred.resolve({todos: data});
+           .error(function (data) {
+              deferred.reject(data);
               console.log('Error: ' + data);
            });
+           return deferred.promise;
       };
         
       //delete item
       service.removeItem = function (id) {
+        var deferred = $q.defer();
         $http.post('/api/item/delete/' + id + '?list_id=' + service.listId)
-           .success(function(data) {
-               service.todos = data;
+           .success(function (data) {
+              deferred.resolve(data);
                console.log(data);
            })
-           .error(function(data) {
-               console.log('Error: ' + data);
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error: ' + data);
            });
+           return deferred.promise;
       };
         
       //update item
       service.editItem = function (id, item_title) {
+        var deferred = $q.defer();
         $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + service.listId)
-           .success(function(data) {
-               service.todos = data;
+           .success(function (data) {
+               deferred.resolve(data);
                console.log(data);
            })
-           .error(function(data) {
-               console.log('Error: ' + data);
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error: ' + data);
            });
+           return deferred.promise;
       };
 
       return service;

@@ -20,7 +20,7 @@
       .when('/lists', {
         templateUrl: 'app/list/list.html',
         controller: 'ListController',
-        controllerAs: 'list'
+        controllerAs: 'listCtrl'
       })
       .otherwise({
         redirectTo: '/items'

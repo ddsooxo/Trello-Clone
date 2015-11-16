@@ -1,7 +1,7 @@
 <div class="container">
 <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
 <a href="/#/lists" class="btn btn-primary" style="margin-top: 10px">Lists</a>
-  <h2>{{list_title}}</h2>
+  <h2>{{items.list_title}}</h2>
 
   <!-- Todos Input | Create Item -->
    <form role="form" ng-submit="items.createItem()">
@@ -26,7 +26,7 @@
       <button class="btn btn-primary" ng-click="items.editItem(todo._id, todo.item_title)" aria-label="Edit">Edit</button>
     </span>
   </p>
-  <a href="/#/lists" class="btn btn-info">Back to Lists</a>
+  <a href="/#/lists?board_title={{items.board_title}}&board_id={{items.boardId}}" class="btn btn-info">Back to Lists</a>
   </div> 
 </div>
 
