@@ -53,7 +53,7 @@
       //update item
       service.editItem = function (id, item_title, listId) {
         var deferred = $q.defer();
-        $http.post('/api/item/edit2/' + id + '?item_title=' + item_title + '&list_id=' + listId)
+        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + listId)
            .success(function (data) {
                deferred.resolve(data);
                console.log(data);
