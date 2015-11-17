@@ -36,9 +36,9 @@
       };
         
       //delete item
-      service.removeItem = function (id) {
+      service.removeItem = function (id, listId) {
         var deferred = $q.defer();
-        $http.post('/api/item/delete/' + id + '?list_id=' + service.listId)
+        $http.post('/api/item/delete/' + id + '?list_id=' + listId)
            .success(function (data) {
               deferred.resolve(data);
                console.log(data);
@@ -51,9 +51,9 @@
       };
         
       //update item
-      service.editItem = function (id, item_title) {
+      service.editItem = function (id, item_title, listId) {
         var deferred = $q.defer();
-        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + service.listId)
+        $http.post('/api/item/edit2/' + id + '?item_title=' + item_title + '&list_id=' + listId)
            .success(function (data) {
                deferred.resolve(data);
                console.log(data);
