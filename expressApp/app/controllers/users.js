@@ -11,8 +11,6 @@ exports.login = function (req, res){
         email: req.body.email,
         password: hash
     }, function (error, user){
-        // console.log('error', error);
-        // console.log('user', user);
         if(error || !user){
             res.status(422).json({message: 'Invalid login'});
         }else{
@@ -34,7 +32,7 @@ exports.register = function (req, res){
     });
     user.save(function (error, user){
         if(user){
-            res.status(201).json(user);
+            res.status(200).json(user);
         }else if(error){
             console.error('Failed to create new user' + error.stack);
             res.status(422).json({message: error.message});

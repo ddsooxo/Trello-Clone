@@ -31,20 +31,19 @@ describe('UsersController', function() {
       request(app).post('/api/user/register')
       .send({
         full_name: 'Test3 Full Name',
-        email:'test3@email.com',
+        username: 'test3username',
+        email:'test4@email.com',
         password: 'test3 password',
         bio: 'test3 bio'
       })
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /json/)
       .end(function (err, res){
-        console.log('test: err', err);
-        console.log('test: res.body', res.body);
         if(err){
           done.fail(err);
         }else {
-          expect(res.body.email).toEqual('test3@email.com');
-          User.remove({email: 'test3@email.com'}, function (err, deletedUser){
+          expect(res.body.username).toEqual('test3username');
+          User.remove({username: 'test3username'}, function (err, deletedUser){
             if(err){
               done.fail.err('Failed to remove user.');
             } else{
@@ -62,6 +61,7 @@ describe('UsersController', function() {
     beforeEach(function (done) {
       User.create({
         full_name: 'Full Name beforeEach',
+        username: 'testusername',
         email: 'before@each.com',
         password: 'test password',
         bio: 'test bio'
@@ -92,11 +92,12 @@ describe('UsersController', function() {
       request(app).post('/api/user/register')
       .send({
         full_name: 'test full name',
+        username: 'username',
         email:'test@test.com',
         password: 'test3password',
         bio: 'test test bio'
       })
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /json/)
       .end(function (err, res){
         if(err){

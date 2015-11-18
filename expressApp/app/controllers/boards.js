@@ -1,11 +1,9 @@
 //models
 var Board = require('../models/board');
 var List = require('../models/list');
-var bodyParser  = require('body-parser');
 
 
-//get
-//show a list of boards
+//get | show a list of boards
 exports.showBoards = function (req, res){
     var board = new Board({_id: req.params.board_id});
     Board.find({}, function (error, boards){
@@ -17,10 +15,11 @@ exports.showBoards = function (req, res){
     });
 }
 
-//post
-//submit created list
+//post | submit created list
 exports.submitBoard = function (req, res){
-    var board = new Board({title: req.body.title});
+    var board = new Board({
+        title: req.body.title
+    });
     // console.log('req.body.title: ' + req.body.title);
     board.save(function (error, board){
         if(board){
@@ -36,8 +35,7 @@ exports.submitBoard = function (req, res){
     });
 }
 
-//POST
-//deletes board by board id
+//POST | deletes board by board id
 exports.deleteBoard = function (req, res){
     var board = new Board({_id: req.params.board_id});
     board.remove(function (error, board){
@@ -56,8 +54,7 @@ exports.deleteBoard = function (req, res){
     })
 }
 
-//POST
-//updates board by board id
+//POST | updates board by board id
 exports.editBoard = function (req, res){
     var board = {_id: req.params.board_id};
     console.log('req.query: ' + req.query.title);

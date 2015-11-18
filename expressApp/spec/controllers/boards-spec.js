@@ -6,6 +6,28 @@ var BoardsController = require('../../app/controllers/boards');
 var app = require('../../app').app;
 
 describe('BoardsController', function() {
+
+
+
+  describe('without data', function(){
+
+    //return board
+    it('should return list of boards', function (done) {
+      request(app).get('/api/boards')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        if (err) {
+          done.fail(err);
+        } else {
+          expect(res.body).toBeDefined();
+          done();
+        }
+      });
+    });
+
+  })
+
   describe('with data', function() {
     var board;
 
@@ -15,7 +37,6 @@ describe('BoardsController', function() {
           console.log(err);
           done.fail(err);
         } else {
-          console.log('newBoard: ', newBoard);
           board = newBoard;
           done();
         }
@@ -32,23 +53,7 @@ describe('BoardsController', function() {
         }
       });
     });
-
-    //return list of boards
-    it('should return one list of board', function (done) {
-      request(app).get('/api/boards')
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .end(function(err, res){
-        if(err){
-          done.fail(err);
-        }else {
-          expect(res.body.length).toEqual(1);
-          returnedBoard = res.body[0];
-          expect(returnedBoard.title).toEqual(board.title);
-          done();
-        }
-      })
-    });
+    
   });
 });
 
