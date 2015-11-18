@@ -59,8 +59,8 @@ app.post('/api/login', UsersController.login);
 app.post('/api/user/register', UsersController.register);
 //delete user
 app.post('/api/user/delete/:user_id', UsersController.deleteUser);
-// //update user
-// app.post('/api/user/edut/:user_id', UsersController.editUser);
+//update user
+app.post('/api/user/edit/:user_id', UsersController.editUser);
 //------------------BOARD ROUTES-------------------------------
 // //show board
 app.get('/api/boards', BoardsController.showBoards);
