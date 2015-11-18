@@ -22,10 +22,9 @@ exports.showItems = function (req, res){
 //post
 //submit created todo item
 exports.submitItem = function (req, res){
-    console.log(req.body);
     var item = new Item({
         item_title: req.body.item_title,
-        _list: req.body.list_id
+        _list: req.params.list_id
     });
     item.save(function (error, item){
         if(item){

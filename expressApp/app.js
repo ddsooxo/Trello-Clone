@@ -5,16 +5,42 @@ var express = require('express'),
     _ = require('lodash'),
     bodyParser = require('body-parser'),
     passport = require('passport'),
-    bcrypt = require('bcrypt-nodejs');
+    bcrypt = require('bcrypt-nodejs'),
+    LocalStrategy = require('passport-local').Strategy;
 
 //MongoDB
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/mytodoapp');
 
-//Models 
-var Item = require('./app/models/item');
+//passport
+passport.use(new LocalStrategy(function (username, password, done) {
+    new User({email: username}).fetch().then(function (data) {
+        var user = data;
+        if(user === null) {
+            return done(null, false, {message: 'Invalid email or password'});
+        } else {
+            var hash = bcrypt.hashSync(password);
+            if(!bcrypt.compareSync(password, user.get('password'))) {
+                return done(null, false, {message: 'Invalid email or password'});
+            } else {
+                return done(null, user);
+            }
+        }
+    });
+}));
+
+passport.serializeUser(function (user, done) {
+    done(null, user.get('email'));
+});
+
+passport.deserializeUser(function (email, done) {
+    new User({email: email}).fetch().then(function(user) {
+        done(null, user);
+    });
+});
 
 //Controllers
+var UsersController = require('./app/controllers/users');
 var BoardsController = require('./app/controllers/boards');
 var ListsController = require('./app/controllers/lists');
 var ItemsController = require('./app/controllers/items');
@@ -25,6 +51,14 @@ app.use(bodyParser.urlencoded( {
     extended: true
 }));
 
+
+//------------------USER ROUTES-------------------------------
+//submit user login
+app.post('/api/login', UsersController.login);
+//create a new user account 
+app.post('/api/user/register', UsersController.register);
+// //delete user
+// app.post('/api/usesr/delete/:user_id', UsersController.deleteUser);
 
 //------------------BOARD ROUTES-------------------------------
 // //show board
