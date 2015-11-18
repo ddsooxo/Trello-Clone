@@ -40,6 +40,33 @@ exports.register = function (req, res){
     })
 }
 
+//post | delete user by user id
+exports.deleteUser = function(req, res){
+    var user = new User({_id: req.params.user_id});
+    user.remove(function (error, user){
+        if(user){
+            User.find({}, function (error, otherUsers){
+                if(otherUsers){
+                    res.status(200).json(otherUsers);
+                }else{
+                    console.error('Failed to delete a user' + error.stack);
+                    res.status(422).json({message: error.message});
+                }
+            })
+        }else if(error){
+            console.error('Failed to delete a user' + error.stack);
+            res.status(422).json({message: error.message});
+        }
+    })
+}
+
+
+
+
+
+
+
+
 
 
 

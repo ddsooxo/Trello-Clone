@@ -115,6 +115,26 @@ describe('UsersController', function() {
       })
     });
 
+    //delete user
+    it('should delete a user', function (done){
+      request(app).post('/api/user/delete/' + user._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end( function (err, res){
+        if(err){
+          done.fail(err);
+        }else{
+          expect(res.body.length).toBe(0);
+          var returnedUser = res.body[0];
+          expect(returnedUser).toBeUndefined();
+          done();
+        }
+      })
+    });
+
+
+
+
     // it('should login a user', function (done) {
     //   request(app).post('/api')
     //   .send({
