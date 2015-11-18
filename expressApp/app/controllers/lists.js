@@ -5,8 +5,7 @@ var Board = require('../models/item');
 var bodyParser  = require('body-parser');
 
 
-//get
-//show a list of lists
+//get | show a list of lists
 exports.showLists = function (req, res){
     List.find({_board: req.query.board_id}, function (error, lists){
         if(lists){
@@ -15,19 +14,9 @@ exports.showLists = function (req, res){
             console.log("errorrrrrr" + error.stack);
         }
     });
-    // List.find({_board: req.params.board_id}, function (error, lists){
-    //     if(lists){
-    //         res.json(lists);
-    //     }else if (error){
-    //         console.log(error.stack);
-    //         res.json({status: 400, message: error.message});
-    //     }
-    // });
 }
 
-
-//post
-//submit created list
+//post | submit created list
 exports.submitList = function (req, res){
     var list = new List({
         list_title: req.body.list_title,
@@ -47,8 +36,7 @@ exports.submitList = function (req, res){
     });
 }
 
-//POST
-//deletes list by list id
+//POST | deletes list by list id
 exports.deleteList = function (req, res){
     var list = new List({_id: req.params.list_id});
     list.remove(function (error, list){
@@ -67,8 +55,7 @@ exports.deleteList = function (req, res){
     })
 }
 
-//POST
-//updates list by list id
+//POST | updates list by list id
 exports.editList = function (req, res){
     var list = {_id: req.params.list_id};
     console.log('req.query: ' + req.query.list_title);
