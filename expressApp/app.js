@@ -57,9 +57,10 @@ app.use(bodyParser.urlencoded( {
 app.post('/api/login', UsersController.login);
 //create a new user account 
 app.post('/api/user/register', UsersController.register);
-// //delete user
-// app.post('/api/usesr/delete/:user_id', UsersController.deleteUser);
-
+//delete user
+app.post('/api/user/delete/:user_id', UsersController.deleteUser);
+//update user
+app.post('/api/user/edit/:user_id', UsersController.editUser);
 //------------------BOARD ROUTES-------------------------------
 // //show board
 app.get('/api/boards', BoardsController.showBoards);

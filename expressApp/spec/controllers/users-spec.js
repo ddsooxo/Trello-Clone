@@ -115,22 +115,45 @@ describe('UsersController', function() {
       })
     });
 
-    // it('should login a user', function (done) {
-    //   request(app).post('/api')
-    //   .send({
-    //     email:'before@each.com',
-    //     password: 'test password'
-    //   })
-    //   .expect(200)
-    //   .expect('Content-Type', /json/)
-    //   .end(function (err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     } else{
-    //       done();
-    //     }
-    //   })
-    // });
+    //delete user
+    it('should delete a user', function (done){
+      request(app).post('/api/user/delete/' + user._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end( function (err, res){
+        if(err){
+          done.fail(err);
+        }else{
+          expect(res.body.length).toBe(0);
+          var returnedUser = res.body[0];
+          expect(returnedUser).toBeUndefined();
+          done();
+        }
+      })
+    });
+
+    //update user
+    it('should update a user', function (done){
+      request(app).post('/api/user/edit/' + user._id)
+      .send({
+        full_name: 'test 4',
+        username: 'test4',
+        email: 'test4@test.com',
+        password: 'password4',
+        bio: 'hello4'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end( function (err, res){
+        if(err){
+          done.fail(err);
+        }else{
+          console.log('res.body:', res.body);
+          var returnedUser = res.body[0];
+          expect(res.body.email).toEqual('test4@test.com');
+          }
+        })
+      });
 
     });
   });

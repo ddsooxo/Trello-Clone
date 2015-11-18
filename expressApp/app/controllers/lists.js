@@ -45,7 +45,10 @@ exports.deleteList = function (req, res){
                 if(lists){
                     res.json(lists);
                 }
-                else if(error) throw error;
+                else if(error){
+                    console.log(error.stack);
+                    res.redirect('/error');
+                }
                 // console.error('list is not deleted' + error.stack);
             }) ;
         }
