@@ -33,17 +33,17 @@ describe('ItemsController', function() {
     var list;
 
     var newItem = function(res) {
-      res.body.should.have.property('item_title', 'Item Test Title01');
+      res.body.should.have.property('item_title', 'Item Test Title1');
     };
 
     beforeEach(function (done) {
-      List.create({list_title: 'test list title in beforeEach'}, function (err, newList){
+      List.create({list_title: 'List Test Title1'}, function (err, newList){
         if (err) {
           console.log(err);
         } else {
           list = newList;
 
-          Item.create({item_title: 'test item title in beforeEach', _list: list.id}, function (err, newItem) {
+          Item.create({item_title: 'Item Test Title1', _list: list.id}, function (err, newItem) {
             if (err) {
               console.log(err);
               done.fail(err);
@@ -79,7 +79,8 @@ describe('ItemsController', function() {
     it('should create a new item in a list', function (done) {  
       request(app).post('/api/item/create')
       .send({
-        item_title: 'Item Test Title01'
+        item_title: 'Item Test Title1',
+        _list: list._id
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -87,8 +88,14 @@ describe('ItemsController', function() {
         if(err){
           done.fail(err);
         }else {
-          expect(newItem);
-          done();
+          expect(res.body.item_title).toEqual('Item Test Title1');
+          Item.remove({item_title: 'Item Test Title1'}, function (err, deletedItem){
+            if(err){
+              done.fail.err('Failed to remove item with data');
+            }else{
+              done();
+            }
+          })
         }
       })
     });
