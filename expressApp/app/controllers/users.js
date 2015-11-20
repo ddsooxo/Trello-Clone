@@ -50,18 +50,20 @@ exports.deleteUser = function(req, res){
 //post | update user by user id
 exports.editUser = function(req, res){
     var hash = bcrypt.hashSync(req.body.password);
-    var userId = new User({_id: req.params.user_id});
-    User.update(userId,{
-        full_name: req.body.fullname,
+    var user = {_id: req.params.user_id};
+    console.log('user: ', user);
+    console.log('req.body.username: ',req.body.username);
+
+    User.update(user,{
+        full_name: req.body.full_name,
         username: req.body.username,
         email: req.body.email,
         password: hash,
         bio: req.body.bio
     }, 
-
-    function (error, user){
-        if(user){
-            res.status(200).json(user);
+    function (error, updatedUser){
+        if(updatedUser){
+            res.status(200).json(updatedUser);
         }else if(error){
             console.error('Failed to update a user' + error.stack);
             res.status(422).json({message: error.message});

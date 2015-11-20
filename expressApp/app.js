@@ -38,6 +38,7 @@ app.use('/api', AuthenticationMiddleware.authenticate2);
 // app.post('/api/authenticate', AuthenticationController.authenticate);
 
 //------------------USER ROUTES-------------------------------
+// app.get('/api/users', UsersController.showUsers);
 //authenticate when user logs in
 app.post('/api/login', AuthenticationController.authenticate)
 //create a new user account 

@@ -142,8 +142,8 @@ describe('UsersController', function() {
         .send({
             full_name: 'New User',
             email: 'new@email.com',
-            password: 'newusercreate',
             username: 'newuser',
+            password: 'newusercreate',
             bio: 'hello'
         })
         .expect(200)
@@ -157,7 +157,6 @@ describe('UsersController', function() {
               expect(returnedUser.email).toBe('new@email.com');
               User.findOne({ email:'new@email.com'}, function (err, newUser){
                 if(err){
-                  console.log('error line 160', err);
                 }else{
                   newUser.remove(function (err){
                     if(err){
@@ -194,30 +193,35 @@ describe('UsersController', function() {
         })
       });
 
+
     //update user
-    // it('should update a user', function (done){
-    //   request(app).post('/api/user/edit/' + testUser._id)
-    //   .send({
-    //     full_name: 'test 4',
-    //     username: 'test4',
-    //     email: 'test4@test.com',
-    //     password: 'password4',
-    //     bio: 'hello4'
-    //   })
-    //   .expect(200)
-    //   .expect('Content-Type', /json/)
-    //   .end( function (err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     }else{
-    //       console.log('res.body:', res.body);
-    //       var returnedUser = res.body[0];
-    //       expect(res.body).toBe('test4@test.com');
-    //     }
-    //   })
-    // });
-
-
+    it('should update a user', function (done){
+      request(app)
+      .post('/api/user/edit/' + testUser._id)
+      .set('x-access-token', auth.token)
+      .send({
+        full_name: 'test 4',
+        username: 'test4',
+        email: 'test4@test.com',
+        password: 'password4',
+        bio: 'hello4'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end( function (err, res){
+        if(err){
+          done.fail(err);
+        }else{
+          User.findOne({email: 'test4@test.com'}, function (err, updatedUser){
+            if(err){
+              console.log(err);
+            }else{
+              return done();
+            }
+          })
+        }
+      })
+    });
   });
 });
 
@@ -242,7 +246,7 @@ function loginUser(auth){
 
 
 
-
+//------------------AUTH USER-----------------------------//
 // "_id" : ObjectId("564e72c70c888b461b2f6758"),
 //   "full_name" : "Tea Pot",
 //   "username" : "teapot123",

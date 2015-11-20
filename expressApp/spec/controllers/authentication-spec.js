@@ -6,8 +6,8 @@ describe('AuthenticationController', function() {
   it('should authenticate the user', function (done) {
     request(app).post('/authenticate')
     .send({
-      email: 'potato@diver.com',
-      password: 'potato'
+      email: 'tea@pot.com',
+      password: 'ilikehottea'
     })      
     .expect(200)
     .expect('Content-Type', /json/)
