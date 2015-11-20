@@ -38,13 +38,14 @@ app.use('/api', AuthenticationMiddleware.authenticate2);
 // app.post('/api/authenticate', AuthenticationController.authenticate);
 
 //------------------USER ROUTES-------------------------------
+//authenticate when user logs in
 app.post('/api/login', AuthenticationController.authenticate)
 //create a new user account 
 app.post('/api/user/register', UsersController.register);
 //delete user
 app.post('/api/user/delete/:user_id', UsersController.deleteUser);
 // //update user
-// app.post('/api/user/edit/:user_id', UsersController.editUser);
+app.post('/api/user/edit/:user_id', UsersController.editUser);
 //------------------BOARD ROUTES-------------------------------
 //show board
 app.get('/api/boards', BoardsController.showBoards);

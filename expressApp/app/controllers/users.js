@@ -5,26 +5,11 @@ var AuthenticationMiddleware = require('../authentication_middleware'),
     jwt = require('jsonwebtoken'),
     bcrypt = require('bcrypt-nodejs');
 
-
-// //post | login a user
-// exports.login = function (req, res){
-//     var hash = bcrypt.hashSync(req.body.password);
-//     User.findOne({ 
-//         email: req.body.email,
-//         password: hash
-//     }, function (error, user){
-//         if(error || !user){
-//             res.status(422).json({message: 'Invalid login'});
-//         }else{
-//             res.json(user);
-//         }
-//     });
-// }
-
-
 //post | creates a new user
 exports.register = function (req, res){
     var hash = bcrypt.hashSync(req.body.password);
+    // var salt = bcrypt.genSaltSync(10);
+
     var user = new User({
         full_name: req.body.full_name,
         username: req.body.username,
@@ -32,11 +17,11 @@ exports.register = function (req, res){
         password: hash,
         bio: req.body.bio
     });
-    user.save(function (error, user){
-        if(user){
-            res.status(200).json(user);
+    user.save(function (error, newUser){
+        if (newUser){
+            res.status(200).json(newUser);
         }else if(error){
-            console.error('Failed to create new user' + error.stack);
+            console.error('Error: Failed to create new user' + error.stack);
             res.status(422).json({message: error.message});
         }
     })
@@ -66,7 +51,7 @@ exports.deleteUser = function(req, res){
 exports.editUser = function(req, res){
     var hash = bcrypt.hashSync(req.body.password);
     var userId = new User({_id: req.params.user_id});
-    user.update(userId,{
+    User.update(userId,{
         full_name: req.body.fullname,
         username: req.body.username,
         email: req.body.email,

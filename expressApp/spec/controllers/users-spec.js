@@ -102,103 +102,101 @@ describe('UsersController', function() {
   // });
 
   describe('tests with data', function() {
-    var testUser;
+      var testUser;
 
-    //test user to be created/destroyed
-    beforeEach(function (done) {
-      User.create({
-        full_name: 'Full Name beforeEach',
-        username: 'testusername',
-        email: 'before@each.com',
-        password: 'test password',
-        bio: 'test bio'
-      }, function (err, newUser){
-        if(err){
-          console.log(err);
-          done.fail(err);
-        } else {
-          testUser = newUser;
-          done();
-        }
-      })
-    });
-
-    afterEach(function (done) {
-      console.log(testUser);
-      testUser.remove(function (err){
-        if(err){
-          console.log(err);
-          done.fail(err);
-        } else{
-          done();
-        };
+      //test user to be created/destroyed
+      beforeEach(function (done) {
+        User.create({
+          full_name: 'Full Name beforeEach',
+          username: 'testusername',
+          email: 'before@each.com',
+          password: 'test password',
+          bio: 'test bio'
+        }, function (err, newUser){
+          if(err){
+            console.log(err);
+            done.fail(err);
+          } else {
+            testUser = newUser;
+            done();
+          }
+        })
       });
-    });
 
-    // //create new user
-    // it('should register a new user', function (done) {
-    //   console.log('auth.token: ',auth.token);
-    //   request(app)
-    //   .post('/api/user/register')
-    //   .set('x-access-token', auth.token)
-    //   .send({
-    //     full_name: 'test full name',
-    //     username: 'username',
-    //     email:'test@test.com',
-    //     password: 'test3password',
-    //     bio: 'test test bio'
-    //   })
-    //   .expect(200)
-    //   .expect('Content-Type', /json/)
-    //   .end(function (err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     }else {
-    //       expect(res.body.email).toEqual('test@test.com');
-    //       // User.remove({email: 'test@test.com'}, function (err, deletedUser){
-    //       //   if(err){
-    //       //     done.fail.err('Failed to remove user with data.');
-    //       //   } else{
-    //       //     done();
-    //       //   }
-    //       // });
-    //     }
-    //   })
-    // });
+      afterEach(function (done) {
+        // console.log(testUser);
+        testUser.remove(function (err){
+          if(err){
+            console.log(err);
+            done.fail(err);
+          } else{
+            done();
+          };
+        });
+      });
 
-    //delete user
-    it('should delete a user', function (done){
-      console.log('auth.token: ', auth.token);
-      console.log('test user id: ', testUser._id);
-      request(app)
-      .post('/api/user/delete/' + testUser._id)
-      .set('x-access-token', auth.token)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .end( function (err, res){
-        if(err){
-          done.fail(err);
-        }else{
-          User.findOne({ email: 'before@each.com'}, function (err, deletedUser){
-            if(err){
-              console.log(err);
-            } else{
-              console.log('deletedUser:', deletedUser);
-              return done();
-              // expect(res.body.length).toBe(0);
-              // var returnedUser = res.body[0];
-              // console.log('returnedUser: ',returnedUser);
-              // expect(returnedUser).toBeUndefined();
+      //register a new user
+      it('should create a new user', function (done) {
+        request(app)
+        .post('/api/user/register')
+        .send({
+            full_name: 'New User',
+            email: 'new@email.com',
+            password: 'newusercreate',
+            username: 'newuser',
+            bio: 'hello'
+        })
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function (err, res){
+            if (err) {
+              console.log('im in error land');
+              done.fail(err);
+            } else {
+              returnedUser = res.body;
+              expect(returnedUser.email).toBe('new@email.com');
+              User.findOne({ email:'new@email.com'}, function (err, newUser){
+                if(err){
+                  console.log('error line 160', err);
+                }else{
+                  newUser.remove(function (err){
+                    if(err){
+                      console.log(err);
+                    }else{
+                      return done();
+                    }
+                  })
+                }
+              })
             }
-          })
-          // done();
-        }
-      })
-    });
+        });
+      });
 
-    // //update user
+      //delete user
+      it('should delete a user', function (done){
+        request(app)
+        .post('/api/user/delete/' + testUser._id)
+        .set('x-access-token', auth.token)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end( function (err, res){
+          if(err){
+            done.fail(err);
+          }else{
+            User.findOne({email: 'before@each.com'}, function (err, deletedUser){
+              if(err){
+                console.log(err);
+              } else{
+                return done();
+              }
+            })
+          }
+        })
+      });
+
+    //update user
     // it('should update a user', function (done){
-    //   request(app).post('/api/user/edit/' + user._id)
+    //   request(app).post('/api/user/edit/' + testUser._id)
     //   .send({
     //     full_name: 'test 4',
     //     username: 'test4',
@@ -214,38 +212,44 @@ describe('UsersController', function() {
     //     }else{
     //       console.log('res.body:', res.body);
     //       var returnedUser = res.body[0];
-    //       expect(res.body.email).toEqual('test4@test.com');
-    //       }
-    //     })
-    //   });
+    //       expect(res.body).toBe('test4@test.com');
+    //     }
+    //   })
+    // });
 
-    });
+
+  });
 });
 
 function loginUser(auth){
-    return function (done){
-      request(app)
-        .post('/api/login')
-        .send({
-            email: 'tea@pot.com',
-            password: 'ilikehottea'
-        })
-        .expect(200)
-        .end(onResponse);
+  return function (done){
+    request(app)
+      .post('/api/login')
+      .send({
+          email: 'tea@pot.com',
+          password: 'ilikehottea'
+      })
+      .expect(200)
+      .end(onResponse);
 
-      function onResponse(err, res) {
-        console.log("res.body loginUser:", res.body);
-        auth.token = res.body.token;
-        return done();
-      }
-    };
+    function onResponse(err, res) {
+      // console.log("res.body loginUser:", res.body);
+      auth.token = res.body.token;
+      return done();
+    }
+  };
 }
 
 
 
 
-
-
-
+// "_id" : ObjectId("564e72c70c888b461b2f6758"),
+//   "full_name" : "Tea Pot",
+//   "username" : "teapot123",
+//   "email" : "tea@pot.com",
+//   "password" : ilikehottea "$2a$10$zj.LWIWr6j3uSSt2z/3lwueLO0djrILENOSE.yBBVSznE20ywgXg.",
+//   "bio" : "hot tea is all i need",
+//   "_boards" : [ ],
+//   "__v" : 0
 
 
