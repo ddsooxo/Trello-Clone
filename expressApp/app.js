@@ -37,7 +37,7 @@ app.use('/api', AuthenticationMiddleware.authenticate2);
 
 // app.post('/api/authenticate', AuthenticationController.authenticate);
 
-//------------------USER ROUTES-------------------------------
+//------------------USER ROUTES-------------------------------//
 // app.get('/api/users', UsersController.showUsers);
 //authenticate when user logs in
 app.post('/api/login', AuthenticationController.authenticate)
@@ -47,7 +47,7 @@ app.post('/api/user/register', UsersController.register);
 app.post('/api/user/delete/:user_id', UsersController.deleteUser);
 // //update user
 app.post('/api/user/edit/:user_id', UsersController.editUser);
-//------------------BOARD ROUTES-------------------------------
+//------------------BOARD ROUTES-------------------------------//
 //show board
 app.get('/api/boards', BoardsController.showBoards);
 //create board
@@ -58,7 +58,7 @@ app.post('/api/board/delete/:board_id', BoardsController.deleteBoard);
 app.post('/api/board/edit/:board_id', BoardsController.editBoard);
 
 
-//-------------------LIST ROUTES-------------------------------
+//-------------------LIST ROUTES-------------------------------//
 //show lists
 app.get('/api/lists', ListsController.showLists);
 //create lists
@@ -69,7 +69,7 @@ app.post('/api/list/delete/:list_id', ListsController.deleteList);
 app.post('/api/list/edit/:list_id', ListsController.editList);
 
 
-//-------------------ITEM ROUTES-------------------------------
+//-------------------ITEM ROUTES-------------------------------//
 //show items
 app.get('/api/items', ItemsController.showItems);
 //create items
@@ -80,15 +80,9 @@ app.post('/api/item/delete/:item_id', ItemsController.deleteItem);
 app.post('/api/item/edit/:item_id', ItemsController.editItem);
 
 
-var port = process.env.PORT || 3000; 
-
-app.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost:' + port + '/api');
-});
-
 
 //port
-app.listen(port);
-console.log('magically...listening on port 3000');
+app.listen(3000);
+console.log('listening on port 3000');
 exports.app = app;
 

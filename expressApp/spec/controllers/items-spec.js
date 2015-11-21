@@ -42,7 +42,6 @@ describe('ItemsController', function() {
           console.log(err);
         } else {
           list = newList;
-
           Item.create({item_title: 'Item Test Title1', _list: list.id}, function (err, newItem) {
             if (err) {
               console.log(err);
@@ -79,21 +78,35 @@ describe('ItemsController', function() {
     it('should create a new item in a list', function (done) {  
       request(app).post('/api/item/create')
       .send({
-        item_title: 'Item Test Title1',
+        item_title: 'Item Test Title123',
         _list: list._id
       })
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function (err, res){
+        expect(res.body.item_title).toEqual('Item Test Title123');
         if(err){
           done.fail(err);
         }else {
-          done();
+          Item.findOne({item_title: 'Item Test Title123'}, function (err, newItem){
+            if(err){
+              console.log(err)
+            }else{
+              newItem.remove(function (err){
+                if(err){
+                  console.log(err);
+                }else{
+                  return done();
+                }
+              })
+              console.log('newItem: ', newItem);
+            }
+          })
         }
       })
     });
 
-    //delete an item of a list
+    // delete an item of a list
     // it('should delete an item of a list', function (done) {
     //   request(app).post('/api/item/delete/' + item._id)
     //   .expect(200)
@@ -102,9 +115,14 @@ describe('ItemsController', function() {
     //     if(err){
     //       done.fail(err);
     //     }else {
-    //       expect(res.body).toBeUndefined();
-    //       console.log(res.body);
-    //       done();
+    //       Item.findOne({item_title: 'Item Test Title1'}, function (err, deletedItem){
+    //         console.log('deletedItem:', deletedItem);
+    //         if(err){
+    //           console.log(err);
+    //         }else {
+    //           return done();
+    //         }
+    //       })
     //     }
     //   })
     // });

@@ -1,3 +1,4 @@
+//Model
 var User = require('../models/user');
 
 //encryption
@@ -51,9 +52,6 @@ exports.deleteUser = function(req, res){
 exports.editUser = function(req, res){
     var hash = bcrypt.hashSync(req.body.password);
     var user = {_id: req.params.user_id};
-    console.log('user: ', user);
-    console.log('req.body.username: ',req.body.username);
-
     User.update(user,{
         full_name: req.body.full_name,
         username: req.body.username,
