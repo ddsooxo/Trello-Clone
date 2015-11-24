@@ -1,7 +1,7 @@
 //models
 var Board = require('../models/board');
 var List = require('../models/list');
-
+var User = require('../models/user');
 
 //get | show a list of boards
 exports.showBoards = function (req, res){
