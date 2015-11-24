@@ -9,6 +9,7 @@
       $scope.boardId = $routeParams.board_id;
       $scope.board_title = $routeParams.board_title;
       console.log($scope.board_title);
+      
       //show lists
       $http.get('/api/lists?board_id=' + $routeParams.board_id)
          .success(function(data) {

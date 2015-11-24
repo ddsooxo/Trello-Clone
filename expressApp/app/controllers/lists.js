@@ -49,7 +49,6 @@ exports.deleteList = function (req, res){
                     console.log(error.stack);
                     res.redirect('/error');
                 }
-                // console.error('list is not deleted' + error.stack);
             }) ;
         }
         else if(error){

@@ -1,7 +1,9 @@
 <div class="container">
 <body>
 <div class="jumbotron" style="margin-top: 20px">
-  <h2>Register</h2>
+    <!-- Successgful Registering Notification -->
+    <span id ="successRegister"> </span>
+    <h2>Register</h2>
 
   <!-- User Input | Register -->
    <form role="form" ng-submit="registerCtrl.register()">
@@ -28,9 +30,9 @@
           <input type="text"  ng-model="registerCtrl.formData.bio" placeholder="I like apple pies and crossiants" class="form-control">
         </div>
         <input type="submit" class="btn btn-primary" style="margin-top: 10px" value="Register">
+        <a href="/#/login" class="btn btn-primary" style="margin-top: 10px; margin-left: 10px;"> Back </a>
       </div>
     </div>
   </form>
 </body>
-  <a href="/#/login" style="margin-top: 10px"> Cancel </a>
 </div>

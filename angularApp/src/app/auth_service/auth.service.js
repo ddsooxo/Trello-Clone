@@ -37,11 +37,11 @@
       };
 
       $http.defaults.headers.common['X-ACCESS-TOKEN'] = token;
-      console.log($http.defaults.headers.common['X-ACCESS-TOKEN']);
+      // console.log($http.defaults.headers.common['X-ACCESS-TOKEN']);
       $cookieStore.put('globals', $rootScope.globals);
     }
 
-    // Cleanup the stored credentials
+    // leanup the stored credentials
     function ClearCredentials() {
       $rootScope.globals = {};
       $cookieStore.remove('globals');

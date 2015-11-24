@@ -10,8 +10,8 @@ var userSchema = new Schema({
   password: {type: String, required: true},
   bio: {type: String},
   created_at: Date,
-  updated_at: Date,
-  _boards: [{type: mongoose.Schema.Types.ObjectId, ref:'Board'}]
+  updated_at: Date
+  // _boards: [{type: mongoose.Schema.Types.ObjectId, ref:'Board'}]
 });
 
 var User = mongoose.model('User', userSchema);

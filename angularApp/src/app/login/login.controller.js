@@ -20,6 +20,13 @@
                     AuthenticationService.SetCredentials(vm.email, vm.password);
                     $location.path('/boards');
                 } else {
+                    
+                    // (function initController() {
+                    //     // reset login status
+                    //     AuthenticationService.ClearCredentials();
+                    // })();
+
+                    //if login fails
                     var notification = document.getElementById('notification');
                     notification.innerHTML = 'Invalid Email/Password. Please Try Again';
                     notification.style.display = 'block';

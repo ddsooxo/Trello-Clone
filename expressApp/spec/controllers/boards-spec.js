@@ -55,5 +55,7 @@ describe('BoardsController', function() {
     });
     
   });
+
+  
 });
 

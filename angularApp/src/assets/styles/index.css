@@ -25,6 +25,15 @@
   margin: 2px;
   /*border: blue solid .25em;*/
 }
+#successRegister{
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+  font-weight: bold;
+  display: none;
+  width: 80%;
+  margin: 2px;
+}
 
 .login{
   max-width: 400px;
