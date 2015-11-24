@@ -17,18 +17,19 @@
         httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should be return an array list', function() {
-      httpBackend.whenGET("/api/items").respond([]);
+    // it('should be return an array list', function() {
+    //   httpBackend.whenGET("/api/items").respond([]);
 
-      var result;
-      service.getItems('564122f61b4d89a52b92b585')
-      .then(function(items) {
-        console.log('did my test run');
-        result = items;
-      });
+    //   var result;
+    //   service.getItems('564122f61b4d89a52b92b585')
+    //   .then(function(items) {
+    //     console.log('did my test run');
+    //     result = items;
+    //   });
 
-      httpBackend.flush();
-      expect(result).toEqual([]);
-    });
+    //   httpBackend.flush();
+    //   expect(result).toEqual([]);
+    // });
+  
   });
 })();
