@@ -15,6 +15,7 @@
       vm.board_title = $routeParams.board_title;
 
       console.log('$routeParams.list_id: ', $routeParams.list_id);
+      
       //show items
       ItemService.getItems(vm.listId)
         .then(function (data){

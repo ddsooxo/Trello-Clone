@@ -25,3 +25,7 @@
   margin: 2px;
   border: blue solid .25em;
 }
+
+.login{
+  max-width: 400px;
+}

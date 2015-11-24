@@ -1,0 +1,20 @@
+<div class="container">
+
+  <h2>Create a new account</h2>
+
+  <!-- User Input | Register -->
+   <form role="form" ng-submit="registerCtrl.register()">
+    <div class="row" style="margin-left: 20px">
+      <div class="input-group">
+        <input type="text" ng-model="formData.full_name" placeholder="Full Name" class="form-control">
+        <input type="email" ng-model="formData.email" placeholder="example@email.com" class="form-control">
+        <input type="text" ng-model="formData.username" placeholder="username" class="form-control">
+        <input type="password" ng-model="formData.password" placeholder="password" class="form-control">
+        <input type="text" ng-model="formData.bio" placeholder="What do you want to say about yourself?" class="form-control">
+        <input type="submit" class="btn btn-primary" value="Submit" style="margin-top: 10px">
+        <a href="/#/" class="btn btn-primary" style="margin-top: 10px" "margin-left: 20px"> Cancel </a>
+      </div>
+    </div>
+  </form>
+</div>
+

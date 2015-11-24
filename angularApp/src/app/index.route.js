@@ -7,10 +7,20 @@
 
   function routeConfig($routeProvider) {
     $routeProvider
+      .when('/', {
+        templateUrl: 'app/home/home.html'
+        // controller: 'HomeController',
+        // controllerAs: 'homeCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+
+    $routeProvider
       .when('/items', {
         templateUrl: 'app/item/item.html',
         controller: 'ItemController',
-        controllerAs: 'items'
+        controllerAs: 'itemCtrl'
       })
       .otherwise({
         redirectTo: '/lists'
@@ -30,11 +40,33 @@
       .when('/boards', {
         templateUrl: 'app/board/board.html',
         controller: 'BoardController',
-        controllerAs: 'board'
+        controllerAs: 'boardCtrl'
       })
       .otherwise({
         redirectTo: '/lists'
       });
+
+    $routeProvider
+      .when('/login', {
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'loginCtrl'
+      })
+      .otherwise({
+        redirectTo: '/login'
+      });
+
+    $routeProvider
+      .when('/register', {
+        templateUrl: 'app/register/register.html'
+        // controller: 'RegisterController',
+        // controllerAs: 'registerCtrl'
+      })
+      .otherwise({
+        redirectTo: '/login'
+      });
+
+
   }
 
 })();

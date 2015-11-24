@@ -18,19 +18,25 @@ exports.showBoards = function (req, res){
 //post | submit created list
 exports.submitBoard = function (req, res){
     var board = new Board({
-        title: req.body.title
+        title: req.body.title,
+        _user: req.body.user_id
     });
     // console.log('req.body.title: ' + req.body.title);
     board.save(function (error, board){
         if(board){
-           Board.find({}, function (error, boards){ 
-                if(boards){
-                    res.json(boards);
-                }
-                else if(error){
-                    console.error('Failed to save' + error.stack);
-                }
-            });
+        res.json(board);
+           // Board.find({}, function (error, boards){ 
+           //      if(boards){
+           //          res.json(boards);
+           //      }
+           //      else if(error){
+           //          console.error('Failed to save' + error.stack);
+           //      }
+           //  });
+        }
+        else if(error){
+            console.error('Failed to save' + error.stack);
+            res.json({status: 400, message: error.message});
         }
     });
 }

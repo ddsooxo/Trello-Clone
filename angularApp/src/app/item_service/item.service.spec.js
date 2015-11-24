@@ -17,7 +17,7 @@
         httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should be empty list', function() {
+    it('should be return an array list', function() {
       httpBackend.whenGET("/api/items").respond([]);
 
       var result;
@@ -30,10 +30,5 @@
       httpBackend.flush();
       expect(result).toEqual([]);
     });
-
-    // it('should set current list to 1', function() {
-    //   expect(service.setList(1)).toEqual(1);
-    //   expect(service.getList()).toEqual(1);
-    // });
   });
 })();
