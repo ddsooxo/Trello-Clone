@@ -57,12 +57,12 @@ exports.deleteBoard = function (req, res){
 //POST | updates board by board id
 exports.editBoard = function (req, res){
     var board = {_id: req.params.board_id};
-    console.log('req.query: ' + req.query.title);
+    // console.log('req.query: ' + req.query.title);
     Board.update(board, {title: req.query.title}, function (error, board){
         if(board){
             Board.find({}, function (error, board){
                 res.json(board);
-                console.log(board);
+                // console.log(board);
             })
         } else if(error){
             console.log(error.stack);

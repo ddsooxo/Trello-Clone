@@ -18,6 +18,7 @@ exports.submitItem = function (req, res){
     var item = new Item({
         item_title: req.body.item_title,
         _list: req.body.list_id
+        // _user: req.body.user_id
     });
     item.save(function (error, item){
         if(item){
@@ -58,4 +59,3 @@ exports.editItem = function (req, res){
         }
     })
 }
-
