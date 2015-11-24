@@ -33,7 +33,7 @@
     }
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-      // The /login and /register routes can be reached without a user being logged in.
+      // The '/', '/login' and '/register' routes can be reached without a user being logged in.
       // Otherwise redirect to login page if not logged in and trying to access a restricted page
       var restrictedPage = $.inArray($location.path(), ['/', '/login', '/register']) === -1;
       var loggedIn = $rootScope.globals.currentUser;

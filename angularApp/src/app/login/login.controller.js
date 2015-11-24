@@ -20,6 +20,16 @@
                     AuthenticationService.SetCredentials(vm.email, vm.password);
                     $location.path('/boards');
                 } else {
+                    var notification = document.getElementById('notification');
+                    notification.innerHTML = 'Invalid Email/Password. Please Try Again';
+                    notification.style.display = 'block';
+
+                    setTimeout(function (){
+                      var notification = document.getElementById('notification');
+                      notification.style.display = 'none';
+                      notification.innerHTML = '';
+                    }, 3000);
+                    
                     console.log(response);
                     vm.dataLoading = false;
                 }
@@ -30,37 +40,15 @@
 })();
 
 
-// (function () {
-//     'use strict';
- 
-//     angular
-//         .module('mytodo')
-//         .controller('LoginController', LoginController);
- 
-//     LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-//     function LoginController($location, AuthenticationService, FlashService) {
-//         var vm = this;
- 
-//         vm.login = login;
- 
-//         (function initController() {
-//             // reset login status
-//             AuthenticationService.ClearCredentials();
-//         })();
- 
-//         function login() {
-//             vm.dataLoading = true;
-//             AuthenticationService.Login(vm.email, vm.password, function (response) {
-//                 if (response.success) {
-//                     AuthenticationService.SetCredentials(vm.email, vm.password);
-//                     $location.path('/');
-//                 } else {
-//                     FlashService.Error(response.message);
-//                     vm.dataLoading = false;
-//                 }
-//             });
-//         };
-//     }
- 
-// })();
+
+
+
+
+
+
+
+
+
+
+
 

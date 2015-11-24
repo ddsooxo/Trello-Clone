@@ -3,21 +3,19 @@
   'use strict';
 
   angular.module('mytodo')
-    .controller('RegisterController', ['$routeParams','RegisterService', function ($routeParams, RegisterService) {
+    .controller('RegisterController', ['UserService','$routeParams', function (UserService, $routeParams) {
       //add properties to scope i.e: todos, list_title, later available for view
       
       var vm = this;
       vm.users = [];
       vm.formData = {};
-      vm.boards = [];
-      var boardId = $routeParams.boardId;
-
-      console.log('$routeParams.user_id: ', $routeParams.user_id);
+      var userId = $routeParams.user_id;
+      vm.userId = $routeParams.user_id;
       
       //register a new user
       vm.register = function () {
-        vm.formData.user_id  = vm.userId;
-        console.log('vm.formData: ', vm.formData);
+        // vm.formData.user_id  = vm.userId;
+        console.log('user; vm.formData: ', vm.formData);
         UserService.register(vm.formData)
           .then(function (data){
             vm.users.push(data);

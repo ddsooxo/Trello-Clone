@@ -1,39 +1,24 @@
-// (function() {
-//   'use strict';
+(function() {
+  'use strict';
 
-//   angular.module('mytodo')
-//     .factory('UserService', ['$http','$q', function ($http, $q) {
-//       var service = {};  
+  angular.module('mytodo')
+    .factory('UserService', ['$http','$q', function ($http, $q) {
+      var service = {};  
 
-//       service.login = function(){
-//         console.log('login:', login);
-//         var deferred = $q.defer();
-//         $http.get('/api/login')
-//            .success(function (data) {
-//                console.log(data);
-//                deferred.resolve(data);
-//            })
-//            .error(function(data) {
-//             console.log('Error: ', data);
-//             deferred.reject('Error: ' + data);
-//            });
-//            return deferred.promise;
-//       }
-
-//       // create item
-//       service.createItem = function (formData) {
-//         var deferred = $q.defer();
-//         $http.post('/api/item/create', formData)
-//            .success(function (data) {
-//               deferred.resolve(data);
-//               console.log(data);
-//            })
-//            .error(function (data) {
-//               deferred.reject(data);
-//               console.log('Error: ' + data);
-//            });
-//            return deferred.promise;
-//       };
+      // create item
+      service.register = function (formData) {
+        var deferred = $q.defer();
+        $http.post('/api/user/register', formData)
+           .success(function (data) {
+              deferred.resolve(data);
+              console.log(data);
+           })
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error. Failed to register User: ' + data);
+           });
+           return deferred.promise;
+      };
         
       // //delete item
       // service.removeItem = function (id, listId) {
@@ -65,9 +50,9 @@
       //      return deferred.promise;
       // };
 
-//       return service;
-//     }]);
-// })();
+      return service;
+    }]);
+})();
 
 
 // (function () {

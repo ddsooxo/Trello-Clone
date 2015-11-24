@@ -23,7 +23,7 @@
   width: 80%;
   color: red;
   margin: 2px;
-  border: blue solid .25em;
+  /*border: blue solid .25em;*/
 }
 
 .login{

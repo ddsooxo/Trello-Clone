@@ -1,20 +1,34 @@
 <div class="container">
 
-  <h2>Create a new account</h2>
+  <h2>Register</h2>
 
   <!-- User Input | Register -->
    <form role="form" ng-submit="registerCtrl.register()">
-    <div class="row" style="margin-left: 20px">
-      <div class="input-group">
-        <input type="text" ng-model="formData.full_name" placeholder="Full Name" class="form-control">
-        <input type="email" ng-model="formData.email" placeholder="example@email.com" class="form-control">
-        <input type="text" ng-model="formData.username" placeholder="username" class="form-control">
-        <input type="password" ng-model="formData.password" placeholder="password" class="form-control">
-        <input type="text" ng-model="formData.bio" placeholder="What do you want to say about yourself?" class="form-control">
-        <input type="submit" class="btn btn-primary" value="Submit" style="margin-top: 10px">
-        <a href="/#/" class="btn btn-primary" style="margin-top: 10px" "margin-left: 20px"> Cancel </a>
+    <div class="row">
+      <div class="input-group" id="register">
+        <div>
+          <label for="text">Full Name</label>
+          <input type="text"  ng-model="registerCtrl.full_name" placeholder="John Smith" class="form-control">
+        </div>
+        <div>
+          <label for="text">Username</label>
+          <input type="text"  ng-model="registerCtrl.username" placeholder="johnapplepie" class="form-control">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email"  ng-model="registerCtrl.email" placeholder="example@email.com" class="form-control">
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" ng-model="registerCtrl.password" placeholder="password" class="form-control">
+        </div>
+        <div>
+          <label for="text">Bio</label>
+          <input type="text"  ng-model="registerCtrl.bio" placeholder="I like apple pies and crossiants" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-primary" style="margin-top: 10px" value="Register">
       </div>
     </div>
   </form>
+  <a href="/#/login" style="margin-top: 10px"> Cancel </a>
 </div>
-

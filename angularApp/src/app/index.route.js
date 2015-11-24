@@ -58,9 +58,9 @@
 
     $routeProvider
       .when('/register', {
-        templateUrl: 'app/register/register.html'
-        // controller: 'RegisterController',
-        // controllerAs: 'registerCtrl'
+        templateUrl: 'app/register/register.html',
+        controller: 'RegisterController',
+        controllerAs: 'registerCtrl'
       })
       .otherwise({
         redirectTo: '/login'
