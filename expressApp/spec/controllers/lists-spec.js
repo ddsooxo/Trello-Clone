@@ -2,10 +2,11 @@ var request = require('supertest');
 var List = require('../../app/models/list');
 var Board = require('../../app/models/board');
 var ListsController = require('../../app/controllers/lists');
-
 var app = require('../../app').app;
   
+describe('ListsController', function() {
   describe('without data', function(){
+    
     //return lists
     it('should return list of lists', function (done) {
       request(app).get('/api/lists')
@@ -23,7 +24,6 @@ var app = require('../../app').app;
 
   })
 
-describe('ListsController', function() {
   describe('with data', function() {
     var list;
     var testBoard;
@@ -34,8 +34,7 @@ describe('ListsController', function() {
           console.log(err);
         }else{
           testBoard = newBoard;
-          List.create({list_title: 'Test List Title1'}, function (err, newList){
-            // console.log('List.list_title: ',List.list_title);
+          List.create({list_title: 'Test List Title1', _board: testBoard._id}, function (err, newList){
             if (err) {
               console.log(err);
               done.fail(err);
@@ -65,72 +64,76 @@ describe('ListsController', function() {
       });
     });
 
-    // //return a new created list
-    // it('should create a new list in a board', function (done) {  
-    //   request(app).post('/api/list/create')
-    //   .send({
-    //     list_title: 'new list title from createList',
-    //     _board: testBoard._id
-    //   })
-    //   .expect(200)
-    //   .expect('Content-Type', /json/)
-    //   .end(function (err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     }else {
-    //       List.findOne({list_title: 'new list title from createList'}, function (err, newList){
-    //         if(err){
-    //           console.log(err)
-    //         }else{
-    //           expect(res.body.list_title).toEqual('new list title from createList');
-    //           newList.remove(function (err){
-    //             if(err){
-    //               console.log(err);
-    //             }else{
-    //               return done();
-    //             }
-    //           })
-    //           console.log('newList: ', newList);
-    //         }
-    //       })
-    //     }
-    //   })
-    // });
+    //create a new list in a board
+    it('should create a new list in a board', function (done) {  
+      request(app).post('/api/list/create')
+      .send({
+        list_title: 'New List in Board',
+        _board: testBoard._id
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          List.findOne({list_title: 'New List in Board'}, function (err, newList){
+            if(err){
+              console.log(err)
+            }else{
+              newList.remove(function (err){
+                if(err){
+                  console.log(err);
+                }else{
+                  return done();
+                }
+              })
+            }
+            })
+        }
+      })
+    });
     
-    // //create a new list
-    //   it('should create a new list', function (done) {
-    //     request(app)
-    //     .post('/api/list/create')
-    //     .send({
-    //       list_title: 'new list title from createList',
-    //       _board: testBoard._id
-    //     })
-    //     .expect(200)
-    //     .expect('Content-Type', /json/)
-    //     .end(function (err, res){
-    //         if (err) {
-    //           done.fail(err);
-    //         } else {
-    //           returnedList = res.body;
-    //           console.log('res.body: ', res.body);
-    //           expect(returnedList.list_title).toBe('new list title from createList');
-    //           List.findOne({ list_title:'new list title from createList'}, function (err, newList){
-    //             if(err){
-    //             }else{
-    //               newList.remove(function (err){
-    //                 if(err){
-    //                   console.log(err);
-    //                 }else{
-    //                   return done();
-    //                 }
-    //               })
-    //             }
-    //           })
-    //         }
-    //     });
-    //   });
+    // delete an list of a list
+    it('should delete an list of a list', function (done) {
+      request(app).post('/api/list/delete/' + list._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          List.findOne({list_title: 'Test Board Title'}, function (err, deletedList){
+            if(err){
+              console.log(err);
+            }else {
+              return done();
+            }
+          })
+        }
+      })
+    });
 
-
+      //update an list of a board
+    it('should udate an list of a list', function (done) {
+      request(app).post('/api/list/edit/' + list._id + '?list_title=' + list.list_title)
+      .send({list_title: 'Updated test list title', _list: list._id})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          List.findOne({list_title: 'Updated test list title', _board: testBoard._id}, function (err, updatedList){
+            if(err){
+              console.log(err);
+            }else{
+              return done();
+            }
+          })
+        }
+      })
+    });
 
 
   });

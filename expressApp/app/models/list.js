@@ -7,7 +7,8 @@ var listSchema = new Schema({
   list_title: {type: String, required: true},
   created_at: Date,
   updated_at: Date,
-  _items: [{type: mongoose.Schema.Types.ObjectId, ref:'Item'}],
+  // _user: { type: mongoose.Schema.Types.ObjectId, ref:'User', required: true },
+  // _items: [{type: mongoose.Schema.Types.ObjectId, ref:'Item'}],
   _board: [{type: mongoose.Schema.Types.ObjectId, ref: 'Board'}]
 });
 
