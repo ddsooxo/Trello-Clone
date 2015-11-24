@@ -19,6 +19,8 @@
         UserService.register(vm.formData)
           .then(function (data){
             vm.users.push(data);
+            var successfulRegister = document.getElementById('successRegister');
+            succesfulRegister.innerHTML = 'Congratulations! You have successfully created your account';
           })
           .catch(function(err) {
           console.log('createdUser error: ' + err);

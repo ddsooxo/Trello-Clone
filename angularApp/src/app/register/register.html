@@ -1,5 +1,6 @@
 <div class="container">
-
+<body>
+<div class="jumbotron" style="margin-top: 20px">
   <h2>Register</h2>
 
   <!-- User Input | Register -->
@@ -8,27 +9,28 @@
       <div class="input-group" id="register">
         <div>
           <label for="text">Full Name</label>
-          <input type="text"  ng-model="registerCtrl.full_name" placeholder="John Smith" class="form-control">
+          <input type="text"  ng-model="registerCtrl.formData.full_name" placeholder="John Smith" class="form-control">
         </div>
         <div>
           <label for="text">Username</label>
-          <input type="text"  ng-model="registerCtrl.username" placeholder="johnapplepie" class="form-control">
+          <input type="text"  ng-model="registerCtrl.formData.username" placeholder="johnapplepie" class="form-control">
         </div>
         <div>
           <label for="email">Email</label>
-          <input type="email"  ng-model="registerCtrl.email" placeholder="example@email.com" class="form-control">
+          <input type="email"  ng-model="registerCtrl.formData.email" placeholder="example@email.com" class="form-control">
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" ng-model="registerCtrl.password" placeholder="password" class="form-control">
+          <input type="password" ng-model="registerCtrl.formData.password" placeholder="password" class="form-control">
         </div>
         <div>
           <label for="text">Bio</label>
-          <input type="text"  ng-model="registerCtrl.bio" placeholder="I like apple pies and crossiants" class="form-control">
+          <input type="text"  ng-model="registerCtrl.formData.bio" placeholder="I like apple pies and crossiants" class="form-control">
         </div>
         <input type="submit" class="btn btn-primary" style="margin-top: 10px" value="Register">
       </div>
     </div>
   </form>
+</body>
   <a href="/#/login" style="margin-top: 10px"> Cancel </a>
 </div>
