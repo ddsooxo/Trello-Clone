@@ -4,40 +4,18 @@ var express = require('express'),
     path = require('path'),
     _ = require('lodash'),
     bodyParser = require('body-parser'),
-    passport = require('passport'),
     bcrypt = require('bcrypt-nodejs'),
-    LocalStrategy = require('passport-local').Strategy;
+    jwt = require('jsonwebtoken');
 
 //MongoDB
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/mytodoapp');
 
-//passport
-passport.use(new LocalStrategy(function (username, password, done) {
-    new User({email: username}).fetch().then(function (data) {
-        var user = data;
-        if(user === null) {
-            return done(null, false, {message: 'Invalid email or password'});
-        } else {
-            var hash = bcrypt.hashSync(password);
-            if(!bcrypt.compareSync(password, user.get('password'))) {
-                return done(null, false, {message: 'Invalid email or password'});
-            } else {
-                return done(null, user);
-            }
-        }
-    });
-}));
+//Secret variable
+app.set('superSecret', 'thisismysuperdupertopsecret');
 
-passport.serializeUser(function (user, done) {
-    done(null, user.get('email'));
-});
-
-passport.deserializeUser(function (email, done) {
-    new User({email: email}).fetch().then(function(user) {
-        done(null, user);
-    });
-});
+//Models
+var User = require('./app/models/user');
 
 //Controllers
 var UsersController = require('./app/controllers/users');
@@ -45,24 +23,32 @@ var BoardsController = require('./app/controllers/boards');
 var ListsController = require('./app/controllers/lists');
 var ItemsController = require('./app/controllers/items');
 
-//Dependencies 
+var AuthenticationController = require('./app/controllers/authentication');
+var AuthenticationMiddleware = require('./app/authentication_middleware');
+
+
+//Dependencies | bodyParser, Authenticate(Run the authenticate method for all routes that starts with '/api')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {
     extended: true
 }));
 
+app.use('/api', AuthenticationMiddleware.authenticate2);
 
-//------------------USER ROUTES-------------------------------
-//submit user login
-app.post('/api/login', UsersController.login);
+// app.post('/api/authenticate', AuthenticationController.authenticate);
+
+//------------------USER ROUTES-------------------------------//
+// app.get('/api/users', UsersController.showUsers);
+//authenticate when user logs in
+app.post('/api/login', AuthenticationController.authenticate)
 //create a new user account 
 app.post('/api/user/register', UsersController.register);
 //delete user
 app.post('/api/user/delete/:user_id', UsersController.deleteUser);
-//update user
+// //update user
 app.post('/api/user/edit/:user_id', UsersController.editUser);
-//------------------BOARD ROUTES-------------------------------
-// //show board
+//------------------BOARD ROUTES-------------------------------//
+//show board
 app.get('/api/boards', BoardsController.showBoards);
 //create board
 app.post('/api/board/create', BoardsController.submitBoard);
@@ -72,8 +58,8 @@ app.post('/api/board/delete/:board_id', BoardsController.deleteBoard);
 app.post('/api/board/edit/:board_id', BoardsController.editBoard);
 
 
-//-------------------LIST ROUTES-------------------------------
-// //show lists
+//-------------------LIST ROUTES-------------------------------//
+//show lists
 app.get('/api/lists', ListsController.showLists);
 //create lists
 app.post('/api/list/create', ListsController.submitList);
@@ -83,7 +69,7 @@ app.post('/api/list/delete/:list_id', ListsController.deleteList);
 app.post('/api/list/edit/:list_id', ListsController.editList);
 
 
-//-------------------ITEM ROUTES-------------------------------
+//-------------------ITEM ROUTES-------------------------------//
 //show items
 app.get('/api/items', ItemsController.showItems);
 //create items

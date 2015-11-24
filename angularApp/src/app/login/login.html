@@ -1,0 +1,29 @@
+<div class="container">
+<body>
+  <div class="jumbotron" style="margin-top: 20px">
+  <h2>Login</h2>
+      <!-- 'Unsuccessful Authentication' notication for the user -->
+      <span id ="notification"> </span>
+
+      <!-- User Input | Register -->
+      <form role="form" ng-submit="loginCtrl.login()">
+        <div clas="row" class="input-group" id="login">
+          <div>
+            <label for="email">Email</label>
+            <input type="email"  ng-model="loginCtrl.email" placeholder="example@email.com" class="form-control">
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" ng-model="loginCtrl.password" placeholder="password" class="form-control">
+          </div>
+          <span class="input-group-btn">
+            <input type="submit" class="btn btn-primary" style="margin-top: 10px" value="Login">
+          </span>
+          </div>
+      </form>
+    <a href="/#/register" style="margin-top: 10px"> Not a member? Click here to create an account </a>
+  </div>
+</body>
+
+
+</div>

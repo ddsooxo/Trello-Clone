@@ -1,15 +1,16 @@
 <div class="container">
 <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
 <a href="/#/lists" class="btn btn-primary" style="margin-top: 10px">Lists</a>
-  <h2>{{items.list_title}}</h2>
+  <h2>{{itemCtrl.list_title}}</h2>
 
+ <!-- User Notification if any error occurs-->
   <span id ="notification"> </span>
   
   <!-- Todos Input | Create Item -->
-   <form role="form" ng-submit="items.createItem()">
+   <form role="form" ng-submit="itemCtrl.createItem()">
     <div class="row">
       <div class="input-group">
-        <input type="text" ng-model="items.formData.item_title" placeholder="What needs to be done?" class="form-control">
+        <input type="text" ng-model="itemCtrl.formData.item_title" placeholder="What needs to be done?" class="form-control">
         <span class="input-group-btn">
           <input type="submit" class="btn btn-primary" value="Add">
         </span>
@@ -18,17 +19,17 @@
   </form>
   
   <!-- Todos Input | Show items, delete and edit an item -->
-  <div ui-sortable ng-model="items.todos">
-  <p class="form-group" ng-repeat="todo in items.todos" style="padding:5px 10px; cursor: move;">
+  <div ui-sortable ng-model="itemCtrl.todos">
+  <p class="form-group" ng-repeat="todo in itemCtrl.todos" style="padding:5px 10px; cursor: move;">
     <input type="text" ng-model="todo.item_title" class="form-control" style="float:left; width: 80%;">
     <!-- Delete item -->
     <span class="input-group-btn">
-      <button class="btn btn-danger" ng-click="items.removeItem(todo._id)" aria-label="Remove">X</button>
+      <button class="btn btn-danger" ng-click="itemCtrl.removeItem(todo._id)" aria-label="Remove">X</button>
     <!-- Edit item --> 
-      <button class="btn btn-primary" ng-click="items.editItem(todo._id, todo.item_title)" aria-label="Edit">Edit</button>
+      <button class="btn btn-primary" ng-click="itemCtrl.editItem(todo._id, todo.item_title)" aria-label="Edit">Edit</button>
     </span>
   </p>
-  <a href="/#/lists?board_title={{items.board_title}}&board_id={{items.boardId}}" class="btn btn-info">Back to Lists</a>
+  <a href="/#/lists?board_title={{itemCtrl.board_title}}&board_id={{itemCtrl.boardId}}" class="btn btn-info">Back to Lists</a>
   </div> 
 </div>
 

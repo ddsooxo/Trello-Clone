@@ -6,7 +6,6 @@ var ListsController = require('../../app/controllers/lists');
 var app = require('../../app').app;
   
   describe('without data', function(){
-
     //return lists
     it('should return list of lists', function (done) {
       request(app).get('/api/lists')
@@ -27,16 +26,16 @@ var app = require('../../app').app;
 describe('ListsController', function() {
   describe('with data', function() {
     var list;
-    var board;
+    var testBoard;
 
     beforeEach(function (done) {
       Board.create({title: 'Test Board Title'}, function (err, newBoard){
         if(err){
           console.log(err);
         }else{
-          board = newBoard;
+          testBoard = newBoard;
           List.create({list_title: 'Test List Title1'}, function (err, newList){
-            console.log('List.list_title: ',List.list_title);
+            // console.log('List.list_title: ',List.list_title);
             if (err) {
               console.log(err);
               done.fail(err);
@@ -50,7 +49,7 @@ describe('ListsController', function() {
     });
 
     afterEach(function(done) {
-      board.remove(function (err, removedBoard){
+      testBoard.remove(function (err, removedBoard){
         if(err){
           console.log(err);
         }else{
@@ -66,13 +65,12 @@ describe('ListsController', function() {
       });
     });
 
-
-    //return a new list
+    // //return a new created list
     // it('should create a new list in a board', function (done) {  
     //   request(app).post('/api/list/create')
     //   .send({
-    //     list_title: 'Test List Title1',
-    //     _board: board._id
+    //     list_title: 'new list title from createList',
+    //     _board: testBoard._id
     //   })
     //   .expect(200)
     //   .expect('Content-Type', /json/)
@@ -80,34 +78,58 @@ describe('ListsController', function() {
     //     if(err){
     //       done.fail(err);
     //     }else {
-    //       expect(res.body.list_title).toBe(list.list_title);
-    //       List.remove({item_title: 'List Test Title1'}, function (err, deletedList){
+    //       List.findOne({list_title: 'new list title from createList'}, function (err, newList){
     //         if(err){
-    //           done.fail.err('Failed to remove list with data');
+    //           console.log(err)
     //         }else{
-    //           done();
+    //           expect(res.body.list_title).toEqual('new list title from createList');
+    //           newList.remove(function (err){
+    //             if(err){
+    //               console.log(err);
+    //             }else{
+    //               return done();
+    //             }
+    //           })
+    //           console.log('newList: ', newList);
     //         }
     //       })
     //     }
     //   })
     // });
+    
+    // //create a new list
+    //   it('should create a new list', function (done) {
+    //     request(app)
+    //     .post('/api/list/create')
+    //     .send({
+    //       list_title: 'new list title from createList',
+    //       _board: testBoard._id
+    //     })
+    //     .expect(200)
+    //     .expect('Content-Type', /json/)
+    //     .end(function (err, res){
+    //         if (err) {
+    //           done.fail(err);
+    //         } else {
+    //           returnedList = res.body;
+    //           console.log('res.body: ', res.body);
+    //           expect(returnedList.list_title).toBe('new list title from createList');
+    //           List.findOne({ list_title:'new list title from createList'}, function (err, newList){
+    //             if(err){
+    //             }else{
+    //               newList.remove(function (err){
+    //                 if(err){
+    //                   console.log(err);
+    //                 }else{
+    //                   return done();
+    //                 }
+    //               })
+    //             }
+    //           })
+    //         }
+    //     });
+    //   });
 
-    // //return a list
-    // it('should return a single list', function (done) {
-    //   request(app).get('/api/lists')
-    //   .expect(200)
-    //   .expect('Content-Type', /json/)
-    //   .end(function(err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     }else {
-    //       expect(res.body.length).toEqual(1);
-    //       returnedList = res.body[0];
-    //       expect(returnedList.list_title).toEqual(list.list_title);
-    //       done();
-    //     }
-    //   })
-    // });
 
 
 
