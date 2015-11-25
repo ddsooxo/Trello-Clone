@@ -1,13 +1,13 @@
 <div class="container">
   <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
   <!-- Board's title -->
-  <h2>{{board_title}}</h2>
+  <h2>{{listCtrl.board_title}}</h2>
 
   <!-- Lists Input | Create List -->
-   <form role="form" ng-submit="createList()">
+   <form role="form" ng-submit="listCtrl.createList()">
     <div class="row">
       <div class="input-group">
-        <input type="text" ng-model="formData.list_title" placeholder="What needs to be added to the List?" class="form-control">
+        <input type="text" ng-model="listCtrl.formData.list_title" placeholder="What needs to be added to the List?" class="form-control">
         <span class="input-group-btn">
           <input type="submit" class="btn btn-primary" value="Add">
         </span>
@@ -17,7 +17,7 @@
   
   <!-- List Input | Show List, delete and edit an List -->
   <div ui-sortable ng-model="lists">
-  <p class="form-group" ng-repeat="list in lists" style="padding:5px 10px; cursor: move;">
+  <p class="form-group" ng-repeat="list in listCtrl.lists" style="padding:5px 10px; cursor: move;">
     <input type="text" ng-model="list.list_title" class="form-control" style="float:left; width: 70%;">
     <!-- Delete List -->
     <span class="input-group-btn">
