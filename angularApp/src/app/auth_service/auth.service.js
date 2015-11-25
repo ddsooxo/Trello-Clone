@@ -13,6 +13,7 @@
     service.SetCredentials = SetCredentials;
     service.ClearCredentials = ClearCredentials;
 
+    console.log('$rootScope.globals: ', $rootScope.globals);
     return service;
 
     // Use the email and password to login. The Callback will receive and object with the username and token

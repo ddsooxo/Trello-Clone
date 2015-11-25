@@ -1,14 +1,18 @@
 var jwt = require ('jsonwebtoken');
+var app = require('../app');
 
-exports.authenticate2 = function(req, res, next, app) {
+exports.isAuthenticated = function(req, res, next) {
+
+  var token = req.headers['x-access-token'];
   
-  if(req.originalUrl == '/api/login'){
+  if(req.originalUrl == '/api/login' || '/api/user/register'){
     next();
     return;
-  }else if (token = req.headers['x-access-token']) {
+  }else if (token) {
+
     //decode token
     // verifies secret and checks exp
-    jwt.verify(token, app.get('superSecret'), function (err, decoded) {      
+    jwt.verify(token, app.app.get('superSecret'), function (err, decoded) {      
       if (err) {
         return res.status(422).json({ success: false, message: 'Failed to authenticate token.' });    
       } else {

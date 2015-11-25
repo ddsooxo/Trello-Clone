@@ -21,13 +21,6 @@
             var successRegister = document.getElementById('successRegister');
             successRegister.innerHTML = 'Congratulations' + vm.formData.full_name + ' ,You have successfully created your account. Click back to login';
             successRegister.style.display = 'block';
-            
-            // //user notification of successful registering will time out in 3000 miliseconds(3 seconds)
-            // setTimeout(function (){
-            //   var successRegister = document.getElementById('successRegister');
-            //   successRegister.style.display = 'none';
-            //   successRegister.innerHTML = '';
-            // }, 3000);
           })
           .catch(function(err) {
           console.log('createdUser error: ' + err);

@@ -2,15 +2,19 @@
   'use strict';
 
   angular.module('mytodo')
-    .controller('BoardController', function ($scope, $http) {
-      
-      $scope.formData = {};
-      $scope.boards = [];
+    .controller('BoardController', ['$routeParams', '$http', function ($routeParams, $http) {
+      var vm = this;
+     vm.formData = {};
+     vm.boards = [];
+     var userId = $routeParams.user_id;
+     vm.userId = $routeParams.user_id;
+
+
 
       //show boards
       $http.get('/api/boards')
          .success(function(data) {
-             $scope.boards = data;
+            vm.boards = data;
              console.log(data);
          })
          .error(function(data) {
@@ -18,10 +22,10 @@
          });
 
       // create board
-      $scope.createBoard = function () {
-        $http.post('/api/board/create', $scope.formData)
+     vm.createBoard = function () {
+        $http.post('/api/board/create',vm.formData)
            .success(function(data) {
-               $scope.boards = data;
+              vm.boards = data;
                console.log(data);
            })
            .error(function(data) {
@@ -30,10 +34,10 @@
       };
         
       //delete board
-      $scope.removeBoard = function (id) {
+     vm.removeBoard = function (id) {
         $http.post('/api/board/delete/' + id)
            .success(function(data) {
-               $scope.boards = data;
+              vm.boards = data;
                console.log(data);
            })
            .error(function(data) {
@@ -42,15 +46,15 @@
       };
         
       //update board
-      $scope.editBoard = function (id, title) {
+     vm.editBoard = function (id, title) {
         $http.post('/api/board/edit/' + id + '?title=' + title)
            .success(function(data) {
-               $scope.boards = data;
+              vm.boards = data;
                console.log(data);
            })
            .error(function(data) {
                console.log('Error: ' + data);
            });
       };
-    });
+    }]);
 })();

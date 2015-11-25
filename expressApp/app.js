@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded( {
     extended: true
 }));
 
-app.use('/api', AuthenticationMiddleware.authenticate2);
+app.use('/api', AuthenticationMiddleware.isAuthenticated);
 
 // app.post('/api/authenticate', AuthenticationController.authenticate);
 

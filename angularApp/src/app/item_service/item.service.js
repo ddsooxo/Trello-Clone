@@ -18,7 +18,7 @@
             deferred.reject('Error: ' + data);
            });
            return deferred.promise;
-      }
+      } 
 
       // create item
       service.createItem = function (formData) {
