@@ -30,13 +30,15 @@
     // if there is a user logged in then set the headers.
     if ($rootScope.globals.currentUser) {
       $http.defaults.headers.common['X-ACCESS-TOKEN'] = $rootScope.globals.currentUser.token; // jshint ignore:line
+
     }
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
       // The '/', '/login' and '/register' routes can be reached without a user being logged in.
       // Otherwise redirect to login page if not logged in and trying to access a restricted page
-      var restrictedPage = $.inArray($location.path(), ['/', '/login', '/register']) === -1;
+      var restrictedPage = $.inArray($location.path(), ['/', '/login', '/register', '/api/user/register']) === -1;
       var loggedIn = $rootScope.globals.currentUser;
+      console.log('restrictedPage: ', restrictedPage);
 
       if (restrictedPage && !loggedIn) {
           $location.path('/');

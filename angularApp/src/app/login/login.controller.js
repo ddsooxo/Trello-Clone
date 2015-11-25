@@ -17,7 +17,7 @@
             AuthenticationService.Login(vm.email, vm.password, function (response) {
                 vm.dataLoading = true;
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.email, vm.password);
+                    AuthenticationService.SetCredentials(vm.email, response.token);
                     $location.path('/boards');
                 } else {
                     //if login fails

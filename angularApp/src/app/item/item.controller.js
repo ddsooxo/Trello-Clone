@@ -9,7 +9,7 @@
       vm.items = [];
       var listId = $routeParams.list_id;
       vm.listId = $routeParams.list_id;
-      var list_title = $routeParams.list_title;
+      vm.list_title = $routeParams.list_title;
       vm.boardId = $routeParams.board_id;
       vm.board_title = $routeParams.board_title;
 
