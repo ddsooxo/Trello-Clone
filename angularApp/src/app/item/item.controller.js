@@ -4,10 +4,9 @@
 
   angular.module('mytodo')
     .controller('ItemController', ['$routeParams','ItemService', function ($routeParams, ItemService) {
-      //add properties to scope i.e: todos, list_title, later available for view
       var vm = this;     
       vm.formData = {};
-      vm.todos = [];
+      vm.items = [];
       var listId = $routeParams.list_id;
       vm.listId = $routeParams.list_id;
       var list_title = $routeParams.list_title;
@@ -19,12 +18,12 @@
       //show items
       ItemService.getItems(vm.listId)
         .then(function (data){
-          vm.todos = data;
+          vm.items = data;
+          console.log('vm.items: ', vm.items);
         })
         .catch(function(err) {
           console.log('getItems error: ' + err);
         });
-        console.log('vm.todos: ', vm.todos);
 
       //create a new item
       vm.createItem = function () {
@@ -32,12 +31,12 @@
         console.log('vm.formData: ', vm.formData);
         ItemService.createItem(vm.formData)
           .then(function (data){
-            vm.todos.push(data);
+            vm.items.push(data);
           })
           .catch(function(err) {
           console.log('createItem error: ' + err);
         });
-          console.log('created vm.todos: ', vm.todos);
+          console.log('created vm.items: ', vm.items);
       }
 
       //delete item
@@ -46,9 +45,9 @@
         vm.formData.id = id;
         ItemService.removeItem(vm.formData.id, listId)
           .then(function (data){
-            for(var index = 0; index < vm.todos.length; index++){
-              if(vm.todos[index]._id === data._id){
-                vm.todos.splice(index,1);
+            for(var index = 0; index < vm.items.length; index++){
+              if(vm.items[index]._id === data._id){
+                vm.items.splice(index,1);
                 break;
               } 
             }
@@ -56,7 +55,7 @@
           .catch(function (err){
             console.log('createItem error: ' + err);
           });
-          console.log('removeItem vm.todos: ', vm.todos);
+          console.log('removeItem vm.items: ', vm.items);
       };
        
       //edit item
@@ -75,7 +74,7 @@
               notification.innerHTML = '';
             }, 3000);
           });
-          console.log('editItem vm.todos: ', vm.todos);
+          console.log('editItem vm.items: ', vm.items);
       }
 
     }]);
