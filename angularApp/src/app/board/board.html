@@ -5,7 +5,7 @@
   <h3> Your Boards: </h3>
 
   <!-- Create Board -->
-   <form role="form" ng-submit="boardCtrl.createBoard()">
+   <form role="form" ng-submit="boardCtrl.createBoard()" style="max-width: 50%">
     <div class="row">
       <div class="input-group">
         <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
@@ -17,7 +17,7 @@
   </form>
   
   <!-- Boards Input-->
-  <div ui-sortable ng-model="boardCtrl.boards">
+  <div ui-sortable ng-model="boardCtrl.boards" style="max-width: 50%">
   <p class="form-group" ng-repeat="board in boardCtrl.boards" style="padding:5px 10px; cursor: move;">
     <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
 
