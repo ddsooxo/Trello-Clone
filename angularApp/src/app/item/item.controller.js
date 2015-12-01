@@ -16,12 +16,14 @@
       console.log('$routeParams.board_title: ', $routeParams.board_title);
       
       //show items
-      ItemService.getItems(vm.listId)
-        .then(function (data){
-          vm.items = data;
-        })
-        .catch(function(err) {
-        });
+      vm.getItems = function (listId) {
+        ItemService.getItems(listId)
+          .then(function (data){
+            vm.items = data;
+          })
+          .catch(function(err) {
+          });
+      }
 
       //create a new item
       vm.createItem = function () {
