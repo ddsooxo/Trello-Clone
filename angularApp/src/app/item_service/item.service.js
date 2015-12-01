@@ -5,8 +5,8 @@
     .factory('ItemService', ['$http','$q', function ($http, $q) {
       var service = {};  
 
+      //get all items
       service.getItems = function(listId){
-        console.log('getItems: ', listId);
         var deferred = $q.defer();
         $http.get('/api/items?list_id=' + listId)
            .success(function (data) {
@@ -50,7 +50,7 @@
            return deferred.promise;
       };
         
-      //update item
+      //update item || pass details as an object in the second arg -> post data
       service.editItem = function (id, item_title, listId) {
         var deferred = $q.defer();
         $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + listId)

@@ -13,6 +13,7 @@
     service.SetCredentials = SetCredentials;
     service.ClearCredentials = ClearCredentials;
 
+    //show current user logged in:
     console.log('$rootScope.globals: ', $rootScope.globals);
     return service;
 
@@ -21,19 +22,19 @@
 
       $http.post('/api/login', { email: email, password: password })
          .success(function (res) {
-            console.log('res: ', res);
-            callback({ success: res.success, email: email, token: res.token });
+            callback({ success: res.success, email: email, token: res.token, id: res._id});
          });
 
     }
 
     // Store credentials for reuse. They are stored in $rootScope for the current app session.
     // Stored in the $cookieStore for use if the app is reloaded
-    function SetCredentials(email, token) {
+    function SetCredentials(email, token, id) {
       $rootScope.globals = {
         currentUser: {
           email: email,
-          token: token
+          token: token,
+          _id: id
         }
       };
 

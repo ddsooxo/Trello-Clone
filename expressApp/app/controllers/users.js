@@ -9,7 +9,6 @@ var AuthenticationMiddleware = require('../authentication_middleware'),
 //post | creates a new user
 exports.register = function (req, res){
     var hash = bcrypt.hashSync(req.body.password);
-    // var salt = bcrypt.genSaltSync(10);
 
     var user = new User({
         full_name: req.body.full_name,

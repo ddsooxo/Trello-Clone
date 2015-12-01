@@ -38,3 +38,25 @@
 .login{
   max-width: 400px;
 }
+
+#login-button{
+  margin-top: 10px;
+}
+
+#board-title{
+  float:left;
+  width: 70%;
+}
+
+#loginpage{
+  margin-top: 10px;
+}
+
+#board{
+  padding:5px 10px; 
+  cursor: move;
+}
+
+
+
+

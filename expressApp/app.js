@@ -35,7 +35,6 @@ app.use(bodyParser.urlencoded( {
 
 app.use('/api', AuthenticationMiddleware.isAuthenticated);
 
-// app.post('/api/authenticate', AuthenticationController.authenticate);
 
 //------------------USER ROUTES-------------------------------//
 // app.get('/api/users', UsersController.showUsers);
@@ -47,6 +46,7 @@ app.post('/api/user/register', UsersController.register);
 app.post('/api/user/delete/:user_id', UsersController.deleteUser);
 // //update user
 app.post('/api/user/edit/:user_id', UsersController.editUser);
+
 //------------------BOARD ROUTES-------------------------------//
 //show board
 app.get('/api/boards', BoardsController.showBoards);
