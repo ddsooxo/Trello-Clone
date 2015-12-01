@@ -13,7 +13,6 @@
       vm.boardId = $routeParams.board_id;
       vm.board_title = $routeParams.board_title;
 
-      console.log('$routeParams.board_title: ', $routeParams.board_title);
       
       //show items
       vm.getItems = function (listId) {

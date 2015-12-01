@@ -8,7 +8,6 @@
 
       //show boards with users
       service.getBoards = function(userId){
-        console.log('currentUser: ', currentUser);
         var deferred = $q.defer();
         $http.get('/api/boards?user_id=' + currentUser)
            .success(function (data) {
@@ -26,7 +25,6 @@
       service.createBoard = function (formData) {
         var deferred = $q.defer();
         formData.userId = currentUser;
-        console.log('im in createBoard')
         $http.post('/api/board/create', formData)
            .success(function (data) {
               deferred.resolve(data);

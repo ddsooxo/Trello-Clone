@@ -8,7 +8,6 @@
       // create item
       service.register = function (formData) {
         var deferred = $q.defer();
-        console.log('userService - formData: ', formData);
         $http.post('/api/user/register', formData)
            .success(function (data) {
               deferred.resolve(data);

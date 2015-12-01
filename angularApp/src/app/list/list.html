@@ -1,6 +1,6 @@
 <div class="container">
-  <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
-  <a href="/#/login" class="btn btn-primary" style="margin-top: 10px"> Logout </a> 
+  <a href="/#/boards" class="btn btn-primary" id="login-button"> Boards </a>
+  <a href="/#/login" class="btn btn-primary" id="login-button"> Logout </a> 
 
   <!-- Board's title -->
   <h2>{{listCtrl.board_title}}</h2>
@@ -9,7 +9,7 @@
    <form role="form" ng-submit="listCtrl.createList()">
     <div class="row">
       <div class="input-group">
-        <input type="text" ng-model="listCtrl.formData.list_title" placeholder="What needs to be added to the List?" class="form-control">
+        <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control">
         <span class="input-group-btn">
           <input type="submit" class="btn btn-primary" value="Add">
         </span>
@@ -29,7 +29,7 @@
               <div ng-init="Items.getItems(list._id)">
 
                 <!-- Create a new item -->
-                  <form role="form" ng-submit="Items.createItem()">
+                  <form role="form" ng-submit="Items.createItem(list._id, Items.formData)">
                     <div class="row">
                       <div class="input-group">
                         <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control">
@@ -40,14 +40,14 @@
                     </div>
                   </form>
 
-                  <!-- iterating through items -->
+                  <!-- Iterating through items -->
                   <div class="form-group" ng-repeat="item in Items.items">
                     <input type="text" ng-model="item.item_title">
 
                     <!-- Edit items button -->
-                    <!-- <span class="input-group-btn"> -->
-                      <button class="btn btn-info" ng-click="itemCtrl.editItem(item._id, item.item_title)" aria-label="Edit">Edit</button>
-                    <!-- </span> -->
+                    <span class="input-group-btn">
+                      <button class="btn btn-info" ng-click="itemCtrl.editItem(item._id, item.item_title)" aria-label="Edit">Edit Item</button>
+                    </span>
 
                     <!-- Remove items button -->
                     <span class="input-group-btn">
@@ -57,16 +57,17 @@
             </div>
 
           <!-- Delete List -->
-          <!-- <span class="input-group-btn"> -->
+          <span class="input-group-btn">
             <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
 
             <!-- Edit List --> 
+          <span class="input-group-btn">
             <a class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
-          <!-- </span> -->
+          </span>
 
         </div>
       </div>
     </div>
   </div> 
 </div>
-
+</html>

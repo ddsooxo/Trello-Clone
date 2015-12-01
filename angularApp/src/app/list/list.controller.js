@@ -9,7 +9,6 @@
       vm.lists = [];
       vm.boardId = $routeParams.board_id;
       vm.board_title = $routeParams.board_title;
-      console.log('vm.formData: ', vm.formData);
       
      
       //show lists
@@ -25,7 +24,6 @@
       // create a new list
       vm.createList =  function(){ 
         vm.formData.board_id = vm.boardId;
-        console.log('vm.formData: ', vm.formData);
         ListService.createList(vm.formData)
           .then(function (data){
             vm.lists = data;
@@ -33,7 +31,6 @@
           .catch(function (err){
             console.log('createList error: ', err);
           })
-          console.log('vm.lists: ', vm.lists);
       }
 
       //delete a list
@@ -52,7 +49,6 @@
           .catch(function (err){
             console.log('createItem error: ' + err);
           });
-          console.log('removeList vm.lists: ', vm.lists);
       };
 
       //edit list

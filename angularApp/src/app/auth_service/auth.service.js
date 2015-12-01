@@ -13,6 +13,7 @@
     service.SetCredentials = SetCredentials;
     service.ClearCredentials = ClearCredentials;
 
+    //show current user logged in:
     console.log('$rootScope.globals: ', $rootScope.globals);
     return service;
 
@@ -21,8 +22,6 @@
 
       $http.post('/api/login', { email: email, password: password })
          .success(function (res) {
-            console.log('res: ', res);
-            console.log('res._id', res._id);
             callback({ success: res.success, email: email, token: res.token, id: res._id});
          });
 

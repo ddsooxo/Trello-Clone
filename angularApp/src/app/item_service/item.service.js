@@ -5,8 +5,8 @@
     .factory('ItemService', ['$http','$q', function ($http, $q) {
       var service = {};  
 
+      //get all items
       service.getItems = function(listId){
-        console.log('listId: ', listId);
         var deferred = $q.defer();
         $http.get('/api/items?list_id=' + listId)
            .success(function (data) {

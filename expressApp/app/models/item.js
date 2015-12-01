@@ -7,7 +7,6 @@ var itemSchema = new Schema({
   item_title: {type: String, required: true},
   created_at: Date,
   updated_at: Date,
-  // _user: { type: mongoose.Schema.Types.ObjectId, ref:'User', required: true },
   _list: {type: Schema.Types.ObjectId, ref:'List'}
 });
 

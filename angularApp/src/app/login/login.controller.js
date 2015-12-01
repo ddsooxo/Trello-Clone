@@ -16,7 +16,6 @@
         vm.login = function () {
             AuthenticationService.Login(vm.email, vm.password, function (response) {
                 vm.dataLoading = true;
-                console.log('response.id:', response.id);
                 if (response.success) {
                     AuthenticationService.SetCredentials(vm.email, response.token, response.id);
                     $location.path('/boards');
@@ -26,7 +25,6 @@
                     notification.innerHTML = 'Invalid Email/Password. Please Try Again';
                     notification.style.display = 'block';
                     
-                    console.log(response);
                     vm.dataLoading = false;
                 }
             });
