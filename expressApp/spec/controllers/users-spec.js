@@ -65,9 +65,13 @@ describe('UsersController', function() {
               expect(returnedUser.email).toBe('new@email.com');
               User.findOne({ email:'new@email.com'}, function (err, newUser){
                 if(err){
+                  // done.fail(err);
+                  //might fail the test, add done.fail(err);
                 }else{
                   newUser.remove(function (err){
                     if(err){
+                      // done.fail(err);
+                      //add done.fail(err);
                       console.log(err);
                     }else{
                       return done();

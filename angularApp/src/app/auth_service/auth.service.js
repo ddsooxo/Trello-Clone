@@ -22,18 +22,20 @@
       $http.post('/api/login', { email: email, password: password })
          .success(function (res) {
             console.log('res: ', res);
-            callback({ success: res.success, email: email, token: res.token });
+            console.log('res._id', res._id);
+            callback({ success: res.success, email: email, token: res.token, id: res._id});
          });
 
     }
 
     // Store credentials for reuse. They are stored in $rootScope for the current app session.
     // Stored in the $cookieStore for use if the app is reloaded
-    function SetCredentials(email, token) {
+    function SetCredentials(email, token, id) {
       $rootScope.globals = {
         currentUser: {
           email: email,
-          token: token
+          token: token,
+          _id: id
         }
       };
 

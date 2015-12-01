@@ -36,42 +36,45 @@
           })
           console.log('vm.lists: ', vm.lists);
       }
-
-
-
-      vm.createList = function () {
-        vm.formData.board_id = vm.boardId;
-         console.log('blah', vm.formData);
-        $http.post('/api/list/create', vm.formData)
-           .success(function(data) {
-               vm.lists = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
-        
-      //delete list
-      vm.removeList = function (id) {
-        $http.post('/api/list/delete/' + id)
-           .success(function(data) {
-               vm.lists = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
-        
-      //update list
-      vm.editList = function (id, list_title) {
-        $http.post('/api/list/edit/' + id + '?list_title=' + list_title + '&board_id=' + vm.boardId)
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
     }]);
 })();
 
 
+
+
+
+
+
+
+  // vm.createList = function () {
+  //   vm.formData.board_id = vm.boardId;
+  //    console.log('blah', vm.formData);
+  //   $http.post('/api/list/create', vm.formData)
+  //      .success(function(data) {
+  //          vm.lists = data;
+  //          console.log(data);
+  //      })
+  //      .error(function(data) {
+  //          console.log('Error: ' + data);
+  //      });
+  // };
+    
+  // //delete list
+  // vm.removeList = function (id) {
+  //   $http.post('/api/list/delete/' + id)
+  //      .success(function(data) {
+  //          vm.lists = data;
+  //          console.log(data);
+  //      })
+  //      .error(function(data) {
+  //          console.log('Error: ' + data);
+  //      });
+  // };
+    
+  // //update list
+  // vm.editList = function (id, list_title) {
+  //   $http.post('/api/list/edit/' + id + '?list_title=' + list_title + '&board_id=' + vm.boardId)
+  //      .error(function(data) {
+  //          console.log('Error: ' + data);
+  //      });
+  // };
