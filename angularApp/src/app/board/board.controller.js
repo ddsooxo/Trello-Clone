@@ -27,43 +27,34 @@
           .catch(function(err) {
           console.log('createBoards error: ' + err);
         });
-      }
+      };
 
-      // // create board
-      // vm.createBoard = function () {
-      //   $http.post('/api/board/create',vm.formData)
-      //      .success(function(data) {
-      //         vm.boards = data;
-      //          console.log(data);
-      //      })
-      //      .error(function(data) {
-      //          console.log('Error: ' + data);
-      //      });
-      // };
+      //delete board
+      vm.removeBoard = function (id, userId) {
+        vm.formData.id = id;
+        BoardService.removeBoard(vm.formData.id, vm.userId)
+          .then(function (data){
+            for(var index = 0; index < vm.boards.length; index++){
+              if(vm.boards[index]._id === data._id){
+                vm.boards.splice(index,1);
+                break;
+              } 
+            }
+          })
+          .catch(function(err) {
+          console.log('createBoards error: ' + err);
+        });
+      };
         
-      // //delete board
-      // vm.removeBoard = function (id) {
-      //   $http.post('/api/board/delete/' + id)
-      //      .success(function(data) {
-      //         vm.boards = data;
-      //          console.log(data);
-      //      })
-      //      .error(function(data) {
-      //          console.log('Error: ' + data);
-      //      });
-      // };
-        
-      // //update board
-      // vm.editBoard = function (id, title) {
-      //   $http.post('/api/board/edit/' + id + '?title=' + title)
-      //      .success(function(data) {
-      //         vm.boards = data;
-      //          console.log(data);
-      //      })
-      //      .error(function(data) {
-      //          console.log('Error: ' + data);
-      //      });
-      // };
+      //edit board
+      vm.editBoard = function (id, title) {
+        BoardService.editBoard(id, title, vm.userId)
+          .then(function (data){
+          })
+          .catch(function (err){
+            console.log('editBoard error: ' + err);
+          });
+      };
 
     }]);
 })();

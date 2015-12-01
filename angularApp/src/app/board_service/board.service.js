@@ -39,35 +39,35 @@
            return deferred.promise;
       };
         
-      // //delete item
-      // service.removeItem = function (id, userId) {
-      //   var deferred = $q.defer();
-      //   $http.post('/api/item/delete/' + id + '?user_id=' + userId)
-      //      .success(function (data) {
-      //         deferred.resolve(data);
-      //          console.log(data);
-      //      })
-      //      .error(function (data) {
-      //         deferred.reject(data);
-      //         console.log('Error: ' + data);
-      //      });
-      //      return deferred.promise;
-      // };
+      //delete board
+      service.removeBoard = function (id, userId) {
+        var deferred = $q.defer();
+        $http.post('/api/board/delete/' + id + '?user_id='+ currentUser)
+           .success(function (data) {
+              deferred.resolve(data);
+               console.log(data);
+           })
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error: ' + data);
+           });
+           return deferred.promise;
+      };
         
-      // //update item
-      // service.editItem = function (id, item_title, userId) {
-      //   var deferred = $q.defer();
-      //   $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&user_id=' + userId)
-      //      .success(function (data) {
-      //          deferred.resolve(data);
-      //          console.log(data);
-      //      })
-      //      .error(function (data) {
-      //         deferred.reject(data);
-      //         console.log('Error: ' + data);
-      //      });
-      //      return deferred.promise;
-      // };
+      //update board
+      service.editBoard = function (id, title, userId) {
+        var deferred = $q.defer();
+        $http.post('/api/board/edit/' + id + '?title=' + title + '&user_id=' + currentUser)
+           .success(function (data) {
+               deferred.resolve(data);
+               console.log(data);
+           })
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error: ' + data);
+           });
+           return deferred.promise;
+      };
 
       return service;
     }]);

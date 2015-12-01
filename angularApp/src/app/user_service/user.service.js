@@ -21,35 +21,35 @@
            return deferred.promise;
       };
         
-      // //delete item
-      // service.removeItem = function (id, listId) {
-      //   var deferred = $q.defer();
-      //   $http.post('/api/item/delete/' + id + '?list_id=' + listId)
-      //      .success(function (data) {
-      //         deferred.resolve(data);
-      //          console.log(data);
-      //      })
-      //      .error(function (data) {
-      //         deferred.reject(data);
-      //         console.log('Error: ' + data);
-      //      });
-      //      return deferred.promise;
-      // };
+      //delete user
+      service.removeUser = function (id) {
+        var deferred = $q.defer();
+        $http.post('/api/user/delete/' + id)
+           .success(function (data) {
+              deferred.resolve(data);
+               console.log(data);
+           })
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error: ' + data);
+           });
+           return deferred.promise;
+      };
         
-      // //update item
-      // service.editItem = function (id, item_title, listId) {
-      //   var deferred = $q.defer();
-      //   $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + listId)
-      //      .success(function (data) {
-      //          deferred.resolve(data);
-      //          console.log(data);
-      //      })
-      //      .error(function (data) {
-      //         deferred.reject(data);
-      //         console.log('Error: ' + data);
-      //      });
-      //      return deferred.promise;
-      // };
+      //update item
+      service.editUser = function (id, formData) {
+        var deferred = $q.defer();
+        $http.post('/api/item/edit/' + id + '?full_name=' + vm.formData.full_name)
+           .success(function (data) {
+               deferred.resolve(data);
+               console.log(data);
+           })
+           .error(function (data) {
+              deferred.reject(data);
+              console.log('Error: ' + data);
+           });
+           return deferred.promise;
+      };
 
       return service;
     }]);

@@ -23,7 +23,6 @@
       <div ng-repeat="list in listCtrl.lists">
         <div class="col-md-3">
           <input type="text" ng-model="list.list_title" class="form-control">
-          
 
             <!-- Nesting Items -->
             <div ng-controller="ItemController as Items">
@@ -41,19 +40,19 @@
                     </div>
                   </form>
 
-                <!-- iterating through items -->
+                  <!-- iterating through items -->
                   <div class="form-group" ng-repeat="item in Items.items">
                     <input type="text" ng-model="item.item_title">
 
                     <!-- Edit items button -->
-                    <span class="input-group-btn">
-                      <button class="btn btn-info" ng-click="ItemController.editItem(item._id, item.item_title)" aria-label="Edit">Edit</button>
-                    </span>
+                    <!-- <span class="input-group-btn"> -->
+                      <button class="btn btn-info" ng-click="itemCtrl.editItem(item._id, item.item_title)" aria-label="Edit">Edit</button>
+                    <!-- </span> -->
 
                     <!-- Remove items button -->
                     <span class="input-group-btn">
-                      <button class="btn btn-danger" ng-click="ItemController.removeItem(item._id)" aria-label="Remove">x</button>
-                </div>
+                      <button class="btn btn-danger" ng-click="itemCtrl.removeItem(item._id)" aria-label="Remove">x</button>
+                  </div>
               </div>
             </div>
 
@@ -62,7 +61,7 @@
             <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
 
             <!-- Edit List --> 
-            <a class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit</button>
+            <a class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
           <!-- </span> -->
 
         </div>

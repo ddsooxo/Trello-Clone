@@ -42,7 +42,7 @@ exports.deleteBoard = function (req, res){
     var board = new Board({_id: req.params.board_id});
     board.remove(function (error, board){
         if(board){
-            Board.find({}, function (error, boards){
+            Board.find({_id: req.params.board_id}, function (error, boards){
                 if(boards){
                     res.json(boards);
                 }
