@@ -13,22 +13,19 @@
       vm.boardId = $routeParams.board_id;
       vm.board_title = $routeParams.board_title;
 
-      console.log('$routeParams.list_id: ', $routeParams.list_id);
+      console.log('$routeParams.board_title: ', $routeParams.board_title);
       
       //show items
       ItemService.getItems(vm.listId)
         .then(function (data){
           vm.items = data;
-          console.log('vm.items: ', vm.items);
         })
         .catch(function(err) {
-          console.log('getItems error: ' + err);
         });
 
       //create a new item
       vm.createItem = function () {
         vm.formData.list_id = vm.listId;
-        console.log('vm.formData: ', vm.formData);
         ItemService.createItem(vm.formData)
           .then(function (data){
             vm.items.push(data);
@@ -36,7 +33,6 @@
           .catch(function(err) {
           console.log('createItem error: ' + err);
         });
-          console.log('created vm.items: ', vm.items);
       }
 
       //delete item
@@ -55,7 +51,6 @@
           .catch(function (err){
             console.log('createItem error: ' + err);
           });
-          console.log('removeItem vm.items: ', vm.items);
       };
        
       //edit item
@@ -74,7 +69,6 @@
               notification.innerHTML = '';
             }, 3000);
           });
-          console.log('editItem vm.items: ', vm.items);
       }
 
     }]);

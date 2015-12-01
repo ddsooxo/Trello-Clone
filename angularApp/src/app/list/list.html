@@ -1,5 +1,7 @@
 <div class="container">
   <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
+  <a href="/#/login" class="btn btn-primary" style="margin-top: 10px"> Logout </a> 
+  
   <!-- Board's title -->
   <h2>{{listCtrl.board_title}}</h2>
 
@@ -15,18 +17,18 @@
     </div>
   </form>
   
-  <!-- List Input | Show List, delete and edit an List -->
-  <div ui-sortable ng-model="lists">
+  <!-- Show List -->
+  <div ui-sortable ng-model="listCtrl.lists">
   <p class="form-group" ng-repeat="list in listCtrl.lists" style="padding:5px 10px; cursor: move;">
     <input type="text" ng-model="list.list_title" class="form-control" style="float:left; width: 70%;">
     <!-- Delete List -->
     <span class="input-group-btn">
-      <button class="btn btn-danger" ng-click="removeList(list._id)" aria-label="Remove">X</button>
+      <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
     <!-- Edit List --> 
-      <a class="btn btn-primary" ng-click="editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit</button>
+      <a class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit</button>
     <!-- View Single List w/ its items -->
     <!-- {{splices variables into string}} -->
-         <a href="/#/items?list_title={{list.list_title}}&list_id={{list._id}}&board_title={{board_title}}&board_id={{boardId}}" class="btn btn-info" aria-label="View">View Items</a>
+         <a href="/#/items?list_title={{list.list_title}}&list_id={{list._id}}&board_title={{list.board_title}}&board_id={{list.boardId}}" class="btn btn-info" aria-label="View">View Items</a>
     </span>
   </p>
   </div> 

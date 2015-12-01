@@ -1,5 +1,7 @@
 <div class="container">
-<a href="/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
+<a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a>
+<a href="/#/login" class="btn btn-primary" style="margin-top: 10px"> Logout </a> 
+
   <h2>{{itemCtrl.list_title}}</h2>
 
  <!-- User Notification if any error occurs-->
@@ -28,7 +30,6 @@
       <button class="btn btn-primary" ng-click="itemCtrl.editItem(item._id, item.item_title)" aria-label="Edit">Edit</button>
     </span>
   </p>
-  <a href="/#/lists?board_title={{item.board_title}}&board_id={{item.boardId}}" class="btn btn-info">Back to Lists</a>
   </div> 
 </div>
 

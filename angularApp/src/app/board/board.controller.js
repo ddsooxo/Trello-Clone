@@ -20,7 +20,6 @@
 
       //create board
       vm.createBoard = function (){
-        console.log('im here ')
         BoardService.createBoard(vm.formData)
           .then(function (data){
             vm.boards = data;

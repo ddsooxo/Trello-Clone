@@ -5,7 +5,6 @@ var User = require('../models/user');
 
 //get | show a list of boards
 exports.showBoards = function (req, res){
-    console.log('req.query.user_id:', req.query.user_id);
     Board.find({
         _user: req.query.user_id
     }, function (error, boards){

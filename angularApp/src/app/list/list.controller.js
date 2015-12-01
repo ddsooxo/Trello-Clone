@@ -7,7 +7,6 @@
       var vm = this;
       vm.formData = {};
       vm.lists = [];
-      var boardId = $routeParams.board_id;
       vm.boardId = $routeParams.board_id;
       vm.board_title = $routeParams.board_title;
       console.log('vm.formData: ', vm.formData);
@@ -29,52 +28,51 @@
         console.log('vm.formData: ', vm.formData);
         ListService.createList(vm.formData)
           .then(function (data){
-            vm.lists.push(data);
+            vm.lists = data;
           })
           .catch(function (err){
             console.log('createList error: ', err);
           })
           console.log('vm.lists: ', vm.lists);
       }
+
+      //delete a list
+      vm.removeList = function(id, boardId){
+        vm.formData.board_id = vm.boardId;
+        vm.formData.id = id;
+        ListService.removeList(vm.formData.id, vm.boardId)
+          .then(function (data){
+            for(var index = 0; index < vm.lists.length; index++){
+              if(vm.lists[index]._id === data._id){
+                vm.lists.splice(index,1);
+                break;
+              } 
+            }
+          })
+          .catch(function (err){
+            console.log('createItem error: ' + err);
+          });
+          console.log('removeList vm.lists: ', vm.lists);
+      };
+
+      //edit list
+      vm.editList = function (id, list_title) {
+        ListService.editList(id, list_title, vm.boardId)
+          .then(function (data){
+          })
+          .catch(function(err) {
+            var notification = document.getElementById('notification');
+            notification.innerHTML = 'There was an error updating your list';
+            notification.style.display = 'block';
+
+            setTimeout(function (){
+              var notification = document.getElementById('notification');
+              notification.style.display = 'none';
+              notification.innerHTML = '';
+            }, 3000);
+          });
+          console.log('editList vm.lists: ', vm.lists);
+      }
+      
     }]);
 })();
-
-
-
-
-
-
-
-
-  // vm.createList = function () {
-  //   vm.formData.board_id = vm.boardId;
-  //    console.log('blah', vm.formData);
-  //   $http.post('/api/list/create', vm.formData)
-  //      .success(function(data) {
-  //          vm.lists = data;
-  //          console.log(data);
-  //      })
-  //      .error(function(data) {
-  //          console.log('Error: ' + data);
-  //      });
-  // };
-    
-  // //delete list
-  // vm.removeList = function (id) {
-  //   $http.post('/api/list/delete/' + id)
-  //      .success(function(data) {
-  //          vm.lists = data;
-  //          console.log(data);
-  //      })
-  //      .error(function(data) {
-  //          console.log('Error: ' + data);
-  //      });
-  // };
-    
-  // //update list
-  // vm.editList = function (id, list_title) {
-  //   $http.post('/api/list/edit/' + id + '?list_title=' + list_title + '&board_id=' + vm.boardId)
-  //      .error(function(data) {
-  //          console.log('Error: ' + data);
-  //      });
-  // };
