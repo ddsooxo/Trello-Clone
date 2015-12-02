@@ -14,7 +14,7 @@
 
         
         vm.login = function () {
-            AuthenticationService.Login(vm.email, vm.password, function (response) {
+            AuthenticationService.login(vm.email, vm.password, function (response) {
                 vm.dataLoading = true;
                 if (response.success) {
                     AuthenticationService.SetCredentials(vm.email, response.token, response.id);
