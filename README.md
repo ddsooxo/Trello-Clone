@@ -27,7 +27,7 @@ Install:
 Run:
 * mongod
 * gulp serve
-* node server
+* node app
 
 ## Screenshots: 
 ![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/png/png/login.png)
