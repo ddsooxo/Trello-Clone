@@ -18,7 +18,7 @@
     return service;
 
     // Use the email and password to login. The Callback will receive and object with the username and token
-    function Login(email, password, callback) {
+    function login(email, password, callback) {
 
       $http.post('/api/login', { email: email, password: password })
          .success(function (res) {

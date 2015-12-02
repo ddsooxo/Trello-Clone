@@ -9,7 +9,7 @@
    <form role="form" ng-submit="listCtrl.createList()">
     <div class="row">
       <div class="input-group">
-        <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control">
+        <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control" >
         <span class="input-group-btn">
           <input type="submit" class="btn btn-primary" value="Add">
         </span>
@@ -21,8 +21,15 @@
   <div ui-sortable ng-model="listCtrl.lists">
     <div class="row">
       <div ng-repeat="list in listCtrl.lists">
-        <div class="col-md-3">
+        <div class="col-md-3" style="border: 2px solid blanchedalmond; background-color: blanchedalmond; margin-top: 20px; margin-left: 20px; padding: 10px;" >
           <input type="text" ng-model="list.list_title" class="form-control">
+
+           <!-- Delete List | Edit List -->
+          <span class="input-group-btn">
+            <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
+            <button class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
+          </span>
+
 
             <!-- Nesting Items -->
             <div ng-controller="ItemController as Items">
@@ -32,7 +39,7 @@
                   <form role="form" ng-submit="Items.createItem(list._id, Items.formData)">
                     <div class="row">
                       <div class="input-group">
-                        <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control">
+                        <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control" style="max-width: 200px; float: right;">
                         <span class="input-group-btn">
                           <input type="submit" class="btn btn-primary" value="Add">
                         </span>
@@ -46,24 +53,15 @@
 
                     <!-- Edit items button -->
                     <span class="input-group-btn">
-                      <button class="btn btn-info" ng-click="itemCtrl.editItem(item._id, item.item_title)" aria-label="Edit">Edit Item</button>
+                      <button class="btn btn-info" ng-click="Items.editItem(item._id, item.item_title)" aria-label="Edit">Edit Item</button>
                     </span>
 
                     <!-- Remove items button -->
                     <span class="input-group-btn">
-                      <button class="btn btn-danger" ng-click="itemCtrl.removeItem(item._id)" aria-label="Remove">x</button>
+                      <button class="btn btn-danger" ng-click="Items.removeItem(item._id)" aria-label="Remove">x</button>
                   </div>
               </div>
             </div>
-
-          <!-- Delete List -->
-          <span class="input-group-btn">
-            <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
-
-            <!-- Edit List --> 
-          <span class="input-group-btn">
-            <a class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
-          </span>
 
         </div>
       </div>

@@ -25,9 +25,9 @@
       }
 
       //create a new item
-      vm.createItem = function () {
-        vm.formData.list_id = vm.listId;
-        ItemService.createItem(vm.formData)
+      vm.createItem = function (listId, formData) {
+        vm.formData.list_id = listId;
+        ItemService.createItem(formData)
           .then(function (data){
             vm.items.push(data);
           })
