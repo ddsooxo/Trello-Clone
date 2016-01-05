@@ -60,13 +60,11 @@ exports.deleteList = function (req, res){
 //POST | updates list by list id
 exports.editList = function (req, res){
     var list = {_id: req.params.list_id};
-    console.log('req.query: ' + req.query.list_title);
     List.update(list, {list_title: req.query.list_title}, function (error, updatedList){
         if(updatedList){
             List.find({_id: req.params.list_id}, function (error, list){
                 if(list){
                     res.json(list);
-                    console.log('list: ', list);
                 }else if(error){
                     console.log(error.stack);
                     res.redirect('/error');

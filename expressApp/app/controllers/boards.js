@@ -1,12 +1,13 @@
 //models
 var Board = require('../models/board');
 var List = require('../models/list');
-
+var User = require('../models/user');
 
 //get | show a list of boards
 exports.showBoards = function (req, res){
-    var board = new Board({_id: req.params.board_id});
-    Board.find({}, function (error, boards){
+    Board.find({
+        _user: req.query.user_id
+    }, function (error, boards){
         if(boards){
             res.json(boards);
         }else if(error){
@@ -18,12 +19,13 @@ exports.showBoards = function (req, res){
 //post | submit created list
 exports.submitBoard = function (req, res){
     var board = new Board({
-        title: req.body.title
+        title: req.body.title,
+        _user: req.body.userId
     });
-    // console.log('req.body.title: ' + req.body.title);
     board.save(function (error, board){
+        console.log('board: ', board);
         if(board){
-           Board.find({}, function (error, boards){ 
+           Board.find({_user: req.body.userId}, function (error, boards){ 
                 if(boards){
                     res.json(boards);
                 }
@@ -40,12 +42,11 @@ exports.deleteBoard = function (req, res){
     var board = new Board({_id: req.params.board_id});
     board.remove(function (error, board){
         if(board){
-            Board.find({}, function (error, boards){
+            Board.find({_id: req.params.board_id}, function (error, boards){
                 if(boards){
                     res.json(boards);
                 }
                 else if(error) throw error;
-                // console.error('board is not deleted' + error.stack);
             }) ;
         }
         else if(error){
@@ -57,12 +58,10 @@ exports.deleteBoard = function (req, res){
 //POST | updates board by board id
 exports.editBoard = function (req, res){
     var board = {_id: req.params.board_id};
-    console.log('req.query: ' + req.query.title);
     Board.update(board, {title: req.query.title}, function (error, board){
         if(board){
             Board.find({}, function (error, board){
                 res.json(board);
-                console.log(board);
             })
         } else if(error){
             console.log(error.stack);

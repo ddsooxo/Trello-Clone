@@ -9,7 +9,7 @@ var User = require('../models/user'),
 
 
 exports.authenticate = function (req, res){
-    // find the user
+    // finds the user
     User.findOne({
         email: req.body.email
     }, function (err, user) {
@@ -23,18 +23,17 @@ exports.authenticate = function (req, res){
       if (!bcrypt.compareSync(req.body.password, user.password)) {
         res.status(200).json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-
-        // if user is found and password is right
-        // create a token
+        // if user is found and password is right, create a token
         var token = jwt.sign(user, app.app.get('superSecret'), {
-          expires: 1440*60 // expires in 24 hours
+          expires: 3600 * 2 // expires in 2 hour
         });
         
         // return the information including token as JSON
         res.json({
           success: true,
           message: 'Enjoy your token!',
-          token: token
+          token: token,
+          _id: user._id
         });
       }   
     }

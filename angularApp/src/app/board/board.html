@@ -2,14 +2,13 @@
 <a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a> 
 <a href="/#/login" class="btn btn-primary" style="margin-top: 10px"> Logout </a> 
 
+  <h3> Your Boards: </h3>
 
-  <h2>My Boards</h2>
-
-  <!-- Todos Input | Create List -->
-   <form role="form" ng-submit="createBoard()">
+  <!-- Create Board -->
+   <form role="form" ng-submit="boardCtrl.createBoard()">
     <div class="row">
       <div class="input-group">
-        <input type="text" ng-model="formData.title" placeholder="New Board" class="form-control">
+        <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
         <span class="input-group-btn">
           <input type="submit" class="btn btn-primary" value="Add">
         </span>
@@ -17,20 +16,26 @@
     </div>
   </form>
   
-  <!-- Todos Input | Show, delete, and edit an Board -->
-  <div ui-sortable ng-model="boards">
-  <p class="form-group" ng-repeat="board in boards" style="padding:5px 10px; cursor: move;">
-    <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
-    <!-- Delete List -->
-    <span class="input-group-btn">
-      <button class="btn btn-danger" ng-click="removeBoard(board._id)" aria-label="Remove">X</button>
-    <!-- Edit List --> 
-      <a class="btn btn-primary" ng-click="editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
-    <!-- View Single List w/ its items -->
-    <!-- {{splices variables into string}} -->
-         <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">View Board</a>
-    </span>
-  </p>
+  <!-- Boards Input-->
+  <div ui-sortable ng-model="boardCtrl.boards">
+    <div class="form-group" ng-repeat="board in boardCtrl.boards" style="padding:5px 10px; cursor: move;">
+      <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
+
+      <!-- Delete Board -->
+      <span class="input-group-btn">
+        <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">X</button>
+      </span>
+
+      <!-- Edit Board --> 
+      <span class="input-group-btn">
+        <a class="btn btn-primary" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
+      </span>
+
+      <!-- View Single Board w/ its items -->
+      <span class="input-group-btn">
+           <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">View Board</a>
+      </span>
+    </div>
   </div> 
 </div>
 

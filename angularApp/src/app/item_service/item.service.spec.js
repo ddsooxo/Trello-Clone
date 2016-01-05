@@ -19,7 +19,6 @@
 
     // it('should be return an array list', function() {
     //   httpBackend.whenGET("/api/items").respond([]);
-
     //   var result;
     //   service.getItems('564122f61b4d89a52b92b585')
     //   .then(function(items) {
@@ -30,6 +29,6 @@
     //   httpBackend.flush();
     //   expect(result).toEqual([]);
     // });
-  
+    });
   });
 })();

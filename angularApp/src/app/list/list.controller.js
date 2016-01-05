@@ -2,56 +2,73 @@
   'use strict';
 
   angular.module('mytodo')
-    .controller('ListController', function ($scope, $routeParams, $http) {
+    .controller('ListController', ['$routeParams','ListService', function ($routeParams, ListService) {
       
-      $scope.formData = {};
-      $scope.lists = [];
-      $scope.boardId = $routeParams.board_id;
-      $scope.board_title = $routeParams.board_title;
-      console.log($scope.board_title);
+      var vm = this;
+      vm.formData = {};
+      vm.lists = [];
+      vm.boardId = $routeParams.board_id;
+      vm.board_title = $routeParams.board_title;
       
+     
       //show lists
-      $http.get('/api/lists?board_id=' + $routeParams.board_id)
-         .success(function(data) {
-             $scope.lists = data;
-             console.log(data);
-         })
-         .error(function(data) {
-             console.log('Error: ' + data);
-         });
+      ListService.getLists(vm.boardId)
+        .then(function (data){
+          vm.lists = data;
+          console.log('vm.lists: ', vm.lists);
+        })
+        .catch(function(err) {
+          console.log('getLists error: ' + err);
+        });
 
-      // create list
-      $scope.createList = function () {
-        $scope.formData.board_id = $scope.boardId;
-         console.log('blah', $scope.formData);
-        $http.post('/api/list/create', $scope.formData)
-           .success(function(data) {
-               $scope.lists = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
+      // create a new list
+      vm.createList =  function(){ 
+        vm.formData.board_id = vm.boardId;
+        ListService.createList(vm.formData)
+          .then(function (data){
+            vm.lists = data;
+          })
+          .catch(function (err){
+            console.log('createList error: ', err);
+          })
+      }
+
+      //delete a list
+      vm.removeList = function(id, boardId){
+        vm.formData.board_id = vm.boardId;
+        vm.formData.id = id;
+        ListService.removeList(vm.formData.id, vm.boardId)
+          .then(function (data){
+            for(var index = 0; index < vm.lists.length; index++){
+              if(vm.lists[index]._id === data._id){
+                vm.lists.splice(index,1);
+                break;
+              } 
+            }
+          })
+          .catch(function (err){
+            console.log('createItem error: ' + err);
+          });
       };
-        
-      //delete list
-      $scope.removeList = function (id) {
-        $http.post('/api/list/delete/' + id)
-           .success(function(data) {
-               $scope.lists = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
-        
-      //update list
-      $scope.editList = function (id, list_title) {
-        $http.post('/api/list/edit/' + id + '?list_title=' + list_title + '&board_id=' + $scope.boardId)
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
-      };
-    });
+
+      //edit list
+      vm.editList = function (id, list_title) {
+        ListService.editList(id, list_title, vm.boardId)
+          .then(function (data){
+          })
+          .catch(function(err) {
+            var notification = document.getElementById('notification');
+            notification.innerHTML = 'There was an error updating your list';
+            notification.style.display = 'block';
+
+            setTimeout(function (){
+              var notification = document.getElementById('notification');
+              notification.style.display = 'none';
+              notification.innerHTML = '';
+            }, 3000);
+          });
+          console.log('editList vm.lists: ', vm.lists);
+      }
+      
+    }]);
 })();

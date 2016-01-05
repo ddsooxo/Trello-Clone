@@ -2,55 +2,59 @@
   'use strict';
 
   angular.module('mytodo')
-    .controller('BoardController', function ($scope, $http) {
-      
-      $scope.formData = {};
-      $scope.boards = [];
+    .controller('BoardController', ['BoardService', '$routeParams', function (BoardService, $routeParams) {
+      var vm = this;
+      vm.formData = {};
+      vm.boards = [];
+      vm.full_name = $routeParams.full_name;
 
       //show boards
-      $http.get('/api/boards')
-         .success(function(data) {
-             $scope.boards = data;
-             console.log(data);
-         })
-         .error(function(data) {
-             console.log('Error: ' + data);
-         });
+      BoardService.getBoards(vm.userId)
+        .then(function (data) {
+          vm.boards = data;
+          console.log('vm.boards: ', vm.boards);
+        })
+        .catch(function(err) {
+          console.log('getBoards error: ' + err);
+        });
 
-      // create board
-      $scope.createBoard = function () {
-        $http.post('/api/board/create', $scope.formData)
-           .success(function(data) {
-               $scope.boards = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
+      //create board
+      vm.createBoard = function (){
+        BoardService.createBoard(vm.formData)
+          .then(function (data){
+            vm.boards = data;
+          })
+          .catch(function(err) {
+          console.log('createBoards error: ' + err);
+        });
       };
-        
+
       //delete board
-      $scope.removeBoard = function (id) {
-        $http.post('/api/board/delete/' + id)
-           .success(function(data) {
-               $scope.boards = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
+      vm.removeBoard = function (id, userId) {
+        vm.formData.id = id;
+        BoardService.removeBoard(vm.formData.id, vm.userId)
+          .then(function (data){
+            for(var index = 0; index < vm.boards.length; index++){
+              if(vm.boards[index]._id === data._id){
+                vm.boards.splice(index,1);
+                break;
+              } 
+            }
+          })
+          .catch(function(err) {
+          console.log('createBoards error: ' + err);
+        });
       };
         
-      //update board
-      $scope.editBoard = function (id, title) {
-        $http.post('/api/board/edit/' + id + '?title=' + title)
-           .success(function(data) {
-               $scope.boards = data;
-               console.log(data);
-           })
-           .error(function(data) {
-               console.log('Error: ' + data);
-           });
+      //edit board
+      vm.editBoard = function (id, title) {
+        BoardService.editBoard(id, title, vm.userId)
+          .then(function (data){
+          })
+          .catch(function (err){
+            console.log('editBoard error: ' + err);
+          });
       };
-    });
+
+    }]);
 })();

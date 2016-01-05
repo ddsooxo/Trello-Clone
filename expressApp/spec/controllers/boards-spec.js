@@ -1,19 +1,60 @@
 var request = require('supertest');
 var Board = require('../../app/models/board');
-var List = require('../../app/models/list');
+var User = require('../../app/models/user');
 var BoardsController = require('../../app/controllers/boards');
-// var session = require('supertest-session');
 var app = require('../../app').app;
 
 describe('BoardsController', function() {
 
+  describe('with data', function() {
+    var board;
+    var testUser;
 
+    beforeEach(function (done) {
+      User.create({
+        full_name: 'Test User',
+        username: 'testUsername',
+        email: 'testuser@email.com',
+        password: 'password' 
+      }, function (err, newUser){
+        if (err) {
+          console.log(err);
+        } else {
+          testUser = newUser;
+          Board.create({title: 'board Test Title1', _user: testUser.id}, function (err, newBoard) {
+            if (err) {
+              console.log(err);
+              done.fail(err);
+            } else {
+              board = newBoard;
+              done();
+           }
+          });
+        }
+      })
+    });
 
-  describe('without data', function(){
+    afterEach(function (done) {
+      testUser.remove(function (err, removedUser){
+        if(err){
+          console.log(err);
+          // done.fail(err);
+        } else{
+          board.remove(function (err, removedBoard) {
+            if (err) {
+              done.fail(err);
+            } else {
+              done();
+            }
+          });
+        }
+      });
+    });
 
-    //return board
+    
+     //return  a list of board with user id
     it('should return list of boards', function (done) {
-      request(app).get('/api/boards')
+      request(app).get('/api/boards/' + testUser.id)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res){
@@ -26,36 +67,76 @@ describe('BoardsController', function() {
       });
     });
 
-  })
+    //create new board
+    it('should create a new board', function (done){
+      request(app).post('/api/board/create')
+      .send({title: 'Board Test Title2', _user: testUser.id})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+          if(err){
+            done.fail(err);
+          }else {
+            Board.findOne({title: 'Board Test Title2'}, function (err, newBoard){
+              if(err){
+                console.log(err)
+              }else{
+                newBoard.remove(function (err){
+                  if(err){
+                    done.fail(err);
+                    console.log(err);
+                  }else{
+                    return done();
+                  }
+                })
+              }
+            })
+          }
+        });
+    })
 
-  describe('with data', function() {
-    var board;
-
-    beforeEach(function(done) {
-      Board.create({title: 'test board title'}, function (err, newBoard){
-        if (err) {
-          console.log(err);
+    // delete a board
+    it('should delete an existing board', function (done) {
+      request(app).post('/api/board/delete/' + board._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
           done.fail(err);
-        } else {
-          board = newBoard;
-          done();
+        }else {
+          Board.findOne({title: 'Board Test Title'}, function (err, deletedBoard){
+            if(err){
+              console.log(err);
+            }else {
+              return done();
+            }
+          })
         }
       })
     });
 
-    afterEach(function(done) {
-      board.remove(function (err, removedBoard){
+    //update an a board
+    it('should update a board', function (done) {
+      request(app).post('/api/board/edit/' + board._id + '?board_title=' + board.title)
+      .send({title: 'Updated test board title'})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
         if(err){
-          console.log(err);
-          // done.fail(err);
-        } else{
-          done();
+          done.fail(err);
+        }else {
+          Board.findOne({title:'Updated test board title'}, function (err, updatedBoard){
+            if(err){
+              console.log(err);
+            }else{
+              return done();
+            }
+          })
         }
-      });
+      })
     });
-    
-  });
 
-  
+  }); 
 });
+
 

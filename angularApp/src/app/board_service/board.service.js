@@ -2,13 +2,14 @@
   'use strict';
 
   angular.module('mytodo')
-    .factory('ItemService', ['$http','$q', function ($http, $q) {
+    .factory('BoardService', ['$http','$q', '$rootScope', function ($http, $q, $rootScope) {
       var service = {};  
+      var currentUser = $rootScope.globals.currentUser._id;
 
-      //get all items
-      service.getItems = function(listId){
+      //show boards with users
+      service.getBoards = function(userId){
         var deferred = $q.defer();
-        $http.get('/api/items?list_id=' + listId)
+        $http.get('/api/boards?user_id=' + currentUser)
            .success(function (data) {
                console.log(data);
                deferred.resolve(data);
@@ -18,15 +19,16 @@
             deferred.reject('Error: ' + data);
            });
            return deferred.promise;
-      } 
+      }
 
-      // create item
-      service.createItem = function (formData) {
+      // create board
+      service.createBoard = function (formData) {
         var deferred = $q.defer();
-        $http.post('/api/item/create', formData)
+        formData.userId = currentUser;
+        $http.post('/api/board/create', formData)
            .success(function (data) {
               deferred.resolve(data);
-              console.log(data);
+              console.log('i succeeded',data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -35,10 +37,10 @@
            return deferred.promise;
       };
         
-      //delete item
-      service.removeItem = function (id, listId) {
+      //delete board
+      service.removeBoard = function (id, userId) {
         var deferred = $q.defer();
-        $http.post('/api/item/delete/' + id + '?list_id=' + listId)
+        $http.post('/api/board/delete/' + id + '?user_id='+ currentUser)
            .success(function (data) {
               deferred.resolve(data);
                console.log(data);
@@ -50,10 +52,10 @@
            return deferred.promise;
       };
         
-      //update item || pass details as an object in the second arg -> post data
-      service.editItem = function (id, item_title, listId) {
+      //update board
+      service.editBoard = function (id, title, userId) {
         var deferred = $q.defer();
-        $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + listId)
+        $http.post('/api/board/edit/' + id + '?title=' + title + '&user_id=' + currentUser)
            .success(function (data) {
                deferred.resolve(data);
                console.log(data);

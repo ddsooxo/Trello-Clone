@@ -3,7 +3,6 @@ var Board = require('../../app/models/board');
 var List = require('../../app/models/list');
 var Item = require('../../app/models/item');
 var ItemsController = require('../../app/controllers/items');
-// var session = require('supertest-session');
 var app = require('../../app').app;
 
 describe('ItemsController', function() {
@@ -32,10 +31,6 @@ describe('ItemsController', function() {
     var item;
     var list;
 
-    var newItem = function(res) {
-      res.body.should.have.property('item_title', 'Item Test Title1');
-    };
-
     beforeEach(function (done) {
       List.create({list_title: 'List Test Title1'}, function (err, newList){
         if (err) {
@@ -55,8 +50,6 @@ describe('ItemsController', function() {
       })
     });
 
-
-
     afterEach(function (done) {
       list.remove(function (err, removedList){
         if(err){
@@ -65,6 +58,7 @@ describe('ItemsController', function() {
         } else{
           item.remove(function (err, removedItem) {
             if (err) {
+              done.fail(err);
             } else {
               done();
             }
@@ -99,7 +93,6 @@ describe('ItemsController', function() {
                   return done();
                 }
               })
-              console.log('newItem: ', newItem);
             }
           })
         }
@@ -107,42 +100,45 @@ describe('ItemsController', function() {
     });
 
     // delete an item of a list
-    // it('should delete an item of a list', function (done) {
-    //   request(app).post('/api/item/delete/' + item._id)
-    //   .expect(200)
-    //   .expect('Content-Type', /json/)
-    //   .end(function (err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     }else {
-    //       Item.findOne({item_title: 'Item Test Title1'}, function (err, deletedItem){
-    //         console.log('deletedItem:', deletedItem);
-    //         if(err){
-    //           console.log(err);
-    //         }else {
-    //           return done();
-    //         }
-    //       })
-    //     }
-    //   })
-    // });
+    it('should delete an item of a list', function (done) {
+      request(app).post('/api/item/delete/' + item._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          Item.findOne({item_title: 'Item Test Title1'}, function (err, deletedItem){
+            if(err){
+              console.log(err);
+            }else {
+              return done();
+            }
+          })
+        }
+      })
+    });
 
-    // //update an item of a list
-    // it('should udate an item of a list', function (done) {
-    //   request(app).post('/api/item/edit/' + item._id + '?list_id=' + list._id)
-    //   .expect(200)
-    //   .field('item_title', 'Updated test item title')
-    //   .expect('Content-Type', /json/)
-    //   .end(function (err, res){
-    //     if(err){
-    //       done.fail(err);
-    //     }else {
-    //       expect(item.item_title).toEqual('Updated test item title');
-    //       expect(res.body.length).toEqual(1);
-    //       done();
-    //     }
-    //   })
-    // });
+    //update an item of a list
+    it('should udate an item of a list', function (done) {
+      request(app).post('/api/item/edit/' + item._id + '?list_id=' + list._id)
+      .send({item_title: 'Updated test item title', _list: list._id})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res){
+        if(err){
+          done.fail(err);
+        }else {
+          Item.findOne({item_title:'Updated test item title', _list: list._id}, function (err, updatedItem){
+            if(err){
+              console.log(err);
+            }else{
+              return done();
+            }
+          })
+        }
+      })
+    });
 
   });
 });

@@ -33,9 +33,8 @@ app.use(bodyParser.urlencoded( {
     extended: true
 }));
 
-app.use('/api', AuthenticationMiddleware.authenticate2);
+app.use('/api', AuthenticationMiddleware.isAuthenticated);
 
-// app.post('/api/authenticate', AuthenticationController.authenticate);
 
 //------------------USER ROUTES-------------------------------//
 // app.get('/api/users', UsersController.showUsers);
@@ -47,6 +46,7 @@ app.post('/api/user/register', UsersController.register);
 app.post('/api/user/delete/:user_id', UsersController.deleteUser);
 // //update user
 app.post('/api/user/edit/:user_id', UsersController.editUser);
+
 //------------------BOARD ROUTES-------------------------------//
 //show board
 app.get('/api/boards', BoardsController.showBoards);
@@ -61,9 +61,9 @@ app.post('/api/board/edit/:board_id', BoardsController.editBoard);
 //-------------------LIST ROUTES-------------------------------//
 //show lists
 app.get('/api/lists', ListsController.showLists);
-//create lists
+//create list
 app.post('/api/list/create', ListsController.submitList);
-//delete lists
+//delete list
 app.post('/api/list/delete/:list_id', ListsController.deleteList);
 //update list
 app.post('/api/list/edit/:list_id', ListsController.editList);
@@ -72,9 +72,9 @@ app.post('/api/list/edit/:list_id', ListsController.editList);
 //-------------------ITEM ROUTES-------------------------------//
 //show items
 app.get('/api/items', ItemsController.showItems);
-//create items
+//create item
 app.post('/api/item/create', ItemsController.submitItem);
-//delete items
+//delete item
 app.post('/api/item/delete/:item_id', ItemsController.deleteItem);
 //update item
 app.post('/api/item/edit/:item_id', ItemsController.editItem);
