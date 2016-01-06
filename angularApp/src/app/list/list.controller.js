@@ -37,9 +37,9 @@
         vm.formData.board_id = vm.boardId;
         vm.formData.id = id;
         ListService.removeList(vm.formData.id, vm.boardId)
-          .then(function (data){
+          .then(function (){
             for(var index = 0; index < vm.lists.length; index++){
-              if(vm.lists[index]._id === data._id){
+              if(vm.lists[index]._id == id){
                 vm.lists.splice(index,1);
                 break;
               } 

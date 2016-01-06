@@ -18,7 +18,8 @@
         });
 
       //create board
-      vm.createBoard = function (){
+      vm.createBoard = function (userId, formData){
+        // vm.formData.userId = userId;
         BoardService.createBoard(vm.formData)
           .then(function (data){
             vm.boards = data;
@@ -31,17 +32,18 @@
       //delete board
       vm.removeBoard = function (id, userId) {
         vm.formData.id = id;
+        vm.formData.userId = vm.userId;
         BoardService.removeBoard(vm.formData.id, vm.userId)
-          .then(function (data){
+          .then(function (){
             for(var index = 0; index < vm.boards.length; index++){
-              if(vm.boards[index]._id === data._id){
+              if(vm.boards[index]._id == id){
                 vm.boards.splice(index,1);
                 break;
               } 
             }
           })
           .catch(function(err) {
-          console.log('createBoards error: ' + err);
+          console.log('removeBoard error: ' + err);
         });
       };
         
