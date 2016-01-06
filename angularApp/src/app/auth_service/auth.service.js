@@ -14,7 +14,6 @@
     service.ClearCredentials = ClearCredentials;
 
     //show current user logged in:
-    console.log('$rootScope.globals: ', $rootScope.globals);
     return service;
 
     // Use the email and password to login. The Callback will receive and object with the username and token
@@ -39,7 +38,6 @@
       };
 
       $http.defaults.headers.common['X-ACCESS-TOKEN'] = token;
-      // console.log($http.defaults.headers.common['X-ACCESS-TOKEN']);
       $cookieStore.put('globals', $rootScope.globals);
     }
 

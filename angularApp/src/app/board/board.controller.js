@@ -12,7 +12,6 @@
       BoardService.getBoards(vm.userId)
         .then(function (data) {
           vm.boards = data;
-          console.log('vm.boards: ', vm.boards);
         })
         .catch(function(err) {
           console.log('getBoards error: ' + err);

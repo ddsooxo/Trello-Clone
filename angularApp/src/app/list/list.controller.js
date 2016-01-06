@@ -15,7 +15,6 @@
       ListService.getLists(vm.boardId)
         .then(function (data){
           vm.lists = data;
-          console.log('vm.lists: ', vm.lists);
         })
         .catch(function(err) {
           console.log('getLists error: ' + err);
@@ -67,7 +66,6 @@
               notification.innerHTML = '';
             }, 3000);
           });
-          console.log('editList vm.lists: ', vm.lists);
       }
       
     }]);

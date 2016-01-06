@@ -23,7 +23,6 @@
           .catch(function(err) {
           console.log('createdUser error: ' + err);
         });
-          console.log('created vm.users: ', vm.users);
       }
     }]);
 })();
