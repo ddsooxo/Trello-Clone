@@ -6,6 +6,25 @@ var app = require('../../app').app;
 
 describe('BoardsController', function() {
 
+  describe('without data', function(){
+    
+    //return a list of boards
+    it('should return a list of boards', function (done) {
+      request(app).get('/api/boards')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        if (err) {
+          done.fail(err);
+        } else {
+          expect(res.body).toBeDefined();
+          done();
+        }
+      });
+    });
+
+  })
+  
   describe('with data', function() {
     var board;
     var testUser;
@@ -51,21 +70,6 @@ describe('BoardsController', function() {
       });
     });
 
-    
-     //return  a list of board with user id
-    it('should return list of boards', function (done) {
-      request(app).get('/api/boards/' + testUser.id)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .end(function(err, res){
-        if (err) {
-          done.fail(err);
-        } else {
-          expect(res.body).toBeDefined();
-          done();
-        }
-      });
-    });
 
     //create new board
     it('should create a new board', function (done){
