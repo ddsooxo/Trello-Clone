@@ -23,7 +23,10 @@
   width: 80%;
   color: red;
   margin: 2px;
-  /*border: blue solid .25em;*/
+}
+
+#registerHeader{
+  margin-top: 20px;
 }
 #successRegister{
   background-color: #dff0d8;
@@ -35,8 +38,8 @@
   margin: 2px;
 }
 
-.login{
-  max-width: 400px;
+#navButton{
+  margin-top: 10px;
 }
 
 #login-button{
@@ -46,6 +49,9 @@
 #board-title{
   float:left;
   width: 70%;
+  background: #7BB9C7;
+  padding: 10px;
+  text-align: center;
 }
 
 #loginpage{
@@ -57,6 +63,49 @@
   cursor: move;
 }
 
+
+#boardbox{
+  margin-top: 10px;
+  padding-bottom: 10px;
+  padding:5px 10px; 
+  cursor: move;
+}
+#listbox{
+  border: 2px solid #7BB9C7; 
+  background-color: #7BB9C7; 
+  margin: 20px;
+  padding: 20px;
+}
+
+#itembox{
+  max-width: 230px; 
+  float: right;
+  /*margin-top: 10px;*/
+}
+
+#registerButton{
+  margin-top: 10px
+}
+
+#backButton{
+  margin-top: 10px;
+
+}
+
+#cancelButton{
+  margin-top: 10px; 
+  margin-left: 3px;
+  border: 2px solid;
+}
+
+#logoutButton{
+  margin-top: 10px;
+
+}
+
+#editDeleteButton{
+  padding-bottom: 10px;
+}
 
 
 

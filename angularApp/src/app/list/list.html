@@ -1,71 +1,78 @@
-<div class="container">
-  <a href="/#/boards" class="btn btn-primary" id="login-button"> Boards </a>
-  <a href="/#/login" class="btn btn-primary" id="login-button"> Logout </a> 
+<!DOCTYPE html>
+<html lang="en">
+  <div class="container">
 
-  <!-- Board's title -->
-  <h2>{{listCtrl.board_title}}</h2>
+    <!-- Navigating Buttons -->
+    <a href="/#/boards" id="navButton"  class="btn btn-primary"> Boards </a> 
+    <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a> 
 
-  <!-- Lists Input | Create List -->
-   <form role="form" ng-submit="listCtrl.createList()">
-    <div class="row">
-      <div class="input-group">
-        <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control" >
-        <span class="input-group-btn">
-          <input type="submit" class="btn btn-primary" value="Add">
-        </span>
-      </div>
-    </div>
-  </form>
-  
-  <!-- Show List -->
-  <div ui-sortable ng-model="listCtrl.lists">
-    <div class="row">
-      <div ng-repeat="list in listCtrl.lists">
-        <div class="col-md-3" style="border: 2px solid blanchedalmond; background-color: blanchedalmond; margin-top: 20px; margin-left: 20px; padding: 10px;" >
-          <input type="text" ng-model="list.list_title" class="form-control">
 
-           <!-- Delete List | Edit List -->
+    <!-- Board's title -->
+    <h2>{{listCtrl.board_title}}</h2>
+
+    <!-- Lists Input | Create List -->
+     <form role="form" ng-submit="listCtrl.createList()">
+      <div class="row">
+        <div class="input-group">
+          <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control" >
           <span class="input-group-btn">
-            <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
-            <button class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
+            <input type="submit" class="btn btn-primary" value="Add">
           </span>
-
-
-            <!-- Nesting Items -->
-            <div ng-controller="ItemController as Items">
-              <div ng-init="Items.getItems(list._id)">
-
-                <!-- Create a new item -->
-                  <form role="form" ng-submit="Items.createItem(list._id, Items.formData)">
-                    <div class="row">
-                      <div class="input-group">
-                        <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control" style="max-width: 200px; float: right;">
-                        <span class="input-group-btn">
-                          <input type="submit" class="btn btn-primary" value="Add">
-                        </span>
-                      </div>
-                    </div>
-                  </form>
-
-                  <!-- Iterating through items -->
-                  <div class="form-group" ng-repeat="item in Items.items">
-                    <input type="text" ng-model="item.item_title">
-
-                    <!-- Edit items button -->
-                    <span class="input-group-btn">
-                      <button class="btn btn-info" ng-click="Items.editItem(item._id, item.item_title)" aria-label="Edit">Edit Item</button>
-                    </span>
-
-                    <!-- Remove items button -->
-                    <span class="input-group-btn">
-                      <button class="btn btn-danger" ng-click="Items.removeItem(item._id)" aria-label="Remove">x</button>
-                  </div>
-              </div>
-            </div>
-
         </div>
       </div>
+    </form>
+    
+    <!-- Show List -->
+      <div class="row">
+        <div ui-sortable ng-model="listCtrl.lists">
+        <div ng-repeat="list in listCtrl.lists">
+          <div class="col-md-3" id="listbox" >
+            <input type="text" ng-model="list.list_title" class="form-control">
+
+             <!-- Delete List | Edit List -->
+            <span class="input-group-btn" id="editDeleteButton">
+              <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
+              <button class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
+            </span>
+
+
+              <!-- Nesting Items under each List-->
+              <div ng-controller="ItemController as Items">
+                <div ng-init="Items.getItems(list._id)">
+
+                  <!-- Create a new item -->
+                    <form role="form" ng-submit="Items.createItem(list._id, Items.formData)">
+                      <div class="row">
+                        <div class="input-group">
+                          <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control" id="itembox">
+                          <span class="input-group-btn">
+                            <input type="submit" class="btn btn-primary" value="Add">
+                          </span>
+                        </div>
+                      </div>
+                    </form>
+
+                    <!-- Iterating through items -->
+                    <div class="form-group" ng-repeat="item in Items.items" id="itembox">
+                      <input type="text" ng-model="item.item_title">
+                      <span class="input-group-btn">
+
+                        <!-- Edit items button -->
+                        <button class="btn btn-success" ng-click="Items.editItem(item._id, item.item_title)" aria-label="Edit">Edit Item</button>
+
+                        <!-- Remove items button -->
+                        <button class="btn btn-danger" ng-click="Items.removeItem(item._id)" aria-label="Remove">x</button>
+                      </span>
+                    </div>
+
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div>
+      <a href="/#/boards" id="backButton"  class="btn btn-info"> Back </a> 
     </div>
-  </div> 
-</div>
+  </div>
 </html>

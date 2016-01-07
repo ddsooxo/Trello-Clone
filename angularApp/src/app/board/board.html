@@ -1,38 +1,44 @@
-<div class="container">
-<a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a> 
-<a href="/#/login" class="btn btn-primary" style="margin-top: 10px"> Logout </a> 
+<!DOCTYPE html>
+<html lang="en">
+  <div class="container">
 
-  <h3> Your Boards: </h3>
+      <!-- Navigating Buttons -->
+      <a href="/#/boards" id="navButton"  class="btn btn-primary"> Boards </a> 
+      <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a>  
 
-  <!-- Create Board -->
-   <form role="form" ng-submit="boardCtrl.createBoard()">
-    <div class="row">
-      <div class="input-group">
-        <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
+    <h3> My Boards</h3>
+    <hr>
+
+    <!-- Create Board -->
+    <form role="form" ng-submit="boardCtrl.createBoard()">
+      <div class="row">
+        <div class="input-group">
+          <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
+          <span class="input-group-btn">
+            <input type="submit" class="btn btn-primary" value="Add">
+          </span>
+        </div>
+      </div>
+    </form>
+    
+    <!-- Boards Input-->
+    <div ui-sortable ng-model="boardCtrl.boards">
+      <div id="boardbox" class="form-group" ng-repeat="board in boardCtrl.boards">
+        <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
+
         <span class="input-group-btn">
-          <input type="submit" class="btn btn-primary" value="Add">
+
+          <!-- Delete Board -->
+          <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">X</button>
+
+        <!-- Edit Board --> 
+          <a class="btn btn-primary" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
+
+        <!-- View Single Board w/ its items -->
+             <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">View Board</a>
         </span>
       </div>
-    </div>
-  </form>
-  
-  <!-- Boards Input-->
-  <div ui-sortable ng-model="boardCtrl.boards">
-    <div class="form-group" ng-repeat="board in boardCtrl.boards" style="padding:5px 10px; cursor: move;">
-      <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
-
-      <span class="input-group-btn">
-        
-        <!-- Delete Board -->
-        <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">X</button>
-
-      <!-- Edit Board --> 
-        <a class="btn btn-primary" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
-
-      <!-- View Single Board w/ its items -->
-           <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">View Board</a>
-      </span>
-    </div>
-  </div> 
+    </div> 
 </div>
 
+</html>

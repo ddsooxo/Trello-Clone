@@ -1,28 +1,30 @@
-<div class="container">
-<body>
-  <div class="jumbotron" style="margin-top: 20px">
-  <h2>Login</h2>
-      <!-- 'Unsuccessful Authentication' notication for the user -->
-      <span id ="notification"> </span>
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div class="container">
+      <div class="jumbotron" style="margin-top: 20px">
+        <h2>Login</h2>
+          <!-- Notication for the user if entered invalid email/password-->
+          <span id ="notification"> </span>
 
-      <!-- User Input | Register -->
-      <form role="form" ng-submit="loginCtrl.login()">
-        <div clas="row" class="input-group" id="login">
-          <div>
-            <label for="email">Email</label>
-            <input type="email"  ng-model="loginCtrl.email" placeholder="example@email.com" class="form-control">
-          </div>
-          <div>
-            <label for="password">Password</label>
-            <input type="password" ng-model="loginCtrl.password" placeholder="password" class="form-control">
-          </div>
-            <input type="submit" class="btn btn-primary" style="margin-top: 10px" value="Login">
-        </div>
-      </form>
-      <!--link for user to create an account-->
-        <a href="/#/register" style="margin-top: 10px"> Not a member? Click here to create an account </a>
-  </div>
-</body>
+          <!-- User Input | Register -->
+          <form role="form" ng-submit="loginCtrl.login()">
+            <div clas="row" class="input-group" id="login">
+              <div>
+                <label for="email">Email</label>
+                <input type="email"  ng-model="loginCtrl.email" placeholder="example@email.com" class="form-control">
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input type="password" ng-model="loginCtrl.password" placeholder="password" class="form-control">
+              </div>
+                <input type="submit" class="btn btn-primary" style="margin-top: 10px" value="Login">
+            </div>
+          </form>
 
-
-</div>
+          <!--link for user to create an account-->
+          <a href="/#/register" style="margin-top: 10px"> Not a member? Click here to create an account </a>
+      </div>
+    </div>
+  </body>
+</html>
