@@ -34,7 +34,7 @@ I would recommend opening up different tabs on your terminal and labeling them a
 * Clone my repo using: `git clone git@github.com:ddsooxo/Trello-Clone.git`
 * To retrieve all the node modules on your computer, type: `npm install `
 * On different tabs, run the app using: `mongod`,`gulp serve`, `node app`
-* To check your database entries, use command: ` mongo ` and choose the database. In this app, it's called mytodoapp. Refer to the (MongoDB)[https://docs.mongodb.org/manual/tutorial/use-database-commands/] documentation on how to use the the database commands.
+* To check your database entries, use command: ` mongo ` and choose the database. In this app, it's called mytodoapp. Refer to the [MongoDB](https://docs.mongodb.org/manual/tutorial/use-database-commands/) documentation on how to use the the database commands.
 
 A quick side node: If you have already cloned my repo and created an account in the app, I would open up the mongo console and find mytodoapp database and drop that database. Otherwise, it will cause some issues creating an account again with those same entries.
 
