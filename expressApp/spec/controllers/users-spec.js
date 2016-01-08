@@ -7,9 +7,10 @@ var auth = {};
 var user;
 var authUser;
 
+/*beforeAll & afterAll runs before anytning else. 
+//Also takes a less amount of time to finish all the tests*/
 
-
-//auth user
+//creates auth user
 beforeAll(function (done){
 
   var pass = 'ilikehottea';
@@ -68,37 +69,6 @@ afterAll(function (done) {
 describe('UsersController', function() {
   
   describe('tests with data', function() {
-      var testUser;
-
-      //testUser to be created/destroyed
-      beforeEach(function (done) {
-        User.create({
-          full_name: 'Full Name beforeEach',
-          username: 'testusername',
-          email: 'before@each.com',
-          password: 'test password',
-          bio: 'test bio'
-        }, function (err, newUser){
-          if(err){
-            console.log(err);
-            done.fail(err);
-          } else {
-            testUser = newUser;
-            done();
-          }
-        })
-      });
-
-      afterEach(function (done) {
-        testUser.remove(function (err){
-          if(err){
-            console.log(err);
-            done.fail(err);
-          } else{
-            done();
-          };
-        });
-      });
 
       //register a new user
       it('should create a new user', function (done) {
@@ -192,14 +162,10 @@ describe('UsersController', function() {
         }
       });
     });
-
-
-
-
-
   });
 });
 
+//authUser logging in 
 function loginUser(auth,done){
     request(app)
       .post('/api/login')

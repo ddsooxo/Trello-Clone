@@ -1,39 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <div class="container">
-    <div class="jumbotron" id="registerHeader">
-      <h2>Register</h2>
-      <span id ="successRegister"></span>
-      <form role="form" ng-submit="registerCtrl.register()">
-        <div class="row">
-          <div class="input-group" id="register">
-            <div>
-              <label for="text">Full Name</label>
-              <input type="text"  ng-model="registerCtrl.formData.full_name" placeholder="John Smith" class="form-control">
-            </div>
-            <div>
-              <label for="text">Username</label>
-              <input type="text"  ng-model="registerCtrl.formData.username" placeholder="johnapplepie" class="form-control">
-            </div>
-            <div>
-              <label for="email">Email</label>
-              <input type="email"  ng-model="registerCtrl.formData.email" placeholder="example@email.com" class="form-control">
-            </div>
-            <div>
-              <label for="password">Password</label>
-              <input type="password" ng-model="registerCtrl.formData.password" placeholder="password" class="form-control">
-            </div>
-            <div>
-              <label for="text">Bio</label>
-              <input type="text"  ng-model="registerCtrl.formData.bio" placeholder="I like apple pies and crossiants" class="form-control">
-            </div>
-            <input type="submit" class="btn btn-primary" id="registerButton" value="Register">
-            <a href="/#/login" class="btn btn-secondary" id="cancelButton"> Back </a>
+<div class="container">
+  <div class="jumbotron" id="registerHeader">
+    <h1> What The Trell 
+      <span class="glyphicon glyphicon-list-alt"></span>
+    </h1>
+    <h2>Register</h2>
+    <span id ="successRegister"></span>
+    <form role="form" ng-submit="registerCtrl.register()">
+      <div class="row">
+        <div class="input-group" id="register">
+          <div>
+            <label for="text">Full Name</label>
+            <input type="text"  ng-model="registerCtrl.formData.full_name" placeholder="John Smith" class="form-control">
           </div>
+          <div>
+            <label for="text">Username</label>
+            <input type="text"  ng-model="registerCtrl.formData.username" placeholder="johnapplepie" class="form-control">
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email"  ng-model="registerCtrl.formData.email" placeholder="example@email.com" class="form-control">
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" ng-model="registerCtrl.formData.password" placeholder="password" class="form-control">
+          </div>
+          <div>
+            <label for="text">Bio</label>
+            <input type="text"  ng-model="registerCtrl.formData.bio" placeholder="I like apple pies and crossiants" class="form-control">
+          </div>
+          <input type="submit" class="btn btn-primary" id="registerButton" value="Submit">
+          <a href="/#/login" class="btn btn-default" id="cancelButton"> Cancel</a>
         </div>
-      </form>
+      </div>
+    </form>
 
-    </div>
-  </body>
-</html>
+  </div>
+</div>

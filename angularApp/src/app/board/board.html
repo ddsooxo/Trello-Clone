@@ -1,44 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <div class="container">
-
-      <!-- Navigating Buttons -->
+<div class="backgroundColor">
+  <!-- Navigating Buttons -->
+  <div class="navBar">
+    <div class="container navBarPadding" id="buttonAlignment" >
+      <h4 class="titleApp" id="navButton"> What The Trell 
+        <span class="glyphicon glyphicon-list-alt"></span>
+      </h4>
       <a href="/#/boards" id="navButton"  class="btn btn-primary"> Boards </a> 
-      <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a>  
+      <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a> 
+    </div>
+  </div>
 
-    <h3> My Boards</h3>
-    <hr>
 
-    <!-- Create Board -->
-    <form role="form" ng-submit="boardCtrl.createBoard()">
-      <div class="row">
+  <div class="container">
+    <div class="">
+      <h3> My Boards</h3>
+
+      <!-- Create Board -->
+      <form role="form" ng-submit="boardCtrl.createBoard()">
         <div class="input-group">
           <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
           <span class="input-group-btn">
             <input type="submit" class="btn btn-primary" value="Add">
           </span>
         </div>
-      </div>
-    </form>
+      </form>
     
-    <!-- Boards Input-->
-    <div ui-sortable ng-model="boardCtrl.boards">
-      <div id="boardbox" class="form-group" ng-repeat="board in boardCtrl.boards">
-        <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
+      <!-- Boards Input-->
+      <div ui-sortable ng-model="boardCtrl.boards">
+        <div id="boardbox" class="form-group" ng-repeat="board in boardCtrl.boards">
+          <input type="text" ng-model="board.title" class="form-control boardStyle">
 
-        <span class="input-group-btn">
+          <span class="input-group-btn">
+            <!-- Delete Board -->
+            <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          <!-- Edit Board --> 
+            <button class="btn btn-success" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
 
-          <!-- Delete Board -->
-          <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">X</button>
-
-        <!-- Edit Board --> 
-          <a class="btn btn-primary" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
-
-        <!-- View Single Board w/ its items -->
-             <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">View Board</a>
-        </span>
-      </div>
-    </div> 
+          <!-- View Single Board w/ its items -->
+               <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">
+                  <span class="glyphicon glyphicon-eye-open"></span>
+               </a>
+          </span>
+        </div>
+      </div> 
+    </div>
+  </div> 
 </div>
-
-</html>

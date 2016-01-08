@@ -19,7 +19,6 @@
 
       //create board
       vm.createBoard = function (userId, formData){
-        // vm.formData.userId = userId;
         BoardService.createBoard(vm.formData)
           .then(function (data){
             vm.boards = data;

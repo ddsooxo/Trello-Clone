@@ -1,78 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
+
+
+<div class="backgroundColor">
+  <!-- Navigating Buttons -->
+  <div class="navBar">
+    <div class="container navBarPadding" id="buttonAlignment" >
+      <h4 class="titleApp" id="navButton"> What The Trell 
+        <span class="glyphicon glyphicon-list-alt"></span>
+      </h4> 
+      <a href="/#/boards" id="navButton"  class="btn btn-primary"> Boards </a> 
+      <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a> 
+    </div>
+  </div>
+
+
   <div class="container">
 
-    <!-- Navigating Buttons -->
-    <a href="/#/boards" id="navButton"  class="btn btn-primary"> Boards </a> 
-    <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a> 
+  <!-- Back Button -->
+  <a href="/#/boards" id="backButton" > Back to Boards</a>
+
+  <!-- Board's title -->
+  <h2>{{listCtrl.board_title}}</h2>
 
 
-    <!-- Board's title -->
-    <h2>{{listCtrl.board_title}}</h2>
+    
 
-    <!-- Lists Input | Create List -->
-     <form role="form" ng-submit="listCtrl.createList()">
-      <div class="row">
-        <div class="input-group">
-          <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control" >
-          <span class="input-group-btn">
-            <input type="submit" class="btn btn-primary" value="Add">
+  <!-- Lists Input | Create List -->
+   <form role="form" ng-submit="listCtrl.createList()">
+    <div class="input-group">
+      <input type="text" ng-model="listCtrl.formData.list_title" placeholder="Add New list" class="form-control">
+      <span class="input-group-btn">
+        <input type="submit" class="btn btn-primary" value="Add">
+      </span>
+    </div>
+  </form>
+  
+
+  <!-- Show List -->
+    <div class="row">
+      <div ui-sortable ng-model="listCtrl.lists">
+        <div ng-repeat="list in listCtrl.lists" class="ng-scope ui-sortable-handle col-md-3 listbox">
+          <input type="text" ng-model="list.list_title" class="form-control" id="listboxFix">
+          <div>
+           <!-- Delete List | Edit List -->
+          <span class="input-group-btn" id="editDeleteButton" id="listButtons">
+            <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button class="btn btn-success" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
           </span>
         </div>
-      </div>
-    </form>
-    
-    <!-- Show List -->
-      <div class="row">
-        <div ui-sortable ng-model="listCtrl.lists">
-        <div ng-repeat="list in listCtrl.lists">
-          <div class="col-md-3" id="listbox" >
-            <input type="text" ng-model="list.list_title" class="form-control">
 
-             <!-- Delete List | Edit List -->
-            <span class="input-group-btn" id="editDeleteButton">
-              <button class="btn btn-danger" ng-click="listCtrl.removeList(list._id)" aria-label="Remove">X</button>
-              <button class="btn btn-primary" ng-click="listCtrl.editList(list._id, list.list_title, list.board_id)" aria-label="Edit">Edit List</button>
-            </span>
+            <!-- Nesting Items under each List-->
+            <div ng-controller="ItemController as Items" id="style">
+              <div ng-init="Items.getItems(list._id)">
 
-
-              <!-- Nesting Items under each List-->
-              <div ng-controller="ItemController as Items">
-                <div ng-init="Items.getItems(list._id)">
-
-                  <!-- Create a new item -->
-                    <form role="form" ng-submit="Items.createItem(list._id, Items.formData)">
-                      <div class="row">
-                        <div class="input-group">
-                          <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control" id="itembox">
-                          <span class="input-group-btn">
-                            <input type="submit" class="btn btn-primary" value="Add">
-                          </span>
-                        </div>
-                      </div>
-                    </form>
-
-                    <!-- Iterating through items -->
-                    <div class="form-group" ng-repeat="item in Items.items" id="itembox">
-                      <input type="text" ng-model="item.item_title">
+                <!-- Create a new item -->
+                  <form role="form" ng-submit="Items.createItem(list._id, Items.formData)" id="clearingFloat">
+                    <div class="input-group">
+                      <input type="text" ng-model="Items.formData.item_title" placeholder="Add New Item" class="form-control" class="itembox">
                       <span class="input-group-btn">
-
-                        <!-- Edit items button -->
-                        <button class="btn btn-success" ng-click="Items.editItem(item._id, item.item_title)" aria-label="Edit">Edit Item</button>
-
-                        <!-- Remove items button -->
-                        <button class="btn btn-danger" ng-click="Items.removeItem(item._id)" aria-label="Remove">x</button>
+                        <input type="submit" class="btn btn-primary" value="Add">
                       </span>
                     </div>
+                  </form>
 
-                </div>
+                  <!-- Iterating through items -->
+                  <div class="form-group" ng-repeat="item in Items.items" class="itembox">
+                    <input type="text" ng-model="item.item_title" id="style">
+                    <span class="input-group-btn">
+
+                      <!-- Remove items button -->
+                      <button class="btn btn-danger" ng-click="Items.removeItem(item._id)" aria-label="Remove">
+                        <span class="glyphicon glyphicon-remove"></span>
+                      </button>
+
+                      <!-- Edit items button -->
+                      <button class="btn btn-success" ng-click="Items.editItem(item._id, item.item_title)" aria-label="Edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                      </button>
+                    </span>
+                  </div>
+
               </div>
-          </div>
+            
+            </div>
         </div>
       </div>
     </div> 
-    <div>
-      <a href="/#/boards" id="backButton"  class="btn btn-info"> Back </a> 
-    </div>
   </div>
-</html>
+</div>
