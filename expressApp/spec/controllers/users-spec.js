@@ -1,47 +1,74 @@
 var request = require('supertest');
+var bcrypt = require('bcrypt-nodejs');
 var User = require('../../app/models/user');
 var UsersController = require('../../app/controllers/users');
 var app = require('../../app').app;
 var auth = {};
+var user;
 var authUser;
 
-// TODO: Ask Kirk, why pass auth?
-beforeAll(loginUser(auth));
+/*beforeAll & afterAll runs before anytning else. 
+//Also takes a less amount of time to finish all the tests*/
+
+//creates auth user
+beforeAll(function (done){
+
+  var pass = 'ilikehottea';
+  var salt = bcrypt.hashSync(10);
+  var hash = bcrypt.hashSync(pass, salt);
+  var pass2 = 'password';
+  var hash2 = bcrypt.hashSync(pass2, salt);
+
+  User.create({
+    full_name: 'Auth User',
+    username: 'authUserYo',
+    email: 'tea@pot.com',
+    password: hash,
+    bio: 'bio'
+  }, function(err, newUser){
+      if(err){
+        console.log(err);
+        done.fail(err);
+      }else{
+        authUser = newUser;
+        
+        User.create({
+          full_name: 'Weirdo Yo',
+          username: 'weirdo',
+          email: 'weirdo@email.com',
+          password: hash2
+        }, function (err, user2){
+          if(err){
+            done.fail(err);
+          }else{
+            user = user2;
+            loginUser(auth, done);
+          }
+        });
+      }
+    });
+});
+
+afterAll(function (done) {
+  User.remove({_id: authUser._id}, function (err, removedUser){
+    if(err){
+      done.fail(err);
+    }else{ 
+      User.remove({_id: user._id}, function (err, removedUser2){
+        if(err){
+          done.fail(err);
+        }else{
+          done();
+        }
+      })
+    }
+  });
+});
+
 
 describe('UsersController', function() {
   
   describe('tests with data', function() {
-      var testUser;
-
-      //testUser to be created/destroyed
-      beforeEach(function (done) {
-        User.create({
-          full_name: 'Full Name beforeEach',
-          username: 'testusername',
-          email: 'before@each.com',
-          password: 'test password',
-          bio: 'test bio'
-        }, function (err, newUser){
-          if(err){
-            console.log(err);
-            done.fail(err);
-          } else {
-            testUser = newUser;
-            done();
-          }
-        })
-      });
-
-      afterEach(function (done) {
-        testUser.remove(function (err){
-          if(err){
-            console.log(err);
-            done.fail(err);
-          } else{
-            done();
-          };
-        });
-      });
 
       //register a new user
       it('should create a new user', function (done) {
@@ -65,13 +92,11 @@ describe('UsersController', function() {
               expect(returnedUser.email).toBe('new@email.com');
               User.findOne({ email:'new@email.com'}, function (err, newUser){
                 if(err){
-                  // done.fail(err);
-                  //might fail the test, add done.fail(err);
+                  done.fail(err);
                 }else{
                   newUser.remove(function (err){
                     if(err){
-                      // done.fail(err);
-                      //add done.fail(err);
+                      done.fail(err);
                       console.log(err);
                     }else{
                       return done();
@@ -83,33 +108,10 @@ describe('UsersController', function() {
         });
       });
 
-      //delete user
-      it('should delete a user', function (done){
-        request(app)
-        .post('/api/user/delete/' + testUser._id)
-        .set('x-access-token', auth.token)
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .end( function (err, res){
-          if(err){
-            done.fail(err);
-          }else{
-            User.findOne({email: 'before@each.com'}, function (err, deletedUser){
-              if(err){
-                console.log(err);
-              } else{
-                return done();
-              }
-            })
-          }
-        })
-      });
-
-
     //update user
     it('should update a user', function (done){
       request(app)
-      .post('/api/user/edit/' + testUser._id)
+      .post('/api/user/edit/' + user._id)
       .set('x-access-token', auth.token)
       .send({
         full_name: 'test 4',
@@ -124,21 +126,47 @@ describe('UsersController', function() {
         if(err){
           done.fail(err);
         }else{
-          User.findOne({email: 'test4@test.com'}, function (err, updatedUser){
+          User.findOne({_id: user._id}, function (err, updatedUser){
             if(err){
-              console.log(err);
+              done.fail(err);
             }else{
-              return done();
+              expect(updatedUser.email).toBe('test4@test.com');
+              done();
             }
           })
         }
       })
     });
+
+    //delete user
+    it('should delete a user', function (done){
+      request(app)
+      .post('/api/user/delete/' + user._id)
+      .set('x-access-token', auth.token)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end( function (err, res){
+        if(err){
+          done.fail(err);
+        }else{
+          User.findOne({_id: user._id})
+          .remove(function (error){
+            User.findOne({_id: user._id} , function (err, deletedUser){
+              if(err){
+                console.log(err);
+              } else{
+                return done();
+              }
+            });
+          });
+        }
+      });
+    });
   });
 });
 
-function loginUser(auth){
-  return function (done){
+//authUser logging in 
+function loginUser(auth,done){
     request(app)
       .post('/api/login')
       .send({
@@ -153,46 +181,6 @@ function loginUser(auth){
       return done();
     }
   };
-}
 
-// TODO: Ask Kirk how to do this more elegantly
-//auth user
-// beforeAll(function (done){
-//   request(app)
-//     .post('/api/user/register')
-//     .send({
-//       full_name: 'Auth Full Name',
-//       username: 'authuser',
-//       email:'auth@email.com',
-//       password: 'authpassword',
-//       bio: 'bio'
-//     })
-//     .end(function (err, res){
-//       if(err){
-//         console.log(err);
-//         return done.fail(err);
-//       }else{
-//         authUser = res.body;
-//         console.log('res.body:', res.body.email);
-//         return loginUser();
-//         // return done();
-//       }
-//     });
-// });
-
-// afterAll(function (done) {
-//   console.log('im here at line 35');
-//   request(app)
-//     .post('/api/user/delete/' + authUser._id)
-//     .end(function (err, res){
-//       if(err){
-//         console.log(err);
-//         return done.fail(err);
-//       }else{
-//         console.log('succesfull delete');
-//         return done();
-//     }
-//   })
-// });
 
 

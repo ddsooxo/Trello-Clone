@@ -5,6 +5,23 @@
   padding: 0.2em 0;
 }
 
+.backgroundColor{
+  background-color: #EEE;
+  padding-bottom: 10em;
+}
+
+.titleApp{
+  float: left;
+  text-align: center;
+  color: #fff;
+  padding-top: 8px;
+}
+
+.mainTitle{
+  color: #fff;
+  padding-top: 8px;
+}
+
 .thumbnail {
   height: 200px;
 }
@@ -23,8 +40,12 @@
   width: 80%;
   color: red;
   margin: 2px;
-  /*border: blue solid .25em;*/
 }
+
+#registerHeader{
+  margin-top: 20px;
+}
+
 #successRegister{
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -35,8 +56,19 @@
   margin: 2px;
 }
 
-.login{
-  max-width: 400px;
+.navBar{
+  background-color: #7BB9C7;
+}
+
+#buttonAlignment{
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+
+#navButton{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #login-button{
@@ -46,6 +78,13 @@
 #board-title{
   float:left;
   width: 70%;
+  background: #7BB9C7;
+  padding: 10px;
+  text-align: center;
+}
+.boardStyle{
+  float:left;
+  width: 70%
 }
 
 #loginpage{
@@ -58,5 +97,74 @@
 }
 
 
+#boardbox{
+  margin-top: 10px;
+  padding-bottom: 10px;
+  padding:5px 10px; 
+  cursor: move;
+}
+
+
+.listbox{
+  border: 2px solid #7BB9C7; 
+  background-color: #7BB9C7; 
+  margin: 20px;
+  padding: 20px;
+}
+
+
+#listboxFix{
+  float: left;
+  width: 66%;
+}
+
+.itembox{
+  max-width: 230px; 
+  /*float: right;*/
+  margin-top: 10px;
+}
+
+
+#itemField{
+  width: 70%
+}
+
+#registerButton{
+  margin-top: 10px
+}
+
+#backButton{
+  margin-top: 10px;
+
+}
+
+#cancelButton{
+  margin-top: 10px; 
+  margin-left: 5px;
+  border: 1px solid #9F9E9E;
+}
+
+#logoutButton{
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+#editDeleteButton{
+  padding-bottom: 10px;
+}
+
+#listButtons{
+  float: left;
+}
+
+
+#clearingFloat{
+  clear: both;
+}
+
+#style{
+  margin-top: .5em;
+}
 
 

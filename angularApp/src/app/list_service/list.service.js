@@ -7,11 +7,9 @@
 
       //show Lists
       service.getLists = function(boardId){
-        console.log('getLists() > boardId: ', boardId);
         var deferred = $q.defer();
         $http.get('/api/lists?board_id=' + boardId)
            .success(function (data) {
-               console.log(data);
                deferred.resolve(data);
            })
            .error(function(data) {
@@ -27,7 +25,6 @@
         $http.post('/api/list/create', formData)
            .success(function (data) {
               deferred.resolve(data);
-              console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -42,7 +39,6 @@
         $http.post('/api/list/delete/' + id + '?list_id=' + listId)
            .success(function (data) {
               deferred.resolve(data);
-               console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -57,7 +53,6 @@
         $http.post('/api/list/edit/' + id + '?list_title=' + list_title + '&list_id=' + listId)
            .success(function (data) {
                deferred.resolve(data);
-               console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);

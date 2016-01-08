@@ -11,7 +11,6 @@
         $http.post('/api/user/register', formData)
            .success(function (data) {
               deferred.resolve(data);
-              console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -26,7 +25,6 @@
         $http.post('/api/user/delete/' + id)
            .success(function (data) {
               deferred.resolve(data);
-               console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -41,7 +39,6 @@
         $http.post('/api/item/edit/' + id + '?full_name=' + vm.formData.full_name)
            .success(function (data) {
                deferred.resolve(data);
-               console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);

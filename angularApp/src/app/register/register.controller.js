@@ -17,13 +17,12 @@
           .then(function (data){
             vm.users.push(data);
             var successRegister = document.getElementById('successRegister');
-            successRegister.innerHTML = 'Congratulations' + vm.formData.full_name + ' ,You have successfully created your account. Click back to login';
+            successRegister.innerHTML = 'Congratulations  ' + vm.formData.full_name + ' ,You have successfully created your account. Click cancel to login';
             successRegister.style.display = 'block';
           })
           .catch(function(err) {
           console.log('createdUser error: ' + err);
         });
-          console.log('created vm.users: ', vm.users);
       }
     }]);
 })();

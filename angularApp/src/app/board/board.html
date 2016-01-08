@@ -1,41 +1,52 @@
-<div class="container">
-<a href="/#/boards" class="btn btn-primary" style="margin-top: 10px"> Boards </a> 
-<a href="/#/login" class="btn btn-primary" style="margin-top: 10px"> Logout </a> 
-
-  <h3> Your Boards: </h3>
-
-  <!-- Create Board -->
-   <form role="form" ng-submit="boardCtrl.createBoard()">
-    <div class="row">
-      <div class="input-group">
-        <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
-        <span class="input-group-btn">
-          <input type="submit" class="btn btn-primary" value="Add">
-        </span>
-      </div>
+<div class="backgroundColor">
+  <!-- Navigating Buttons -->
+  <div class="navBar">
+    <div class="container navBarPadding" id="buttonAlignment" >
+      <h4 class="titleApp" id="navButton"> What The Trell 
+        <span class="glyphicon glyphicon-list-alt"></span>
+      </h4>
+      <a href="/#/boards" id="navButton"  class="btn btn-primary"> Boards </a> 
+      <a href="/#/login" id="logoutButton" class="btn btn-primary"> Logout </a> 
     </div>
-  </form>
-  
-  <!-- Boards Input-->
-  <div ui-sortable ng-model="boardCtrl.boards">
-    <div class="form-group" ng-repeat="board in boardCtrl.boards" style="padding:5px 10px; cursor: move;">
-      <input type="text" ng-model="board.title" class="form-control" style="float:left; width: 70%;">
+  </div>
 
-      <!-- Delete Board -->
-      <span class="input-group-btn">
-        <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">X</button>
-      </span>
 
-      <!-- Edit Board --> 
-      <span class="input-group-btn">
-        <a class="btn btn-primary" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">Edit</a>
-      </span>
+  <div class="container">
+    <div class="">
+      <h3> My Boards</h3>
 
-      <!-- View Single Board w/ its items -->
-      <span class="input-group-btn">
-           <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">View Board</a>
-      </span>
+      <!-- Create Board -->
+      <form role="form" ng-submit="boardCtrl.createBoard()">
+        <div class="input-group">
+          <input type="text" ng-model="boardCtrl.formData.title" placeholder="New Board" class="form-control">
+          <span class="input-group-btn">
+            <input type="submit" class="btn btn-primary" value="Add">
+          </span>
+        </div>
+      </form>
+    
+      <!-- Boards Input-->
+      <div ui-sortable ng-model="boardCtrl.boards">
+        <div id="boardbox" class="form-group" ng-repeat="board in boardCtrl.boards">
+          <input type="text" ng-model="board.title" class="form-control boardStyle">
+
+          <span class="input-group-btn">
+            <!-- Delete Board -->
+            <button class="btn btn-danger" ng-click="boardCtrl.removeBoard(board._id)" aria-label="Remove">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          <!-- Edit Board --> 
+            <button class="btn btn-success" ng-click="boardCtrl.editBoard(board._id, board.title)" aria-label="Edit">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+
+          <!-- View Single Board w/ its items -->
+               <a href="/#/lists?board_title={{board.title}}&board_id={{board._id}}" class="btn btn-info"aria-label="View">
+                  <span class="glyphicon glyphicon-eye-open"></span>
+               </a>
+          </span>
+        </div>
+      </div> 
     </div>
   </div> 
 </div>
-

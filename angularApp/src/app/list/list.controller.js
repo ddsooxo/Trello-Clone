@@ -15,7 +15,6 @@
       ListService.getLists(vm.boardId)
         .then(function (data){
           vm.lists = data;
-          console.log('vm.lists: ', vm.lists);
         })
         .catch(function(err) {
           console.log('getLists error: ' + err);
@@ -38,9 +37,9 @@
         vm.formData.board_id = vm.boardId;
         vm.formData.id = id;
         ListService.removeList(vm.formData.id, vm.boardId)
-          .then(function (data){
+          .then(function (){
             for(var index = 0; index < vm.lists.length; index++){
-              if(vm.lists[index]._id === data._id){
+              if(vm.lists[index]._id == id){
                 vm.lists.splice(index,1);
                 break;
               } 
@@ -67,7 +66,6 @@
               notification.innerHTML = '';
             }, 3000);
           });
-          console.log('editList vm.lists: ', vm.lists);
       }
       
     }]);

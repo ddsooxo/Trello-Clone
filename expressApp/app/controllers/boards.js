@@ -23,7 +23,6 @@ exports.submitBoard = function (req, res){
         _user: req.body.userId
     });
     board.save(function (error, board){
-        console.log('board: ', board);
         if(board){
            Board.find({_user: req.body.userId}, function (error, boards){ 
                 if(boards){

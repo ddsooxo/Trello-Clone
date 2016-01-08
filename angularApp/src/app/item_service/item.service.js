@@ -10,7 +10,6 @@
         var deferred = $q.defer();
         $http.get('/api/items?list_id=' + listId)
            .success(function (data) {
-               console.log(data);
                deferred.resolve(data);
            })
            .error(function(data) {
@@ -26,7 +25,6 @@
         $http.post('/api/item/create', formData)
            .success(function (data) {
               deferred.resolve(data);
-              console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -41,7 +39,6 @@
         $http.post('/api/item/delete/' + id + '?list_id=' + listId)
            .success(function (data) {
               deferred.resolve(data);
-               console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);
@@ -56,7 +53,6 @@
         $http.post('/api/item/edit/' + id + '?item_title=' + item_title + '&list_id=' + listId)
            .success(function (data) {
                deferred.resolve(data);
-               console.log(data);
            })
            .error(function (data) {
               deferred.reject(data);

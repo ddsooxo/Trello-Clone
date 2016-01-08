@@ -3,7 +3,9 @@ var Item = require('../models/item');
 
 //get | show item
 exports.showItems = function (req, res){
-    Item.find({_list: req.query.list_id}, function (error, items){
+    Item.find({
+        _list: req.query.list_id
+    }, function (error, items){
         if(items){
             res.json(items);
         }else if (error){
