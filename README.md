@@ -40,6 +40,7 @@ A quick side node: If you have already cloned my repo and created an account in 
 
 ## Screenshots: 
 ![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/png/png/login.png)
+![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/png/png/newBoard.png)
 
 
 
