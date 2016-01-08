@@ -39,8 +39,12 @@ I would recommend opening up different tabs on your terminal and labeling them a
 A quick side node: If you have already cloned my repo and created an account in the app, I would open up the mongo console and find mytodoapp database and drop that database. Otherwise, it will cause some issues creating an account again with those same entries.
 
 ## Screenshots: 
-![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/png/png/login.png)
-![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/png/png/newBoard.png)
+
+![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/title.png)
+![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/boardPage.png)
+![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/listPage.png)
+![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/registerPage.png)
+
 
 
 
