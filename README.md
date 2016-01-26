@@ -1,4 +1,8 @@
-# Trello-Clone(MEAN Stack App)
+![Badges](https://img.shields.io/badge/jasmine-passing-brightgreen.svg)
+![Badges](https://img.shields.io/npm/l/express.svg)
+# What The Trell(MEAN Stack Trello-Clone)
+
+![Logo](https://github.com/ddsooxo/Trello-Clone/blob/master/png/title.png)
 
 ## Description
 This is a project I completed for LearnTech Labs bootcamp. The assignment was to create a clone
@@ -13,7 +17,7 @@ ExpressJS/MongoDB is my backend, and NodeJS is in the middle to send information
 
  
 ## Overview Of The Setup
-Main things to install are Node and NPM. You also need to downland mongoDB and mongoose. To run the app, you will need angular, mongodb, and node server running.
+You will need to download Node, NPM, mongoDB, and Mongoose. To run the application, you will need Angular, Mngodb, and Node server running.
 
 ### Installation:
 
@@ -40,7 +44,6 @@ A quick side node: If you have already cloned my repo and created an account in 
 
 ## Screenshots: 
 
-![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/title.png)
 ![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/boardPage.png)
 ![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/listPage.png)
 ![Alt text](https://github.com/ddsooxo/Trello-Clone/blob/master/png/registerPage.png)
