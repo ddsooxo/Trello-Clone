@@ -1,4 +1,6 @@
-# Trello-Clone(MEAN Stack App)
+*****************************
+Trello-Clone(MEAN Stack App)
+******************************
 
 ## Description
 This is a project I completed for LearnTech Labs bootcamp. The assignment was to create a clone
