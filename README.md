@@ -20,7 +20,7 @@ Each user can create an account and create mutiple new boards with lists and ite
 
  
 ## Overview Of The Setup
-You will need to download Node, NPM, mongoDB, and Mongoose. To run the application, you will need Angular, Mngodb, and Node server running.
+You will need to download Node, NPM, mongoDB, and Mongoose. To run the application, you will need Angular, Mongodb, Mongoose, and Node server running.
 
 ### Installation:
 
@@ -43,11 +43,12 @@ Once your're in your root directory, go ahead and type in the following commands
 
 ## Running the app
 I would recommend opening up different tabs on your terminal and labeling them according to what you're running (i.e. git, node, mongo, ng, db)
-* Open a new tab on terminal and run Mongo using  by typing the command: `mongod`
-* Open another new tab on terminal and run the server by typing the command: `node app`
-* Open one more new tab on terminal and run the client side by typing the command: `gulp serve` (This will automatically launch a new web browser window and will take you the landing page of the app. If not, simply type into the browser's URL bar: 'localhost:3000').
-* To check your database entries, use command: ` mongo ` and choose the database. In this app, it's called mytodoapp. Refer to the [MongoDB](https://docs.mongodb.org/manual/tutorial/use-database-commands/) documentation on how to use the the database commands.
 
+* Open a new tab on terminal and run Mongo using  by typing the command: `mongod` (click [here](https://docs.mongodb.org/manual/reference/program/mongod/) for further information on mongod)
+* Open another new tab on terminal and run the server by typing the command: `node app` (you should see 'listening on port 3000' after running the command)
+* Open one more new tab on terminal and run the client side by typing the command: `gulp serve` (This will automatically launch a new web browser window and will take you the landing page of the app. If not, simply type into the browser's URL bar: 'localhost:3000').
+* To check your database entries, use command: ` mongo ` and choose the database. ('mytodoapp' is name of the database for this app. Refer to the [MongoDB](https://docs.mongodb.org/manual/tutorial/use-database-commands/) documentation on how to use the the database commands.)
+* 
 A quick side node: If you have already cloned my repo and created an account in the app, I would open up the mongo console and find mytodoapp database and drop that database. Otherwise, it will not let you create an account because of duplicate key values.
 
 ## Screenshots: 
