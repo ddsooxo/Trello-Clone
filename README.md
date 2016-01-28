@@ -58,10 +58,10 @@ A quick side node: If you have already cloned my repo and created an account in 
 
 
 ## Tests
-### Running Server Tests
+###### Running Server Tests
 To run the server/backend tests, navigate into directory /expressApp and run command `jasmine spec`
 
-### Running Client Tests
+###### Running Client Tests
 To run the angular/frontend tests, navigate to /angularApp and run command `gulp test`
 
 ## License
